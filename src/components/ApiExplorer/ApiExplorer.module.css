@@ -1,0 +1,226 @@
+.apiExplorer {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  background: var(--ifm-background-surface-color);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.methodBadge {
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+}
+
+.endpoint {
+  font-size: 1rem;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.description {
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 1.5rem;
+}
+
+.section {
+  margin: 1.5rem 0;
+}
+
+.section h4 {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.authInputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  font-size: 0.875rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 2px var(--ifm-color-primary-light);
+}
+
+.parameter {
+  margin-bottom: 1rem;
+}
+
+.parameter label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.paramName {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.paramType {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.875rem;
+}
+
+.paramDescription {
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.required {
+  color: var(--ifm-color-danger);
+  margin-left: 0.25rem;
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.875rem;
+  resize: vertical;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 2px var(--ifm-color-primary-light);
+}
+
+.executeButton {
+  background: var(--ifm-color-success);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.executeButton:hover:not(:disabled) {
+  background: var(--ifm-color-success-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.executeButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.tab,
+.activeTab {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ifm-color-emphasis-600);
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: var(--ifm-color-emphasis-800);
+}
+
+.activeTab {
+  color: var(--ifm-color-primary);
+  border-bottom-color: var(--ifm-color-primary);
+}
+
+.error {
+  background: var(--ifm-color-danger-contrast-background);
+  border: 1px solid var(--ifm-color-danger);
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1rem 0;
+  color: var(--ifm-color-danger-dark);
+}
+
+.successStatus {
+  background: var(--ifm-color-success-contrast-background);
+  border: 1px solid var(--ifm-color-success);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: var(--ifm-color-success-dark);
+}
+
+.errorStatus {
+  background: var(--ifm-color-danger-contrast-background);
+  border: 1px solid var(--ifm-color-danger);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: var(--ifm-color-danger-dark);
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .apiExplorer {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+[data-theme='dark'] .input,
+[data-theme='dark'] .textarea {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='dark'] .input:focus,
+[data-theme='dark'] .textarea:focus {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .authInputs {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .endpoint {
+    font-size: 0.875rem;
+    word-break: break-all;
+  }
+}

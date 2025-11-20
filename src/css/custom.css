@@ -1,0 +1,375 @@
+/**
+ * MyBox API Documentation - Custom Styles
+ */
+
+/* MyBox Brand Colors */
+:root {
+  --mybox-green: #00A651;
+  --mybox-green-dark: #008A43;
+  --mybox-green-light: #20B666;
+  --mybox-dark: #1A1A1A;
+  --mybox-gray: #6B7280;
+  --mybox-light-gray: #F3F4F6;
+  
+  /* Override Docusaurus colors with MyBox branding */
+  --ifm-color-primary: #00A651;
+  --ifm-color-primary-dark: #008A43;
+  --ifm-color-primary-darker: #007A3D;
+  --ifm-color-primary-darkest: #006331;
+  --ifm-color-primary-light: #20B666;
+  --ifm-color-primary-lighter: #40C67B;
+  --ifm-color-primary-lightest: #60D690;
+  
+  /* Typography */
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+  --ifm-code-font-size: 90%;
+  --ifm-heading-font-weight: 600;
+  
+  /* Spacing */
+  --ifm-global-spacing: 1rem;
+  --ifm-spacing-horizontal: 1.5rem;
+  --ifm-navbar-height: 60px;
+  --ifm-container-width: 1280px;
+  --ifm-container-width-xl: 1280px;
+  
+  /* Shadows */
+  --ifm-global-shadow-lw: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  --ifm-global-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --ifm-global-shadow-tl: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  
+  /* Code blocks */
+  --docusaurus-highlighted-code-line-bg: rgba(0, 166, 81, 0.1);
+  
+  /* Borders */
+  --ifm-hr-border-color: #E5E7EB;
+  --ifm-color-emphasis-300: #D1D5DB;
+}
+
+/* Dark mode */
+[data-theme='dark'] {
+  --ifm-color-primary: #20B666;
+  --ifm-color-primary-dark: #1CA45A;
+  --ifm-color-primary-darker: #1A9652;
+  --ifm-color-primary-darkest: #158843;
+  --ifm-color-primary-light: #40C67B;
+  --ifm-color-primary-lighter: #60D690;
+  --ifm-color-primary-lightest: #80E6A5;
+  
+  --ifm-background-color: #0D1117;
+  --ifm-background-surface-color: #161B22;
+  --ifm-navbar-background-color: #161B22;
+  --ifm-footer-background-color: #0D1117;
+  
+  --docusaurus-highlighted-code-line-bg: rgba(32, 182, 102, 0.2);
+  
+  --ifm-hr-border-color: #30363D;
+  --ifm-color-emphasis-300: #30363D;
+}
+
+/* Navbar Styling */
+.navbar {
+  box-shadow: var(--ifm-global-shadow-lw);
+  padding: 0.5rem 0;
+}
+
+.navbar__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.navbar__title {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.navbar__logo {
+  height: 28px;
+  margin-right: 0.75rem;
+}
+
+/* Ensure svg/img inside logo scales properly */
+.navbar__logo img, .navbar__logo svg {
+  height: 100%;
+  width: auto;
+}
+
+/* Header GitHub link styles removed (icon no longer used) */
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--mybox-green) 0%, var(--mybox-green-dark) 100%);
+  color: white;
+  padding: 4rem 0;
+}
+
+.hero__title {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.hero__subtitle {
+  font-size: 1.25rem;
+  opacity: 0.95;
+}
+
+/* Buttons */
+.button {
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.button--primary {
+  background-color: var(--mybox-green);
+  border-color: var(--mybox-green);
+}
+
+.button--primary:hover {
+  background-color: var(--mybox-green-dark);
+  border-color: var(--mybox-green-dark);
+}
+
+/* Cards */
+.card {
+  border-radius: 8px;
+  box-shadow: var(--ifm-global-shadow-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ifm-global-shadow-tl);
+}
+
+/* Code Blocks */
+.prism-code {
+  border-radius: 8px;
+  font-size: 0.875rem;
+}
+
+pre code {
+  font-family: var(--ifm-font-family-monospace) !important;
+}
+
+/* API Method badges */
+.api-method {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-right: 8px;
+}
+
+.api-method--get {
+  background-color: #10B981;
+  color: white;
+}
+
+.api-method--post {
+  background-color: #3B82F6;
+  color: white;
+}
+
+.api-method--put {
+  background-color: #F59E0B;
+  color: white;
+}
+
+.api-method--delete {
+  background-color: #EF4444;
+  color: white;
+}
+
+.api-method--patch {
+  background-color: #8B5CF6;
+  color: white;
+}
+
+/* Tables */
+table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: var(--mybox-light-gray);
+}
+
+[data-theme='dark'] thead {
+  background-color: #1F2937;
+}
+
+/* Sidebar */
+.menu__link {
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.theme-doc-main-container .container,
+.main-wrapper .container {
+  max-width: 1280px;
+}
+
+.menu__link--active {
+  background-color: rgba(0, 166, 81, 0.1);
+  color: var(--mybox-green);
+}
+
+/* Search */
+.DocSearch-Button {
+  border-radius: 8px;
+}
+
+/* Footer */
+.footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.footer__title {
+  color: var(--mybox-green);
+  font-weight: 600;
+}
+
+/* Alert/Admonition customization */
+.alert {
+  border-radius: 8px;
+}
+
+.alert--success {
+  --ifm-alert-background-color: rgba(0, 166, 81, 0.1);
+  --ifm-alert-border-color: var(--mybox-green);
+}
+
+/* API Explorer Container */
+.api-explorer {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.api-explorer__header {
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.api-explorer__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Response viewer */
+.response-viewer {
+  background-color: var(--ifm-pre-background);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+/* Loading states */
+.loading-spinner {
+  border: 3px solid var(--mybox-light-gray);
+  border-top: 3px solid var(--mybox-green);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 996px) {
+  .hero__title {
+    font-size: 2rem;
+  }
+  
+  .navbar__logo {
+    height: 24px;
+  }
+}
+
+/* Show hamburger menu on narrower screens */
+@media (max-width: 1200px) {
+  .navbar__items--left,
+  .navbar__items--right {
+    display: none !important;
+  }
+
+  .navbar__toggle {
+    display: inline-flex !important;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ifm-background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mybox-gray);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mybox-green);
+}
+
+/* Syntax highlighting improvements */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6B7280;
+  font-style: italic;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: var(--mybox-green);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #10B981;
+}
+
+/* Announcement bar */
+.announcementBar {
+  font-weight: 500;
+}
+
+/* Pagination */
+.pagination-nav__link {
+  border-radius: 8px;
+  border: 2px solid var(--ifm-color-emphasis-300);
+}
+
+.pagination-nav__link:hover {
+  border-color: var(--mybox-green);
+}

@@ -1,0 +1,2118 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'Admin Panel'
+  description: 'Admin Panel API'
+
+servers:
+  - description: Admin Panel
+    url: /admin-panel/v1
+
+tags:
+  - name: site
+    description: Site API
+  - name: mobile
+    description: Mobile API
+  - name: robot
+    description: Robot API
+  - name: share
+    description: Share API
+  - name: external
+    description: External API
+  - name: vendor
+    description: Vendor API
+  - name: public-interface
+    description: PublicInterface API
+  - name: profile
+    description: Profile API
+  - name: manage_users
+    description: Manage users API
+  - name: view_users
+    description: View users API
+  - name: delete_users
+    description: Delete users API
+  - name: restore_users
+    description: Restore users API
+  - name: manage_roles
+    description: Manage roles API
+  - name: delete_roles
+    description: Delete roles API
+  - name: view_roles
+    description: View roles API
+  - name: manage_companies
+    description: Manage companies API
+  - name: delete_companies
+    description: Delete companies API
+  - name: view_companies
+    description: View companies API
+  - name: manage_participants
+    description: Manage participants API
+  - name: view_participants
+    description: View participants API
+  - name: add_device_ids
+    description: Add device ids to white-list API
+  - name: manage_white_list
+    description: Manage white-list API
+  - name: delete_white_list
+    description: Delete white-list API
+  - name: manage_devices
+    description: Manage devices API
+  - name: manage_requested_actions
+    description: Manage requested actions API
+  - name: view_requested_actions
+    description: View requested actions API
+  - name: view_monitoring
+    description: View monitoring API
+  - name: manage_products
+    description: Manage products API
+  - name: manage_additional_info_templates
+    description: Manage additional info templates API
+  - name: view_documentation
+    description: View documentation API
+  - name: manage_documentation
+    description: Manage documentation API
+  - name: delete_documentation
+    description: Delete documentation API
+  - name: manage_device_groups
+    description: manag device groups API
+  - name: view_dashboards
+    description: View dashboards API
+  - name: manage_dashboards
+    description: Manage dashboards API
+  - name: delete_dashboards
+    description: Delete dashboards API
+
+security:
+  - basicAuth: []
+
+paths:
+  #region site
+  /site/register:
+    post:
+      tags:
+        - site
+        - profile
+      $ref: 'paths/site/profile/register.json'
+  /site/login:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/sessions/login.json'
+  /site/login/phone_number:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/sessions/loginPhoneNumber.json'
+  /site/login/apple:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/sessions/3rdParty/apple.json'
+  /site/login/facebook:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/sessions/3rdParty/facebook.json'
+  /site/login/google:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/sessions/3rdParty/google.json'
+  /site/logout:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/sessions/logout.json'
+  /site/profile:
+    get:
+      tags:
+        - site
+        - profile
+      $ref: 'paths/site/profile/show.json'
+  /site/profile/update:
+    post:
+      tags:
+        - site
+        - profile
+      $ref: 'paths/site/profile/update.json'
+  /site/profile/credentials:
+    get:
+      tags:
+        - site
+        - control_devices
+        - profile
+      $ref: 'paths/site/profile/credentials.json'
+  /site/schemas:
+    post:
+      tags:
+        - site
+        - control_devices
+        - profile
+      $ref: 'paths/site/profile/schemas.json'
+  /site/market:
+    servers:
+      - url: /mobile/v1
+      - url: /mobile/v2
+    get:
+      tags:
+        - site
+        - control_devices
+        - profile
+      $ref: 'paths/site/market/list.json'
+  /site/market-devices:
+    get:
+      tags:
+        - site
+        - control_devices
+        - profile
+      $ref: 'paths/site/market/listDevices.json'
+  /site/resend-registration-code:
+    post:
+      tags:
+        - site
+        - profile
+      $ref: 'paths/site/profile/resendCode.json'
+  /site/change-password:
+    post:
+      tags:
+        - site
+        - profile
+      $ref: 'paths/site/profile/changePassword.json'
+  /site/request-reset-password:
+    post:
+      tags:
+        - site
+        - profile
+      $ref: 'paths/site/profile/requestResetPassword.json'
+  /site/check-reset-password-token:
+    post:
+      tags:
+        - site
+        - profile
+      $ref: 'paths/site/profile/checkResetPasswordToken.json'
+  /site/reset-password:
+    post:
+      tags:
+        - site
+        - profile
+      $ref: 'paths/site/profile/resetPassword.json'
+  /site/verify-email:
+    post:
+      tags:
+        - site
+        - profile
+      $ref: 'paths/site/profile/verifyEmail.json'
+  /site/users:
+    post:
+      tags:
+        - site
+        - manage_users
+      $ref: 'paths/site/users/create.json'
+    get:
+      tags:
+        - site
+        - manage_users
+        - view_users
+        - delete_users
+      $ref: 'paths/site/users/list.json'
+  /site/users/{id}:
+    get:
+      tags:
+        - site
+        - manage_users
+        - view_users
+        - delete_users
+      $ref: 'paths/site/users/show.json'
+  /site/users/{id}/update:
+    post:
+      tags:
+        - site
+        - manage_users
+      $ref: 'paths/site/users/update.json'
+  /site/users/{id}/delete:
+    post:
+      tags:
+        - site
+        - delete_users
+      $ref: 'paths/site/users/delete.json'
+  /site/users/{id}/restore:
+    post:
+      tags:
+        - site
+        - restore_users
+      $ref: 'paths/site/users/restore.json'
+  /site/users/{id}/generate-credentials:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/users/generateCredentials.json'
+  /site/users/{id}/delete-credentials:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/users/deleteCredentials.json'
+  /site/users/{id}/documentation:
+    get:
+      tags:
+        - site
+        - view_documnetation
+      $ref: 'paths/site/documentation/listByEntity.json'
+  /site/users/{id}/user-tags:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/users/getUserTags.json'
+  /site/roles:
+    post:
+      tags:
+        - site
+        - manage_roles
+      $ref: 'paths/site/roles/create.json'
+    get:
+      tags:
+        - site
+        - manage_roles
+        - delete_roles
+        - view_roles
+      $ref: 'paths/site/roles/list.json'
+  /site/roles/{id}:
+    get:
+      tags:
+        - site
+        - manage_roles
+        - delete_roles
+        - view_roles
+      $ref: 'paths/site/roles/show.json'
+  /site/roles/{id}/update:
+    post:
+      tags:
+        - site
+        - manage_roles
+      $ref: 'paths/site/roles/update.json'
+  /site/roles/{id}/delete:
+    post:
+      tags:
+        - site
+        - manage_roles
+        - delete_roles
+      $ref: 'paths/site/roles/delete.json'
+  /site/sites:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/sites/create.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/sites/list.json'
+  /site/sites/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/sites/show.json'
+  /site/sites/{id}/update:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/sites/update.json'
+  /site/sites/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/sites/delete.json'
+  /site/roles/{id}/restore:
+    post:
+      tags:
+        - site
+        - manage_roles
+        - delete_roles
+      $ref: 'paths/site/roles/restore.json'
+  /site/companies:
+    post:
+      tags:
+        - site
+        - manage_companies
+      $ref: 'paths/site/companies/create.json'
+    get:
+      tags:
+        - site
+        - manage_companies
+        - delete_companies
+        - view_companies
+      $ref: 'paths/site/companies/list.json'
+  /site/companies/{id}:
+    get:
+      tags:
+        - site
+        - manage_companies
+        - delete_companies
+        - view_companies
+      $ref: 'paths/site/companies/show.json'
+  /site/companies/{id}/update:
+    post:
+      tags:
+        - site
+        - manage_companies
+      $ref: 'paths/site/companies/update.json'
+  /site/companies/{id}/delete:
+    post:
+      tags:
+        - site
+        - delete_companies
+      $ref: 'paths/site/companies/delete.json'
+  /site/companies/{id}/restore:
+    post:
+      tags:
+        - site
+        - delete_companies
+      $ref: 'paths/site/companies/restore.json'
+  /site/companies/{id}/documentation:
+    get:
+      tags:
+        - site
+        - view_documnetation
+      $ref: 'paths/site/documentation/listByEntity.json'
+  /site/companies-tree:
+    get:
+      tags:
+        - api
+        - manage_companies
+        - view_companies
+      $ref: 'paths/site/companies/tree.json'
+  /site/participants:
+    post:
+      tags:
+        - site
+        - manage_participants
+      $ref: 'paths/site/participants/create.json'
+    get:
+      tags:
+        - site
+        - manage_participants
+        - view_participants
+      $ref: 'paths/site/participants/list.json'
+  /site/participants/{id}:
+    get:
+      tags:
+        - site
+        - manage_participants
+        - view_participants
+      $ref: 'paths/site/participants/show.json'
+  /site/participants/{id}/update:
+    post:
+      tags:
+        - site
+        - manage_participants
+      $ref: 'paths/site/participants/update.json'
+  /site/participants/{id}/delete:
+    post:
+      tags:
+        - site
+        - manage_participants
+      $ref: 'paths/site/participants/delete.json'
+  /site/participants/{id}/user-tags:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/participants/getUserTags.json'
+  /site/api-tokens:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/participants-api-tokens/create.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/participants-api-tokens/list.json'
+  /site/api-tokens/own:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/participants-api-tokens/ownList.json'
+  /site/api-tokens/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/participants-api-tokens/show.json'
+  /site/api-tokens/{id}/update:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/participants-api-tokens/update.json'
+  /site/api-tokens/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/participants-api-tokens/delete.json'
+  /site/white-list:
+    post:
+      tags:
+        - site
+        - add_device_ids
+      $ref: 'paths/site/white-list/create.json'
+    get:
+      tags:
+        - site
+        - manage_white_list
+        - delete_white_list
+      $ref: 'paths/site/white-list/list.json'
+  /site/white-list/bulk:
+    post:
+      tags:
+        - site
+        - add_device_ids
+      $ref: 'paths/site/white-list/bulkCreate.json'
+  /site/white-list/qr-codes:
+    get:
+      tags:
+        - api
+        - manage_white_list
+      $ref: 'paths/site/white-list/getCodes.json'
+  /site/white-list/locations:
+    get:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/white-list/getLocations.json'
+  /site/white-list/locations/lite:
+    get:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/white-list/getLocations.json'
+  /site/white-list/field:
+    get:
+      tags:
+        - site
+        - api
+        - manage_white_list
+      $ref: 'paths/site/white-list/getField.json'
+  /site/white-list/{id}/binaries:
+    get:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/white-list/binaries.json'
+  /site/white-list/{id}/history:
+    get:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/white-list/history.json'
+  /site/white-list/{id}/admin-users:
+    get:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/white-list/getAdmins.json'
+  /site/white-list/{id}/availability:
+    get:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/white-list/getAvailability.json'
+  /site/white-list/{id}:
+    get:
+      tags:
+        - site
+        - manage_white_list
+        - delete_white_list
+      $ref: 'paths/site/white-list/show.json'
+  /site/white-list/identifier/{identifier}:
+    get:
+      tags:
+        - site
+        - manage_white_list
+        - delete_white_list
+      $ref: 'paths/site/white-list/showByIdentifier.json'
+  /site/white-list/{id}/update:
+    post:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/white-list/update.json'
+  /site/white-list/{id}/publish:
+    post:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/white-list/publish.json'
+  /site/white-list/{id}/unpublish:
+    post:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/white-list/unpublish.json'
+  /site/white-list/{id}/release:
+    post:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/white-list/release.json'
+  /site/white-list/{id}/status:
+    post:
+      tags:
+        - site
+        - manage_white_status
+      $ref: 'paths/site/white-list/status.json'
+  /site/white-list/{id}/reject:
+    post:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/white-list/reject.json'
+  /site/white-list/{id}/unreject:
+    post:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/white-list/unreject.json'
+  /site/white-list/{id}/delete:
+    post:
+      tags:
+        - site
+        - manage_white_list
+        - delete_white_list
+      $ref: 'paths/site/white-list/delete.json'
+  /site/white-list/{id}/restore:
+    post:
+      tags:
+        - site
+        - manage_white_list
+        - delete_white_list
+      $ref: 'paths/site/white-list/restore.json'
+  /site/white-list/{id}/change-owner:
+    post:
+      tags:
+        - site
+        - manage_white_status
+      $ref: 'paths/site/white-list/changeOwner.json'
+  /site/white-list/own:
+    get:
+      tags:
+        - site
+        - view_own_reports
+      $ref: 'paths/site/white-list/listByOwner.json'
+  /site/white-list/locations/own:
+    get:
+      tags:
+        - site
+        - view_own_reports
+      $ref: 'paths/site/white-list/getLocationsByOwner.json'
+  /site/white-list/{id}/link:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/white-list/getPublicInterfaceLink.json'
+  /site/white-list/{id}/documentation:
+    get:
+      tags:
+        - site
+        - view_documnetation
+      $ref: 'paths/site/documentation/listByEntity.json'
+  /site/white-list/{identifier}/attach-device:
+    post:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/device-associations/create.json'
+  /site/white-list/{identifier}/linked-devices:
+    get:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/device-associations/show.json'
+  /site/white-list/{identifier}/latest-sensor-values:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/white-list/getLatestSensorsValues.json'
+  /site/device-associations/{id}/update:
+    post:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/device-associations/update.json'
+  /site/device-associations/{id}/delete:
+    post:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/device-associations/delete.json'
+  /site/historical-data-reports:
+    post:
+      tags:
+        - site
+        - delete_white_list
+      $ref: 'paths/site/historical-data-reports/create.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/historical-data-reports/list.json'
+  /site/historical-data-reports/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/historical-data-reports/show.json'
+  /site/historical-data-reports/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/historical-data-reports/delete.json'
+  /site/snapshots:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/snapshots/create.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/snapshots/list.json'
+  /site/snapshots/{id}:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/snapshots/update.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/snapshots/show.json'
+  /site/snapshots/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/snapshots/delete.json'
+  /site/binaries/{product_id}:
+    get:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/binaries/show.json'
+  /site/device-batches:
+    get:
+      tags:
+        - site
+        - manage_white_list
+        - delete_white_list
+      $ref: 'paths/site/device-batches/list.json'
+  /site/device-batches/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/device-batches/delete.json'
+  /site/device-batches/statistics:
+    get:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/device-batches/statistics.json'
+  /site/connectors/status-statistics:
+    get:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/connectors/statusStatistics.json'
+  /site/connectors/status-duration-statistics:
+    get:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/connectors/statusDurarionStatistics.json'
+  /site/connectors/popular-time:
+    get:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/connectors/popularTime.json'
+  /site/products:
+    get:
+      tags:
+        - site
+        - manage_white_list
+        - delete_white_list
+      $ref: 'paths/site/products/list.json'
+  /site/products/sensor-info:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/products/sensor-info.json'
+  /site/jobs:
+    get:
+      tags:
+        - api
+        - manage_white_list
+      $ref: 'paths/site/jobs/list.json'
+  /site/jobs/{id}:
+    get:
+      tags:
+        - api
+        - manage_white_list
+      $ref: 'paths/site/jobs/show.json'
+  /site/jobs/{id}/delete:
+    post:
+      tags:
+        - api
+        - manage_white_list
+      $ref: 'paths/site/jobs/delete.json'
+  /site/devices:
+    get:
+      tags:
+        - site
+        - manage_devices
+      $ref: 'paths/site/white-list/list.json'
+    post:
+      tags:
+        - site
+        - manage_devices
+      $ref: 'paths/site/devices/generateDeviceCredentials.json'
+  /site/devices/{id}/credentials:
+    get:
+      tags:
+        - site
+        - manage_devices
+      $ref: 'paths/site/devices/deviceCredentials.json'
+  /site/devices/end-users:
+    get:
+      tags:
+        - site
+        - manage_devices
+      $ref: 'paths/site/devices/endUsersList.json'
+  /site/device-groups:
+    post:
+      tags:
+        - site
+        - manage_device_groups
+      $ref: 'paths/site/device-groups/create.json'
+    get:
+      tags:
+        - site
+        - manage_device_groups
+      $ref: 'paths/site/device-groups/list.json'
+  /site/device-groups/{id}:
+    get:
+      tags:
+        - site
+        - manage_device_groups
+      $ref: 'paths/site/device-groups/show.json'
+  /site/device-groups/{id}/update:
+    post:
+      tags:
+        - site
+        - manage_device_groups
+      $ref: 'paths/site/device-groups/update.json'
+  /site/device-groups/{id}/delete:
+    post:
+      tags:
+        - site
+        - manage_device_groups
+      $ref: 'paths/site/device-groups/delete.json'
+  /site/shares:
+    get:
+      tags:
+        - site
+        - manage_shares
+      $ref: 'paths/site/shares/list.json'
+  /site/shares/topics:
+    get:
+      tags:
+        - site
+        - manage_shares_topics
+      $ref: 'paths/site/shares/listTopics.json'
+  /site/shared-devices:
+    get:
+      tags:
+        - site
+        - manage_shared_devices
+      $ref: 'paths/site/shares/listDevices.json'
+  /site/requested-actions:
+    get:
+      tags:
+        - site
+        - view_requested_actions
+        - manage_requested_actions
+      $ref: 'paths/site/requested-actions/list.json'
+  /site/requested-actions/own:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/requested-actions/own.json'
+  /site/requested-actions/count:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/requested-actions/countPending.json'
+  /site/requested-actions/{id}:
+    get:
+      tags:
+        - site
+        - view_requested_actions
+        - manage_requested_actions
+      $ref: 'paths/site/requested-actions/show.json'
+  /site/requested-actions/{id}/accept:
+    post:
+      tags:
+        - site
+        - manage_requested_actions
+      $ref: 'paths/site/requested-actions/accept.json'
+  /site/requested-actions/{id}/decline:
+    post:
+      tags:
+        - site
+        - manage_requested_actions
+      $ref: 'paths/site/requested-actions/decline.json'
+  /site/requested-actions/{id}/delete:
+    get:
+      tags:
+        - site
+        - manage_requested_actions
+      $ref: 'paths/site/requested-actions/delete.json'
+  /site/devices/end-users/{id}/credentials:
+    get:
+      tags:
+        - site
+        - manage_devices
+      $ref: 'paths/site/devices/credentials.json'
+  /site/tags:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/tags/create.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/tags/list.json'
+  /site/tags/recently-used:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/tags/recentlyUsed.json'
+  /site/tags/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/tags/show.json'
+  /site/tags/{id}/update:
+    post:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/tags/update.json'
+  /site/tags/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/tags/delete.json'
+  /site/notifications:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/notifications/create.json'
+  /site/report-tags:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/reportTags/create.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/reportTags/list.json'
+  /site/report-tags/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/reportTags/show.json'
+  /site/report-tags/{id}/update:
+    post:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/reportTags/update.json'
+  /site/report-tags/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/reportTags/delete.json'
+  /site/timelines:
+    get:
+      tags:
+        - site
+        - control_devices
+      $ref: 'paths/site/timelines/list.json'
+  /site/timelines/string:
+    get:
+      tags:
+        - site
+        - control_devices
+      $ref: 'paths/site/timelines/list.json'
+  /site/timelines/number:
+    get:
+      tags:
+        - site
+        - control_devices
+      $ref: 'paths/site/timelines/list.json'
+  /site/historical-sensor-values:
+    get:
+      tags:
+        - site
+        - manage_devices
+      $ref: 'paths/site/timelines/historicalSensorValuesList.json'
+  /site/api-credentials/{type}:
+    get:
+      tags:
+        - site
+        - view_monitoring
+        - manage_products
+      $ref: 'paths/site/api-credentials/show.json'
+
+  /site/public/references:
+    get:
+      tags:
+        - public
+      $ref: 'paths/site/references_all.json'
+  /site/public/references/{name}:
+    get:
+      tags:
+        - public
+      $ref: 'paths/site/references_by_name.json'
+  /site/additional-info-templates:
+    post:
+      tags:
+        - site
+        - manage_additional_info_templates
+      $ref: 'paths/site/additional-info-templates/create.json'
+    get:
+      tags:
+        - site
+        - manage_additional_info_templates
+      $ref: 'paths/site/additional-info-templates/list.json'
+  /site/additional-info-templates/{id}:
+    get:
+      tags:
+        - site
+        - manage_additional_info_templates
+      $ref: 'paths/site/additional-info-templates/show.json'
+  /site/additional-info-templates/{id}/update:
+    post:
+      tags:
+        - site
+        - manage_additional_info_templates
+      $ref: 'paths/site/additional-info-templates/update.json'
+  /site/additional-info-templates/{id}/delete:
+    post:
+      tags:
+        - site
+        - manage_additional_info_templates
+      $ref: 'paths/site/additional-info-templates/delete.json'
+  /site/mails/send-csv:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/mails/sendCsv.json'
+  /site/charging-session-reports:
+    get:
+      tags:
+        - site
+        - manage_reports
+      $ref: 'paths/site/charging-session-reports/list.json'
+  /site/charging-session-reports/csv:
+    get:
+      tags:
+        - site
+        - manage_reports
+      $ref: 'paths/site/charging-session-reports/getCsv.json'
+  /site/charging-session-reports/cost:
+    get:
+      tags:
+        - site
+        - manage_reports
+      $ref: 'paths/site/charging-session-reports/getCosts.json'
+  /site/charging-session-reports/xlsx:
+    get:
+      tags:
+        - site
+        - manage_reports
+      $ref: 'paths/site/charging-session-reports/getXlsx.json'
+  /site/charging-session-reports/statistics/csv:
+    get:
+    tags:
+      - site
+      - manage_reports
+    $ref: 'paths/site/charging-session-reports/sendCsvStatistics.json'
+  /site/charging-session-reports/own/xlsx:
+    get:
+      tags:
+        - site
+        - manage_reports
+      $ref: 'paths/site/charging-session-reports/getOwnXlsx.json'
+  /site/charging-session-reports/{id}/charging-process:
+    get:
+      tags:
+        - site
+        - manage_white_list
+      $ref: 'paths/site/charging-session-reports/getChargingProcess.json'
+  /site/charging-session-reports/{id}:
+    get:
+      tags:
+        - site
+        - manage_reports
+      $ref: 'paths/site/charging-session-reports/show.json'
+  /site/charging-session-reports/{id}/update:
+    post:
+      tags:
+        - site
+        - manage_reports
+      $ref: 'paths/site/charging-session-reports/update.json'
+  /site/charging-session-reports/{id}/restore:
+    post:
+      tags:
+        - site
+        - manage_reports
+      $ref: 'paths/site/charging-session-reports/restore.json'
+  /site/charging-session-locations:
+    get:
+      tags:
+        - site
+        - manage_reports
+      $ref: 'paths/site/charging-session-reports/locations.json'
+  /site/charging-session-reports/own:
+    get:
+      tags:
+        - site
+        - view_own_reports
+      $ref: 'paths/site/charging-session-reports/listByOwner.json'
+  /site/charging-session-locations/own:
+    get:
+      tags:
+        - site
+        - view_own_reports
+      $ref: 'paths/site/charging-session-reports/locationsByOwner.json'
+  /site/qc-reports:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/qc-reports/list.json'
+  /site/qc-reports/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/qc-reports/show.json'
+  /site/notification-records/all:
+    get:
+      tags:
+        - site
+        - manage_devices
+        - service_devices
+      $ref: 'paths/site/notification-records/list.json'
+  /site/notification-records:
+    get:
+      tags:
+        - site
+        - manage_devices
+        - service_devices
+      $ref: 'paths/site/notification-records/listByDevice.json'
+  /site/documentation:
+    post:
+      tags:
+        - site
+        - robot
+        - manage_documentation
+      $ref: 'paths/site/documentation/create.json'
+  /site/dashboards:
+    post:
+      tags:
+        - site
+        - manage_dashboards
+      $ref: 'paths/site/dashboards/create.json'
+    get:
+      tags:
+        - site
+        - view_dashboards
+        - manage_dashboards
+        - delete_dashboards
+      $ref: 'paths/site/dashboards/list.json'
+  /site/dashboards/allowed:
+    get:
+      tags:
+        - site
+        - view_dashboards
+        - manage_dashboards
+        - delete_dashboards
+      $ref: 'paths/site/dashboards/getAllowed.json'
+  /site/dashboards/{id}:
+    get:
+      tags:
+        - site
+        - view_dashboards
+        - manage_dashboards
+        - delete_dashboards
+      $ref: 'paths/site/dashboards/show.json'
+  /site/dashboards/{id}/devices:
+    get:
+      tags:
+        - site
+        - view_dashboards
+        - manage_dashboards
+        - delete_dashboards
+      $ref: 'paths/site/dashboards/getDevices.json'
+  /site/dashboards/{id}/credentials:
+    get:
+      tags:
+        - site
+        - view_dashboards
+        - manage_dashboards
+        - delete_dashboards
+      $ref: 'paths/site/dashboards/credentials.json'
+  /site/dashboards/{id}/update:
+    post:
+      tags:
+        - site
+        - manage_dashboards
+      $ref: 'paths/site/dashboards/update.json'
+  /site/dashboards/{id}/delete:
+    post:
+      tags:
+        - site
+        - delete_dashboards
+      $ref: 'paths/site/dashboards/delete.json'
+  /site/documentation/{id}/update:
+    post:
+      tags:
+        - site
+        - robot
+        - manage_documentation
+      $ref: 'paths/site/documentation/update.json'
+  /site/documentation/{id}/delete:
+    post:
+      tags:
+        - site
+        - robot
+        - delete_documentation
+      $ref: 'paths/site/documentation/delete.json'
+  /site/user-tags:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/user-tags/create.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/user-tags/list.json'
+  /site/user-tags/export:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/user-tags/export.json'
+  /site/user-tags/bulk:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/user-tags/bulkCreate.json'
+  /site/user-tags/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/user-tags/show.json'
+  /site/user-tags/{id}/reports:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/user-tags/getReports.json'
+  /site/user-tags/{id}/devices:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/user-tags/getDevices.json'
+  /site/user-tags/tag_id/{tag_id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/user-tags/showByTagId.json'
+  /site/user-tags/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/user-tags/delete.json'
+  /site/user-tags/{id}/update:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/user-tags/update.json'
+  /site/user-tags/import-template:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/user-tags/getImportTemplate.json'
+  /site/user-tag-groups:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/user-tag-groups/create.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/user-tag-groups/list.json'
+  /site/user-tag-groups/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/user-tag-groups/show.json'
+  /site/user-tag-groups/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/user-tag-groups/delete.json'
+  /site/user-tag-groups/{id}/update:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/user-tag-groups/update.json'
+  /site/user-tag-rules/{id}/devices:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/user-tag-rules/devices.json'
+  /site/user-tag-rules:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/user-tag-rules/create.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/user-tag-rules/list.json'
+  /site/user-tag-rules/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/user-tag-rules/show.json'
+  /site/user-tag-rules/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/user-tag-rules/delete.json'
+  /site/user-tag-rules/{id}/update:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/user-tag-rules/update.json'
+  /site/public-interface-links:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/public-interface-links/create.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/public-interface-links/list.json'
+  /site/public-interface-links/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/public-interface-links/show.json'
+  /site/public-interface-links/{id}/update:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/public-interface-links/update.json'
+  /site/public-interface-links/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/public-interface-links/delete.json'
+  /site/report-templates:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/report-templates/create.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/report-templates/list.json'
+  /site/report-templates/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/report-templates/show.json'
+  /site/report-templates/{id}/update:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/report-templates/update.json'
+  /site/report-templates/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/report-templates/delete.json'
+  /site/report-templates/{id}/send:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/report-templates/sendReport.json'
+  /site/main-sensors:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/main-sensors/create.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/main-sensors/show.json'
+  /site/main-sensors/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/main-sensors/showValues.json'
+  /site/main-sensors/{id}/update:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/main-sensors/update.json'
+  /site/main-sensors/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/main-sensors/delete.json'
+  /site/white-list/{id}/firmware-names:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/firmware-names/listByDevice.json'
+  /site/firmware-names:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/firmware-names/list.json'
+  /site/firmware-names/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/firmware-names/getChangelog.json'
+  /site/products/type:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/products/type.json'
+  /site/products/allowed:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/products/allowedList.json'
+  /site/sites/allowed:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/sites/allowedList.json'
+  /site/device-batches/allowed:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/device-batches/allowedList.json'
+  /site/device-groups/allowed:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/device-groups/allowedList.json'
+  /site/white-list/allowed:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/white-list/allowedList.json'
+  /site/tags/allowed:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/tags/allowedList.json'
+  /site/owners/allowed:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/users/allowedList.json'
+  /site/hourly-rates:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/hourly-rates/create.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/hourly-rates/list.json'
+  /site/hourly-rates/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/hourly-rates/show.json'
+  /site/hourly-rates/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/hourly-rates/delete.json'
+  /site/hourly-rates/{id}/update:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/hourly-rates/update.json'
+  /site/tariffs:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/tariffs/create.json'
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/tariffs/list.json'
+  /site/tariffs/{id}:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/tariffs/show.json'
+  /site/tariffs/{id}/update:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/tariffs/update.json'
+  /site/tariffs/{id}/delete:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/tariffs/delete.json'
+  /site/utils/csv-to-json:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/utils/csvToJson.json'
+  /site/utils/xls-to-json:
+    post:
+      tags:
+        - site
+      $ref: 'paths/site/utils/xlsToJson.json'
+  /site/device/{id}/check-available-actions:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/device-actions/checkAvailableActions.json'
+  /site/device/{id}/reboot:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/device-actions/reboot.json'
+  /site/device/{id}/change-availability:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/device-actions/changeAvailability.json'
+  /site/device/{id}/{connector}/remote-stop:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/device-actions/remoteStop.json'
+  /site/device/{id}/{connector}/unlock-connector:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/device-actions/unlockConnector.json'
+  /site/device/{id}/{connector}/change-availability:
+    get:
+      tags:
+        - site
+      $ref: 'paths/site/device-actions/changeAvailabilityConnector.json'
+  #endregion
+
+  #region mobile
+  /mobile/users:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/users/create.json'
+  /mobile/users/update:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/users/update.json'
+  /mobile/users/{id}/delete:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/users/delete.json'
+  /mobile/users/profile:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/users/profile.json'
+  /mobile/users/devices-ids:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/users/devices-ids.json'
+  /mobile/participants:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/participants/list.json'
+  /mobile/verify-email:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/users/verifyEmail.json'
+  /mobile/change-password:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/users/changePassword.json'
+  /mobile/sessions:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/sessions/login.json'
+  /mobile/sessions/biometric:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/sessions/biometric.json'
+  /mobile/sessions/google:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/sessions/3rdParty/google.json'
+  /mobile/sessions/facebook:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/sessions/3rdParty/facebook.json'
+  /mobile/sessions/apple:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/sessions/3rdParty/apple.json'
+  /mobile/companies:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/companies/List.json'
+  /mobile/white-list/{identifier}/occupy:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/white-list/occupy.json'
+  /mobile/white-list/{identifier}/change-owner:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/white-list/changeOwner.json'
+  /mobile/white-list:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/white-list/list.json'
+  /mobile/white-list/{identifier}:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/white-list/show.json'
+  /mobile/mails/send-csv:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/mails/sendCsv.json'
+  /mobile/charging-session-reports:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/charging-session-reports/list.json'
+  /mobile/charging-session-reports/own:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/charging-session-reports/listByOwner.json'
+  /mobile/charging-session-reports/statistics/csv:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/charging-session-reports/sendCsvStatistics.json'
+  /mobile/charging-session-reports/{id}/charging-process:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/charging-session-reports/getChargingProcess.json'
+  /mobile/charging-session-reports/{id}:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/charging-session-reports/show.json'
+  /mobile/charging-session-reports/{id}/update:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/charging-session-reports/update.json'
+  /mobile/user-tags:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/user-tags/list.json'
+  /mobile/products/abbreviation:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/products/showByAbbreviation.json'
+  /mobile/devices/{device_id}/ap-credentials:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/devices/credentials.json'
+  /mobile/schemas-versions:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/schemas/schemasVersions.json'
+  /mobile/sharing:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/sharing/list.json'
+  /mobile/dashboards:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/dashboards/List.json'
+  /mobile/report-tags:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/reportTags/create.json'
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/reportTags/list.json'
+  /mobile/report-tags/{id}:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/reportTags/show.json'
+  /mobile/report-tags/{id}/update:
+    post:
+      tags:
+        - mobile
+        - manage_white_list
+      $ref: 'paths/mobile/reportTags/update.json'
+  /mobile/report-tags/{id}/delete:
+    post:
+      tags:
+        - mobile
+      $ref: 'paths/mobile/reportTags/delete.json'
+  #endregion
+
+  #region mobile
+  /robot/device-batches/{id}/delete:
+    post:
+      tags:
+        - robot
+      $ref: 'paths/robot/device-batches/delete.json'
+  /robot/device-batches/{id}/restore:
+    post:
+      tags:
+        - robot
+      $ref: 'paths/robot/device-batches/restore.json'
+  /robot/mails/send-csv:
+    post:
+      tags:
+        - robot
+      $ref: 'paths/robot/mails/sendCsv.json'
+  /robot/user-tags/validate:
+    post:
+      tags:
+        - robot
+      $ref: 'paths/robot/user-tags/validate.json'
+  /robot/report-tags:
+    post:
+      tags:
+        - robot
+      $ref: 'paths/robot/reportTags/create.json'
+    get:
+      tags:
+        - robot
+      $ref: 'paths/robot/reportTags/list.json'
+  /robot/report-tags/{id}:
+    get:
+      tags:
+        - robot
+      $ref: 'paths/robot/reportTags/show.json'
+  /robot/report-tags/{id}/update:
+    post:
+      tags:
+        - robot
+        - manage_white_list
+      $ref: 'paths/robot/reportTags/update.json'
+  /robot/report-tags/{id}/delete:
+    post:
+      tags:
+        - robot
+      $ref: 'paths/robot/reportTags/delete.json'
+  /robot/white-list/bulk-publish:
+    post:
+      tags:
+        - robot
+      $ref: 'paths/robot/white-list/bulkPublish.json'
+  /robot/white-list/bulk-unpublish:
+    post:
+      tags:
+        - robot
+      $ref: 'paths/robot/white-list/bulkPublish.json'
+  /robot/roles/lite:
+    get:
+      tags:
+        - robot
+      $ref: 'paths/robot/roles/listLite.json'
+  /robot/white-list/info:
+    post:
+      tags:
+        - robot
+      $ref: 'paths/robot/white-list/showLite.json'
+  /robot/layouts:
+    get:
+      tags:
+        - robot
+      $ref: 'paths/robot/layouts/list.json'
+  /robot/layouts/extended:
+    get:
+      tags:
+        - robot
+      $ref: 'paths/site/layouts/list.json'
+  /robot/layouts/assign-to-role:
+    post:
+      tags:
+        - robot
+      $ref: 'paths/vendor/layouts/assignToRole.json'
+  /robot/layouts/copy:
+    post:
+      tags:
+        - robot
+      $ref: 'paths/vendor/layouts/copyWithAccess.json'
+  /robot/layouts-to-roles:
+    get:
+      tags:
+        - robot
+      $ref: 'paths/vendor/layouts/show.json'
+  /robot/main-sensors/copy:
+    post:
+      tags:
+        - robot
+      $ref: 'paths/robot/main-sensors/copy.json'
+  /robot/charging-session-reports:
+    get:
+      tags:
+        - robot
+      $ref: 'paths/vendor/charging-session-reports/list.json'
+  /robot/documentation:
+    post:
+      tags:
+        - site
+        - robot
+        - manage_documentation
+      $ref: 'paths/site/documentation/create.json'
+  /robot/documentation/{id}/update:
+    post:
+      tags:
+        - site
+        - robot
+        - manage_documentation
+      $ref: 'paths/site/documentation/update.json'
+  /robot/documentation/{id}/delete:
+    post:
+      tags:
+        - site
+        - robot
+        - delete_documentation
+      $ref: 'paths/site/documentation/delete.json'
+  /robot/products/{id}/documentation:
+    get:
+      tags:
+        - site
+        - view_documentation
+      $ref: 'paths/site/documentation/listByEntity.json'
+  #endregion
+
+  #region share
+  /share/mails/send-csv:
+    post:
+      tags:
+        - share
+      $ref: 'paths/share/mails/sendCsv.json'
+  /share/report-tags:
+    post:
+      tags:
+        - share
+      $ref: 'paths/share/reportTags/create.json'
+    get:
+      tags:
+        - share
+      $ref: 'paths/share/reportTags/list.json'
+  /share/report-tags/{id}:
+    get:
+      tags:
+        - share
+      $ref: 'paths/share/reportTags/show.json'
+  /share/report-tags/{id}/update:
+    post:
+      tags:
+        - share
+        - manage_white_list
+      $ref: 'paths/share/reportTags/update.json'
+  /share/report-tags/{id}/delete:
+    post:
+      tags:
+        - share
+      $ref: 'paths/share/reportTags/delete.json'
+  /share/charging-session-reports:
+    get:
+      tags:
+        - share
+      $ref: 'paths/share/charging-session-reports/list.json'
+  /share/charging-session-reports/own:
+    get:
+      tags:
+        - share
+      $ref: 'paths/share/charging-session-reports/listByOwner.json'
+  /share/charging-session-reports/statistics/csv:
+    get:
+      tags:
+        - mobile
+      $ref: 'paths/share/charging-session-reports/sendStatisticsCsv.json'
+  /share/schema-versions:
+    post:
+      tags:
+        - share
+      $ref: 'paths/share/schemas/show.json'
+  /share/link:
+    get:
+      tags:
+        - share
+      $ref: 'paths/share/links/show.json'
+  #endregion
+
+  #region vendor
+  /vendor/charging-session-reports:
+    get:
+      tags:
+        - vendor
+      $ref: 'paths/vendor/charging-session-reports/list.json'
+  #endregion
+
+  #region external
+  /external/user:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/users/list.json'
+  /external/user/{id}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/users/info.json'
+  /external/user/{id}/participant:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/users/participants/list.json'
+  /external/user/{id}/participant/{participantId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/users/participants/info.json'
+  /external/company:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/companies/list.json'
+  /external/company/{id}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/companies/info.json'
+  /external/device:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/devices/list.json'
+  /external/device/{id}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/devices/info.json'
+  /external/device/{id}/events:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/devices/getEvents.json'
+  /external/charging-reports/company/{id}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/charging-reports/listByCompany.json'
+  /external/charging-reports/device/{id}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/charging-reports/listByDevice.json'
+  /external/charging-reports/owner/{email}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/charging-reports/listByOwner.json'
+
+  /external/history/snapshot/{deviceId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/history/deviceSnapshot.json'
+  /external/history/snapshot/{deviceId}/{nodeId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/history/nodeSnapshot.json'
+  /external/history/torch/{deviceId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/history/torch.json'
+  /external/history/sensor/{deviceId}/{nodeId}/{sensorId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/history/sensorHistoricalData.json'
+  /external/history/telemetry/{deviceId}/{telemetryId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/history/deviceTelemetryHistoricalData.json'
+  /external/history/option/{deviceId}/{optionId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/history/deviceOptionHistoricalData.json'
+  /external/history/telemetry/{deviceId}/{nodeId}/{telemetryId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/history/nodeTelemetryHistoricalData.json'
+  /external/history/option/{deviceId}/{nodeId}/{optionId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/history/nodeOptionHistoricalData.json'
+  /external/live/device/{deviceId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/live/deviceState.json'
+  /external/live/device/{deviceId}/{nodeId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/live/nodeState.json'
+  /external/live/device/{deviceId}/{nodeId}/{sensorId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/live/sensorState.json'
+  /external/live/device/{deviceId}/telemetry:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/live/deviceTelemetriesState.json'
+  /external/live/device/{deviceId}/telemetry/{telemetryId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/live/deviceTelemetryState.json'
+  /external/live/device/{deviceId}/option:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/live/deviceOptionsState.json'
+  /external/live/device/{deviceId}/option/{optionId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/live/deviceOptionState.json'
+  /external/live/device/{deviceId}/{nodeId}/telemetry:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/live/nodeTelemetriesState.json'
+  /external/live/device/{deviceId}/{nodeId}/telemetry/{telemetryId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/live/nodeTelemetryState.json'
+  /external/live/device/{deviceId}/{nodeId}/option:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/live/nodeOptionsState.json'
+  /external/live/device/{deviceId}/{nodeId}/option/{optionId}:
+    get:
+      tags:
+        - external
+      $ref: 'paths/external/live/nodeOptionState.json'
+  #endregion
+
+  #region vendor
+  /public-interface/links/{url_name}:
+    get:
+      tags:
+        - public-interface
+      $ref: 'paths/public-interface/links/credentials.json'
+  /public-interface/sessions/create:
+    post:
+      tags:
+        - public-interface
+      $ref: 'paths/public-interface/sessions/create.json'
+  /public-interface/sessions/resfresh:
+    post:
+      tags:
+        - public-interface
+      $ref: 'paths/public-interface/sessions/refresh.json'
+  /public-interface/sessions/clear:
+    post:
+      tags:
+        - public-interface
+      $ref: 'paths/public-interface/sessions/clear.json'
+  #endregion
+
+components:
+  schemas:
+    AdminUser:
+      $ref: 'components/schemas/AdminUser.json'
+    Role:
+      $ref: 'components/schemas/Role.json'
+    Company:
+      $ref: 'components/schemas/Company.json'
+    Participant:
+      $ref: 'components/schemas/Participant.json'
+    WhiteListDevice:
+      $ref: 'components/schemas/WhiteListDevice.json'
+    Job:
+      $ref: 'components/schemas/Job.json'
+    MobileUser:
+      $ref: 'components/schemas/MobileUser.json'
+    ChargingSessionReport:
+      $ref: 'components/schemas/ChargingSessionReport.json'
+    AdditionalInfoTemplate:
+      $ref: 'components/schemas/AdditionalInfoTemplate.json'
+    ApiCredentials:
+      $ref: 'components/schemas/ApiCredentials.json'
+    MqttToken:
+      $ref: 'components/schemas/MqttToken.json'
+    Product:
+      $ref: 'components/schemas/Product.json'
+    RequestedActions:
+      $ref: 'components/schemas/RequestedActions.json'
+    Tag:
+      $ref: 'components/schemas/Tag.json'
+    Timeline:
+      $ref: 'components/schemas/Timeline.json'
+    UsedTag:
+      $ref: 'components/schemas/UsedTag.json'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

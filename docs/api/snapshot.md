@@ -1,0 +1,520 @@
+---
+id: snapshot
+title: 📸 Snapshot
+sidebar_position: 5
+---
+
+# Snapshot - Kompletní stav zařízení
+
+## Získání úplného obrazu všech senzorů a nastavení
+
+---
+
+## 📍 Endpoint
+
+```
+GET /admin-panel/v1/external/history/snapshot/{deviceId}
+```
+
+### Parametry
+- **deviceId** (string, povinný) - Identifikátor vašeho zařízení
+- **timestamp** (string, volitelný) - Časové razítko pro historický snapshot
+
+import ApiExplorer from '@site/src/components/ApiExplorer/ApiExplorer';
+
+<ApiExplorer
+  endpoint="/external/history/snapshot/{deviceId}"
+  method="GET"
+  title="Získat Snapshot zařízení"
+  description="Získejte kompletní snapshot všech senzorů, stavů a nastavení vašeho zařízení. Tento endpoint poskytuje nejdetailnější pohled na aktuální stav zařízení."
+  requiresAuth={true}
+  defaultDeviceId={true}
+  parameters={[
+    {
+      name: "deviceId",
+      type: "path",
+      required: true,
+      description: "Jedinečný identifikátor zařízení (automaticky se načte seznam vašich zařízení)",
+      example: "qfeb-od13-ul2c-sgrl"
+    },
+    {
+      name: "timestamp",
+      type: "query",
+      required: false,
+      description: "Časové razítko pro historický snapshot (ISO 8601 formát)",
+      example: "2025-01-29T10:00:00Z"
+    }
+  ]}
+  responseExample={{
+    "status": 1,
+    "data": [
+      {
+        "id": "qfeb-od13-ul2c-sgrl",
+        "name": "MyBox Home",
+        "firmwareVersion": "7",
+        "firmwareName": "1.6.1-7",
+        "state": "ready",
+        "nodes": [
+          {
+            "formattedId": "ac-module-V1",
+            "id": "ac-module",
+            "sensors": [
+              {
+                "id": "evse-state",
+                "value": "Unplugged"
+              },
+              {
+                "id": "car-state",
+                "value": "STATE A"
+              },
+              {
+                "id": "max-charge-current",
+                "value": "32"
+              }
+            ]
+          },
+          {
+            "id": "ev-meter",
+            "sensors": [
+              {
+                "id": "ev-meter-energy",
+                "value": "2661.43"
+              },
+              {
+                "id": "ev-meter-power",
+                "value": "0.00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }}
+/>
+
+---
+
+## 📦 Struktura odpovědi
+
+Snapshot poskytuje **nejkompletnější data** ze všech endpointů - obsahuje VŠECHNY senzory, nastavení a stavy.
+
+```json
+{
+  "data": [
+    {
+      "id": "abc1-def2-ghi3-jkl4",
+      "name": "Nabíječka 1",
+      "firmwareVersion": "7",
+      "firmwareName": "1.6.1-7",
+      "state": "ready",
+      "nodes": [...]
+    }
+  ]
+}
+```
+
+---
+
+## 🔍 Struktura Node (modulu)
+
+Každý node obsahuje skupinu souvisejících senzorů:
+
+```json
+{
+  "formattedId": "ac-module-V1",
+  "id": "ac-module",
+  "rootTopic": "ac-module/automatic-session-end",
+  "sensors": [...],
+  "options": [],
+  "telemetry": []
+}
+```
+
+---
+
+## 📋 Hlavní moduly (nodes) a jejich senzory
+
+### ⚡ **AC-Module** - Nabíjecí modul
+Nejdůležitější modul pro sledování nabíjení.
+
+```json
+{
+  "id": "ac-module",
+  "sensors": [
+    {
+      "id": "evse-state",
+      "value": "Unplugged"  // Stav konektoru
+    },
+    {
+      "id": "car-state", 
+      "value": "STATE A"  // Stav vozidla
+    },
+    {
+      "id": "max-charge-current",
+      "value": "32"  // Max nabíjecí proud (A)
+    },
+    {
+      "id": "cable-type",
+      "value": "Fixed32"  // Typ kabelu
+    },
+    {
+      "id": "cable-locked",
+      "value": "false"  // Zámek kabelu
+    },
+    {
+      "id": "pwm-on",
+      "value": "false"  // PWM signál aktivní
+    }
+  ]
+}
+```
+
+**Klíčové hodnoty:**
+- `evse-state` - Unplugged/Plugged/Charging/Error
+- `car-state` - STATE A/B/C/PAUSE/FAIL
+- `max-cb-current` - Jistič (16A, 25A, 32A...)
+- `nlb-node-current` - Aktuální proud
+
+---
+
+### 📊 **EV-Meter** - Elektroměr
+Měření spotřeby energie a výkonu.
+
+```json
+{
+  "id": "ev-meter",
+  "sensors": [
+    {
+      "id": "ev-meter-energy",
+      "value": "2661.43"  // Celková energie (kWh)
+    },
+    {
+      "id": "ev-meter-power",
+      "value": "0.00"  // Aktuální výkon (kW)
+    },
+    {
+      "id": "ev-meter-current-l1",
+      "value": "0.02"  // Proud fáze L1 (A)
+    },
+    {
+      "id": "ev-meter-current-l2",
+      "value": "0.00"  // Proud fáze L2 (A)
+    },
+    {
+      "id": "ev-meter-current-l3",
+      "value": "4.08"  // Proud fáze L3 (A)
+    }
+  ]
+}
+```
+
+**Hodnoty po fázích:**
+- `ev-meter-energy-l1/l2/l3` - Energie na fázi (kWh)
+- `ev-meter-power-l1/l2/l3` - Výkon na fázi (kW)
+- `ev-meter-current-l1/l2/l3` - Proud na fázi (A)
+
+---
+
+### 🌡️ **Temp-block** - Teplotní senzory
+Sledování teplot kritických komponent.
+
+```json
+{
+  "id": "temp-block",
+  "sensors": [
+    {
+      "id": "temp-amb",
+      "value": "25.3"  // Okolní teplota (°C)
+    },
+    {
+      "id": "temp-evse",
+      "value": "32.1"  // Teplota EVSE modulu (°C)
+    },
+    {
+      "id": "temp-mcu",
+      "value": "45.2"  // Teplota procesoru (°C)
+    }
+  ]
+}
+```
+
+---
+
+### 📡 **Control-pilot** - Komunikace s vozidlem
+PWM signály pro komunikaci s elektromobilem.
+
+```json
+{
+  "id": "control-pilot",
+  "sensors": [
+    {
+      "id": "cp-car-state",
+      "value": "STATE A"
+    },
+    {
+      "id": "cp-high",
+      "value": "11980"  // Vysoká úroveň PWM (mV)
+    },
+    {
+      "id": "cp-low",
+      "value": "-11980"  // Nízká úroveň PWM (mV)
+    },
+    {
+      "id": "cp-max-current",
+      "value": "32"  // Max povolený proud (A)
+    }
+  ]
+}
+```
+
+---
+
+### 🔋 **Session** - Nabíjecí relace
+Informace o aktuální nabíjecí relaci.
+
+```json
+{
+  "id": "session",
+  "sensors": [
+    {
+      "id": "session-meter-energy-start",
+      "value": "2650.12"  // Stav elektroměru na začátku (kWh)
+    },
+    {
+      "id": "session-price",
+      "value": "65.50"  // Cena relace (Kč)
+    },
+    {
+      "id": "session-duration",
+      "value": "3600"  // Délka relace (s)
+    },
+    {
+      "id": "session-energy-used",
+      "value": "11.31"  // Nabito energie (kWh)
+    }
+  ]
+}
+```
+
+---
+
+## 💡 Praktické využití snapshot dat
+
+### Kompletní monitoring stavu
+
+```javascript
+async function getCompleteStatus(deviceId) {
+  const snapshot = await fetchSnapshot(deviceId);
+  const device = snapshot.data[0];
+  
+  // Najít AC modul
+  const acModule = device.nodes.find(n => n.id === 'ac-module');
+  const evseState = acModule.sensors.find(s => s.id === 'evse-state');
+  
+  // Najít elektroměr
+  const evMeter = device.nodes.find(n => n.id === 'ev-meter');
+  const power = evMeter.sensors.find(s => s.id === 'ev-meter-power');
+  
+  return {
+    state: evseState.value,
+    power: parseFloat(power.value),
+    timestamp: new Date()
+  };
+}
+```
+
+### Export všech senzorů do CSV
+
+```python
+import csv
+import json
+
+def export_snapshot_to_csv(snapshot_data, filename):
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(['Module', 'Sensor', 'Value', 'Unit'])
+        
+        for node in snapshot_data['nodes']:
+            for sensor in node.get('sensors', []):
+                writer.writerow([
+                    node['id'],
+                    sensor['id'],
+                    sensor.get('value', ''),
+                    sensor.get('unit', '')
+                ])
+```
+
+### Detekce změn stavu
+
+```javascript
+let previousSnapshot = null;
+
+async function detectChanges(deviceId) {
+  const currentSnapshot = await fetchSnapshot(deviceId);
+  
+  if (previousSnapshot) {
+    // Porovnat hodnoty
+    const changes = compareSnapshots(previousSnapshot, currentSnapshot);
+    
+    if (changes.length > 0) {
+      console.log('Detekované změny:', changes);
+      // Poslat notifikaci, uložit do DB, atd.
+    }
+  }
+  
+  previousSnapshot = currentSnapshot;
+}
+
+// Spustit každých 30 sekund
+setInterval(() => detectChanges('device-id'), 30000);
+```
+
+---
+
+## ⚠️ Důležité poznámky
+
+:::warning Formát hodnot
+Všechny hodnoty v snapshot jsou typu **string**. Vždy je převádějte na správný datový typ:
+```javascript
+const power = parseFloat(sensor.value);  // Pro desetinná čísla
+const state = sensor.value === 'true';   // Pro boolean
+```
+:::
+
+:::tip Optimalizace
+Snapshot obsahuje hodně dat. Pro běžný monitoring používejte raději [Live Data](./live-data) endpoint, který je rychlejší.
+:::
+
+---
+
+## 🔍 Snapshot konkrétního nodu
+
+```
+GET /external/history/snapshot/{deviceId}/{nodeId}
+```
+
+Získá historický snapshot konkrétního nodu v zařízení. Užitečné pro detailní analýzu jednotlivých komponent.
+
+### Parametry
+- `deviceId` - ID zařízení
+- `nodeId` - ID nodu (např. `ac-measurement`, `reports`, `control`)
+- `from` - Začátek období (ISO 8601)
+- `to` - Konec období (ISO 8601)
+
+### Příklad odpovědi - AC Sensor node "ac-measurement"
+
+```json
+{
+  "data": [{
+    "node": {
+      "formattedId": "ac-measurement-V1",
+      "id": "ac-measurement",
+      "rootTopic": "ac-measurement/ac-current-1",
+      "sensors": [
+        {
+          "id": "ac-current-1",
+          "value": "0.00",
+          "rootTopic": "ac-measurement/ac-current-1"
+        },
+        {
+          "id": "ac-current-2",
+          "value": "0.57",
+          "rootTopic": "ac-measurement/ac-current-2"
+        },
+        {
+          "id": "ac-current-3",
+          "value": "6.27",
+          "rootTopic": "ac-measurement/ac-current-3"
+        },
+        {
+          "id": "ac-phase-connection",
+          "value": "L1",
+          "rootTopic": "ac-measurement/ac-phase-connection"
+        },
+        {
+          "id": "distribution-system",
+          "value": "4-wire",
+          "rootTopic": "ac-measurement/distribution-system"
+        }
+      ],
+      "options": [],
+      "telemetry": []
+    },
+    "owner": {
+      "id": 1694444441651503,
+      "email": "user@example.com",
+      "first_name": "John",
+      "last_name": "Doe"
+    }
+  }],
+  "status": 1
+}
+```
+
+### Příklad použití - Python
+
+```python
+import requests
+from requests.auth import HTTPBasicAuth
+from datetime import datetime, timedelta
+
+def get_node_snapshot(device_id, node_id, hours_back=24):
+    """Získá historický snapshot konkrétního nodu"""
+
+    API_URL = "https://cloud.mybox.pro/admin-panel/v1/external"
+
+    to_date = datetime.now()
+    from_date = to_date - timedelta(hours=hours_back)
+
+    response = requests.get(
+        f"{API_URL}/history/snapshot/{device_id}/{node_id}",
+        params={
+            'from': from_date.isoformat() + 'Z',
+            'to': to_date.isoformat() + 'Z'
+        },
+        auth=HTTPBasicAuth(API_KEY, API_SECRET)
+    )
+
+    if response.status_code == 200:
+        data = response.json()
+        if data['data']:
+            node_data = data['data'][0]['node']
+
+            # Zpracuj senzory
+            sensors = {}
+            for sensor in node_data.get('sensors', []):
+                sensors[sensor['id']] = sensor['value']
+
+            return {
+                'node_id': node_data['id'],
+                'sensors': sensors,
+                'telemetry': node_data.get('telemetry', []),
+                'options': node_data.get('options', [])
+            }
+
+    return None
+
+# Použití
+snapshot = get_node_snapshot('device-xxx', 'ac-measurement')
+if snapshot:
+    print(f"Node: {snapshot['node_id']}")
+    print(f"AC Current L1: {snapshot['sensors'].get('ac-current-1', 'N/A')} A")
+    print(f"AC Current L2: {snapshot['sensors'].get('ac-current-2', 'N/A')} A")
+    print(f"AC Current L3: {snapshot['sensors'].get('ac-current-3', 'N/A')} A")
+```
+
+### Use cases pro node snapshots
+
+1. **DLM monitoring** - Sledování jednotlivých modulů v DLM systému
+2. **Detailní diagnostika** - Analýza specifických komponent
+3. **Porovnání stavů** - Srovnání různých nodů nebo časových období
+4. **Audit změn** - Sledování změn v konfiguraci nodů
+
+---
+
+## 🔗 Související endpointy
+
+- [Live Data](./live-data) - Rychlejší endpoint pro aktuální data
+- [Telemetrie](./telemetry) - Historie konkrétních hodnot
+- [Informace o zařízení](./devices) - Základní informace
+- [Node-level Monitoring](./node-level-monitoring) - Kompletní dokumentace pro práci s nody
