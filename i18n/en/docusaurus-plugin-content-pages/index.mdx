@@ -1,0 +1,131 @@
+---
+title: MyBox API Documentation
+description: Complete documentation for integration with MyBox Cloud API
+---
+
+import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import { Rocket, Clock } from 'lucide-react';
+import Link from '@docusaurus/Link';
+
+<div className="hero hero--primary" style={{padding: '4rem 0', textAlign: 'center'}}>
+  <div className="container">
+    <h1 className="hero__title" style={{color: 'white', textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'}}>
+      MyBox API Documentation
+    </h1>
+    <p className="hero__subtitle" style={{color: 'white', textShadow: '0 1px 3px rgba(0, 0, 0, 0.2)'}}>
+      Complete documentation for integration with MyBox Cloud API
+    </p>
+    <div style={{marginTop: '2rem'}}>
+      <Link
+        className="button button--secondary button--lg"
+        to="/en/docs/"
+        style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+        <Rocket size={20} /> Quick Start - 5min <Clock size={18} />
+      </Link>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section style={{padding: '4rem 0'}}>
+    <div className="container">
+      <h2 style={{textAlign: 'center', marginBottom: '3rem'}}>Why use MyBox API?</h2>
+      <div className="row">
+        <div className="col col--4">
+          <div style={{textAlign: 'center', marginBottom: '1rem', color: 'var(--ifm-color-primary)'}}>
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+          </div>
+          <div style={{textAlign: 'center', padding: '0 1rem'}}>
+            <h3>Real-time Monitoring</h3>
+            <p>Monitor charging status, energy consumption, and all important parameters in real-time through a simple API.</p>
+          </div>
+        </div>
+        <div className="col col--4">
+          <div style={{textAlign: 'center', marginBottom: '1rem', color: 'var(--ifm-color-primary)'}}>
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <div style={{textAlign: 'center', padding: '0 1rem'}}>
+            <h3>Easy Integration</h3>
+            <p>REST API with Basic Auth, JSON format, clear documentation and code examples in various languages.</p>
+          </div>
+        </div>
+        <div className="col col--4">
+          <div style={{textAlign: 'center', marginBottom: '1rem', color: 'var(--ifm-color-primary)'}}>
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/>
+              <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/>
+              <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/>
+            </svg>
+          </div>
+          <div style={{textAlign: 'center', padding: '0 1rem'}}>
+            <h3>Historical Data</h3>
+            <p>Access to charging history, telemetry, and complete reports for analysis and billing.</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="row" style={{marginTop: '4rem'}}>
+        <div className="col col--12" style={{textAlign: 'center'}}>
+          <h2 style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px'}}>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10"/>
+              <circle cx="12" cy="12" r="6"/>
+              <circle cx="12" cy="12" r="2"/>
+            </svg>
+            Get Started Now
+          </h2>
+          <p style={{fontSize: '1.2rem', marginBottom: '2rem'}}>
+            Everything you need to integrate MyBox into your applications
+          </p>
+        </div>
+      </div>
+
+      <div className="row" style={{marginTop: '2rem'}}>
+        <div className="col col--3">
+          <div className="card">
+            <div className="card__header">
+              <h3>1. Get Access</h3>
+            </div>
+            <div className="card__body">
+              <p>Generate API keys in MyBox Cloud</p>
+            </div>
+          </div>
+        </div>
+        <div className="col col--3">
+          <div className="card">
+            <div className="card__header">
+              <h3>2. Test the API</h3>
+            </div>
+            <div className="card__body">
+              <p>Use our API Explorer or Swagger UI</p>
+            </div>
+          </div>
+        </div>
+        <div className="col col--3">
+          <div className="card">
+            <div className="card__header">
+              <h3>3. Integrate</h3>
+            </div>
+            <div className="card__body">
+              <p>Use code examples in your language</p>
+            </div>
+          </div>
+        </div>
+        <div className="col col--3">
+          <div className="card">
+            <div className="card__header">
+              <h3>4. Monitor</h3>
+            </div>
+            <div className="card__body">
+              <p>Track real-time data from your stations</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

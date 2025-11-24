@@ -2,6 +2,47 @@
  * MyBox API Documentation - Custom Styles
  */
 
+/* Custom Fonts - Halis R */
+@font-face {
+  font-family: 'Halis R';
+  src: url('/fonts/HalisR-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Halis R';
+  src: url('/fonts/HalisR-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Halis R';
+  src: url('/fonts/HalisR-Bold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Halis R';
+  src: url('/fonts/HalisR-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Halis R';
+  src: url('/fonts/HalisR-Black.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* MyBox Brand Colors */
 :root {
   --mybox-green: #00A651;
@@ -21,7 +62,7 @@
   --ifm-color-primary-lightest: #60D690;
   
   /* Typography */
-  --ifm-font-family-base: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+  --ifm-font-family-base: 'Halis R', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
   --ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
   --ifm-code-font-size: 90%;
   --ifm-heading-font-weight: 600;
@@ -30,8 +71,8 @@
   --ifm-global-spacing: 1rem;
   --ifm-spacing-horizontal: 1.5rem;
   --ifm-navbar-height: 60px;
-  --ifm-container-width: 1280px;
-  --ifm-container-width-xl: 1280px;
+  --ifm-container-width: 1400px;
+  --ifm-container-width-xl: 1400px;
   
   /* Shadows */
   --ifm-global-shadow-lw: 0 1px 3px 0 rgb(0 0 0 / 0.1);
@@ -74,7 +115,7 @@
 }
 
 .navbar__inner {
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 1.5rem;
   width: 100%;
@@ -205,19 +246,63 @@ thead {
 }
 
 /* Sidebar */
+.menu {
+  padding: 1rem 1.5rem;
+}
+
 .menu__link {
   border-radius: 4px;
   transition: background-color 0.2s ease;
+  padding: 0.5rem 1rem;
+  position: relative;
+}
+
+/* Remove bullet points from top-level items */
+.menu__list > .menu__list-item > .menu__link::before {
+  display: none;
+}
+
+/* Green bullet points for sidebar sub-items only */
+.menu__list .menu__list .menu__link::before {
+  content: '';
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  background-color: var(--mybox-green);
+  border-radius: 50%;
+  opacity: 0.4;
+  transition: all 0.2s ease;
+}
+
+.menu__list .menu__list .menu__link:hover::before {
+  opacity: 0.7;
+  width: 5px;
+  height: 5px;
+}
+
+.menu__list .menu__list .menu__link--active::before {
+  opacity: 0.8;
+  width: 5px;
+  height: 5px;
+}
+
+/* Add padding to nested items */
+.menu__list .menu__list .menu__link {
+  padding-left: 2rem;
 }
 
 .theme-doc-main-container .container,
 .main-wrapper .container {
-  max-width: 1280px;
+  max-width: 1400px;
 }
 
 .menu__link--active {
   background-color: rgba(0, 166, 81, 0.1);
   color: var(--mybox-green);
+  font-weight: 500;
 }
 
 /* Search */
@@ -287,6 +372,11 @@ thead {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Spinning animation utility class */
+.spin {
+  animation: spin 1s linear infinite;
 }
 
 /* Mobile responsiveness */
@@ -372,4 +462,23 @@ thead {
 
 .pagination-nav__link:hover {
   border-color: var(--mybox-green);
+}
+
+/* Sidebar alignment - stick to main content container */
+@media (min-width: 997px) {
+  .theme-doc-sidebar-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 2rem;
+  }
+
+  .theme-doc-sidebar-container > div {
+    width: 300px; /* fixed sidebar width */
+  }
+
+  /* Main wrapper containing both sidebar and content */
+  .main-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
 }

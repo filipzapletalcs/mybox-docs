@@ -3,6 +3,7 @@ import { useColorMode } from '@docusaurus/theme-common';
 import CodeBlock from '@theme/CodeBlock';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import styles from './ApiExplorer.module.css';
+import { Lock, FileText, Upload, Play, Loader2, Code2, XCircle, Download, ClipboardList } from 'lucide-react';
 
 interface Parameter {
   name: string;
@@ -318,7 +319,9 @@ callAPI();`;
           {/* Authentication */}
           {requiresAuth && (
             <div className={styles.section}>
-              <h4>🔐 Autentizace</h4>
+              <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Lock size={20} color="var(--ifm-color-primary)" /> Autentizace
+              </h4>
               <div className={styles.authInputs}>
                 <input
                   type="text"
@@ -341,7 +344,9 @@ callAPI();`;
           {/* Parameters */}
           {parameters.length > 0 && (
             <div className={styles.section}>
-              <h4>📝 Parametry</h4>
+              <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <FileText size={20} color="var(--ifm-color-primary)" /> Parametry
+              </h4>
               {parameters.map(param => (
                 <div key={param.name} className={styles.parameter}>
                   <label>
@@ -395,7 +400,9 @@ callAPI();`;
           {/* Request Body */}
           {method !== 'GET' && (
             <div className={styles.section}>
-              <h4>📤 Request Body</h4>
+              <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Upload size={20} color="var(--ifm-color-primary)" /> Request Body
+              </h4>
               <textarea
                 value={requestBody}
                 onChange={(e) => setRequestBody(e.target.value)}
@@ -412,14 +419,25 @@ callAPI();`;
               onClick={executeRequest}
               disabled={loading}
               className={styles.executeButton}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
             >
-              {loading ? '⏳ Načítání...' : '▶️ Spustit Request'}
+              {loading ? (
+                <>
+                  <Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} /> Načítání...
+                </>
+              ) : (
+                <>
+                  <Play size={18} /> Spustit Request
+                </>
+              )}
             </button>
           </div>
 
           {/* Code Examples */}
           <div className={styles.section}>
-            <h4>💻 Příklady kódu</h4>
+            <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Code2 size={20} color="var(--ifm-color-primary)" /> Příklady kódu
+            </h4>
             <div className={styles.tabs}>
               <button
                 className={selectedLang === 'curl' ? styles.activeTab : styles.tab}
@@ -449,15 +467,18 @@ callAPI();`;
 
           {/* Error Display */}
           {error && (
-            <div className={styles.error}>
-              <strong>❌ Chyba:</strong> {error}
+            <div className={styles.error} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <XCircle size={20} color="#EF4444" />
+              <span><strong>Chyba:</strong> {error}</span>
             </div>
           )}
 
           {/* Response Display */}
           {response && (
             <div className={styles.section}>
-              <h4>📥 Odpověď</h4>
+              <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Download size={20} color="var(--ifm-color-primary)" /> Odpověď
+              </h4>
               <div className={response.status >= 200 && response.status < 300 ? styles.successStatus : styles.errorStatus}>
                 <strong>Status:</strong> {response.status} {response.statusText}
               </div>
@@ -470,7 +491,9 @@ callAPI();`;
           {/* Response Example */}
           {responseExample && !response && (
             <div className={styles.section}>
-              <h4>📋 Příklad odpovědi</h4>
+              <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <ClipboardList size={20} color="var(--ifm-color-primary)" /> Příklad odpovědi
+              </h4>
               <CodeBlock language="json">
                 {JSON.stringify(responseExample, null, 2)}
               </CodeBlock>

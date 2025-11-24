@@ -1,0 +1,238 @@
+---
+id: telemetry
+title: Telemetry
+sidebar_position: 4
+---
+
+import { TrendingUp, MapPin, BarChart3, Zap, Battery, Wifi, Package, Lightbulb, RotateCw, Link, AlertTriangle } from 'lucide-react';
+
+# Telemetry - Historical Data
+
+## Retrieve Historical Telemetry Data from Devices
+
+---
+
+## <MapPin size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Endpoints
+
+### Device Telemetry
+```
+GET /admin-panel/v1/external/history/telemetry/{deviceId}/{telemetryId}
+```
+
+### Telemetry for Specific Module (node)
+```
+GET /admin-panel/v1/external/history/telemetry/{deviceId}/{nodeId}/{telemetryId}
+```
+
+import ApiExplorer from '@site/src/components/ApiExplorer/ApiExplorer';
+
+<ApiExplorer
+  endpoint="/external/history/telemetry/{deviceId}/{telemetryId}"
+  method="GET"
+  title="Get Historical Telemetry Data"
+  description="Retrieve historical telemetry data from your device. Ideal for creating charts, analyses, and energy consumption reports."
+  requiresAuth={true}
+  defaultDeviceId={true}
+  parameters={[
+    {
+      name: "deviceId",
+      type: "path",
+      required: true,
+      description: "Unique device identifier (your device list will be loaded automatically)",
+      example: "qfeb-od13-ul2c-sgrl"
+    },
+    {
+      name: "telemetryId",
+      type: "path",
+      required: true,
+      description: "Telemetry ID (e.g., act-power for power, session-energy for consumption)",
+      example: "act-power",
+      enum: ["act-power", "voltage-l1", "voltage-l2", "voltage-l3", "current-l1", "current-l2", "current-l3", "session-energy", "session-time", "total-energy", "signal"]
+    },
+    {
+      name: "dateFrom",
+      type: "query",
+      required: false,
+      description: "Start date (format: YYYY-MM-DD HH:MM:SS)",
+      example: "2025-01-01 00:00:00"
+    },
+    {
+      name: "dateTo",
+      type: "query",
+      required: false,
+      description: "End date (format: YYYY-MM-DD HH:MM:SS)",
+      example: "2025-01-31 23:59:59"
+    },
+    {
+      name: "limit",
+      type: "query",
+      required: false,
+      description: "Maximum number of records (max 10000)",
+      example: "1000"
+    }
+  ]}
+  responseExample={{
+    "status": 1,
+    "data": [
+      {
+        "timestamp": "2025-01-15 14:30:00",
+        "value": 7280.5,
+        "unit": "W"
+      },
+      {
+        "timestamp": "2025-01-15 14:31:00",
+        "value": 7285.2,
+        "unit": "W"
+      },
+      {
+        "timestamp": "2025-01-15 14:32:00",
+        "value": 7290.8,
+        "unit": "W"
+      }
+    ]
+  }}
+/>
+
+---
+
+## <BarChart3 size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Available Telemetry Values
+
+### <Zap size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Electrical Values
+
+| Telemetry ID | Unit | Description | Module |
+|---------------|----------|-------|-------|
+| `act-power` | W | Current power | evse |
+| `voltage-l1` | V | Phase L1 voltage | evse |
+| `voltage-l2` | V | Phase L2 voltage | evse |
+| `voltage-l3` | V | Phase L3 voltage | evse |
+| `current-l1` | A | Phase L1 current | evse |
+| `current-l2` | A | Phase L2 current | evse |
+| `current-l3` | A | Phase L3 current | evse |
+
+### <Battery size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Charging Session
+
+| Telemetry ID | Unit | Description | Module |
+|---------------|----------|-------|-------|
+| `session-time` | s | Charging session duration | evse |
+| `session-energy` | kWh | Energy in current session | evse |
+| `total-energy` | kWh | Total delivered energy | evse |
+
+### <Wifi size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Network and Connectivity
+
+| Telemetry ID | Unit | Description | Module |
+|---------------|----------|-------|-------|
+| `signal` | % | WiFi signal strength | device |
+| `wifi-sta-rssi` | dBm | WiFi RSSI | wifi |
+
+---
+
+## <Package size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Response Structure
+
+```json
+{
+  "status": 1,
+  "data": [
+    {
+      "timestamp": "2024-01-15 14:30:00",
+      "value": 7280.5,
+      "unit": "W"
+    },
+    {
+      "timestamp": "2024-01-15 14:31:00",
+      "value": 7285.2,
+      "unit": "W"
+    }
+  ]
+}
+```
+
+---
+
+## <Lightbulb size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Practical Usage
+
+### Get Power History for Last 24 Hours
+
+```python
+import requests
+from datetime import datetime, timedelta
+
+# Time range
+date_to = datetime.now()
+date_from = date_to - timedelta(hours=24)
+
+# API call
+params = {
+    'dateFrom': date_from.strftime('%Y-%m-%d %H:%M:%S'),
+    'dateTo': date_to.strftime('%Y-%m-%d %H:%M:%S')
+}
+
+response = requests.get(
+    f"{BASE_URL}/external/history/telemetry/{device_id}/evse/act-power",
+    auth=HTTPBasicAuth(API_KEY, API_SECRET),
+    params=params
+)
+
+data = response.json()['data']
+```
+
+### Create Consumption Chart
+
+```javascript
+// Get data
+const telemetryData = await fetchTelemetryHistory(deviceId, 'session-energy');
+
+// Prepare for chart
+const chartData = telemetryData.map(point => ({
+  x: new Date(point.timestamp),
+  y: parseFloat(point.value)
+}));
+
+// Render using Chart.js
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    datasets: [{
+      label: 'Consumption (kWh)',
+      data: chartData
+    }]
+  }
+});
+```
+
+---
+
+## <RotateCw size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Data Aggregation
+
+For long time periods, the API automatically aggregates data:
+
+| Period | Data Interval |
+|--------|--------------|
+| < 1 day | Every minute |
+| 1-7 days | Every 5 minutes |
+| 7-30 days | Every 15 minutes |
+| > 30 days | Every hour |
+
+---
+
+## <AlertTriangle size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Limits and Restrictions
+
+- Maximum **10,000 records** per request
+- Data is retained for **90 days**
+- For older data, contact support
+
+---
+
+## <TrendingUp size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Recommended Use Cases
+
+1. **Consumption Monitoring** - Track daily/monthly consumption
+2. **Anomaly Detection** - Identify unusual values
+3. **Reports** - Generate summaries for billing
+4. **Optimization** - Analyze charging patterns
+
+---
+
+## <Link size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Related Endpoints
+
+- [Live Data](./live-data) - Current values
+- [Snapshot](./snapshot) - Complete state
+- [Charging Reports](./charging-reports) - Charging summaries

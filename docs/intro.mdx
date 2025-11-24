@@ -5,6 +5,8 @@ sidebar_position: 1
 slug: /
 ---
 
+import { Zap, Battery, BarChart3, Settings, Rocket, Activity, TrendingUp, BookOpen, Lightbulb } from 'lucide-react';
+
 # Vítejte v MyBox API
 
 Moderní RESTful API pro správu a monitoring vašich nabíjecích stanic MyBox. Jednoduché, rychlé a spolehlivé.
@@ -24,7 +26,7 @@ curl -X GET "https://cloud.mybox.pro/admin-panel/v1/external/live/device/{device
 ```
 
 :::tip Potřebujete API klíče?
-Přihlaste se do [MyBox Cloud](https://cloud.mybox.pro) nebo kontaktujte support@mybox.cz
+Přihlaste se do [MyBox Cloud](https://cloud.mybox.pro) nebo kontaktujte filip@mybox.eco
 :::
 
 ---
@@ -35,7 +37,9 @@ Přihlaste se do [MyBox Cloud](https://cloud.mybox.pro) nebo kontaktujte support
 
 <div style={{padding: '1.5rem', border: '1px solid var(--ifm-color-emphasis-300)', borderRadius: '8px'}}>
 
-### ⚡ Real-time monitoring
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <Zap size={24} color="var(--ifm-color-primary)" /> Real-time monitoring
+</h3>
 
 Sledujte aktuální stav nabíjení, spotřebu energie, teploty a diagnostiku v reálném čase.
 
@@ -43,7 +47,9 @@ Sledujte aktuální stav nabíjení, spotřebu energie, teploty a diagnostiku v 
 
 <div style={{padding: '1.5rem', border: '1px solid var(--ifm-color-emphasis-300)', borderRadius: '8px'}}>
 
-### 🔋 Řízení nabíjení
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <Battery size={24} color="var(--ifm-color-primary)" /> Řízení nabíjení
+</h3>
 
 Spouštějte, zastavujte a konfigurujte nabíjení. Nastavte maximální proud a implementujte load balancing.
 
@@ -51,7 +57,9 @@ Spouštějte, zastavujte a konfigurujte nabíjení. Nastavte maximální proud a
 
 <div style={{padding: '1.5rem', border: '1px solid var(--ifm-color-emphasis-300)', borderRadius: '8px'}}>
 
-### 📊 Reporty a analýzy
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <BarChart3 size={24} color="var(--ifm-color-primary)" /> Reporty a analýzy
+</h3>
 
 Získejte historii nabíjecích relací, spotřebu energie a exportujte data pro fakturaci.
 
@@ -59,7 +67,9 @@ Získejte historii nabíjecích relací, spotřebu energie a exportujte data pro
 
 <div style={{padding: '1.5rem', border: '1px solid var(--ifm-color-emphasis-300)', borderRadius: '8px'}}>
 
-### 🔧 Správa zařízení
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <Settings size={24} color="var(--ifm-color-primary)" /> Správa zařízení
+</h3>
 
 Vzdálená konfigurace, OTA aktualizace firmware a správa uživatelských přístupů.
 
@@ -71,28 +81,40 @@ Vzdálená konfigurace, OTA aktualizace firmware a správa uživatelských pří
 
 ## Hlavní API kategorie
 
-### 🚀 Základy
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <Rocket size={22} color="var(--ifm-color-primary)" /> Základy
+</h3>
+
 Začněte zde - seznamte se se základními endpointy pro práci se zařízeními a uživateli.
 
 - [**Zařízení**](./api/devices) - Seznam a informace o vašich stanicích
 - [**Uživatelé**](./api/users-management) - Správa uživatelských účtů
 - [**Společnosti**](./api/companies-management) - Správa organizací
 
-### ⚡ Live Data
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <Activity size={22} color="var(--ifm-color-primary)" /> Live Data
+</h3>
+
 Real-time data z vašich nabíjecích stanic.
 
 - [**Live Data**](./api/live-data) - Aktuální stav a telemetrie
 - [**Snapshot**](./api/snapshot) - Kompletní okamžitý stav
 - [**Telemetrie**](./api/telemetry) - Telemetrické hodnoty v čase
 
-### 📈 Historie a reporty
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <TrendingUp size={22} color="var(--ifm-color-primary)" /> Historie a reporty
+</h3>
+
 Historická data a nabíjecí reporty pro analýzu.
 
 - [**Charging Reports**](./api/charging-reports) - Historie nabíjecích relací
 - [**Historická data**](./api/historical-data) - Časové řady dat
 - [**Pokročilá historie**](./api/advanced-historical-data) - Detailní historické analýzy
 
-### 🔧 Konfigurace a řízení
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <Settings size={22} color="var(--ifm-color-primary)" /> Konfigurace a řízení
+</h3>
+
 Nastavení a ovládání vašich stanic.
 
 - [**Konfigurace zařízení**](./api/device-configuration) - Vzdálené nastavení
@@ -164,9 +186,12 @@ const getChargingStatus = async (deviceId) => {
   color: 'white',
   borderRadius: '6px',
   textDecoration: 'none',
-  fontWeight: 'bold'
+  fontWeight: 'bold',
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '0.5rem'
 }}>
-📖 Prozkoumat API Reference
+<BookOpen size={20} /> Prozkoumat API Reference
 </a>
 
 <a href="./examples/overview" style={{
@@ -175,9 +200,12 @@ const getChargingStatus = async (deviceId) => {
   color: 'var(--ifm-color-primary)',
   borderRadius: '6px',
   textDecoration: 'none',
-  fontWeight: 'bold'
+  fontWeight: 'bold',
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '0.5rem'
 }}>
-💡 Ukázkové projekty
+<Lightbulb size={20} /> Ukázkové projekty
 </a>
 
 </div>
@@ -186,8 +214,8 @@ const getChargingStatus = async (deviceId) => {
 
 ## Potřebujete pomoc?
 
-- **Email**: support@mybox.cz
-- **Web**: [www.mybox.cz](https://www.mybox.cz)
+- **Email**: filip@mybox.eco
+- **Web**: [www.mybox.eco](https://www.mybox.eco)
 - **Dokumentace**: Procházíte ji právě teď
 
 :::info Verze API

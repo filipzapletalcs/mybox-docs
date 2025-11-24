@@ -1,8 +1,10 @@
 ---
 id: charging-reports
-title: 🔋 Charging Reports
+title: Charging Reports
 sidebar_position: 6
 ---
+
+import { Rocket, Package, BarChart3 } from 'lucide-react';
 
 # 7. Charging Reports (Nabíjecí reporty)
 
@@ -20,7 +22,7 @@ Pro získání charging reportů použijte následující endpointy s vašimi AP
 GET /external/charging-reports/device/{deviceId}
 ```
 
-## 🚀 Interaktivní API Explorer
+## <Rocket size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Interaktivní API Explorer
 
 import ApiExplorer from '@site/src/components/ApiExplorer/ApiExplorer';
 
@@ -113,7 +115,7 @@ import ApiExplorer from '@site/src/components/ApiExplorer/ApiExplorer';
 - `limit` - Počet záznamů (default: 100)
 - `offset` - Posun pro stránkování (default: 0)
 
-## 📦 Struktura dat
+## <Package size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Struktura dat
 
 Každý charging report obsahuje tyto klíčové informace:
 
@@ -141,7 +143,7 @@ Každý charging report obsahuje tyto klíčové informace:
 
 ---
 
-## 📊 Popis polí
+## <BarChart3 size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Popis polí
 
 ### Základní informace
 

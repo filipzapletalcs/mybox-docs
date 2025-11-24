@@ -1,0 +1,345 @@
+---
+id: charging-reports
+title: Charging Reports
+sidebar_position: 6
+---
+
+import { Rocket, Package, BarChart3 } from 'lucide-react';
+
+# 7. Charging Reports
+
+## Overview
+
+The Charging Reports API allows you to get a complete overview of all charging sessions from your stations - both completed and ongoing. You'll get information about energy consumed, charging duration, and costs.
+
+## Basic Endpoints
+
+To get charging reports, use the following endpoints with your API keys:
+
+### 1. Reports for all your devices
+
+```http
+GET /external/charging-reports/device/{deviceId}
+```
+
+## <Rocket size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Interactive API Explorer
+
+import ApiExplorer from '@site/src/components/ApiExplorer/ApiExplorer';
+
+<ApiExplorer
+  endpoint="/external/charging-reports/device/{deviceId}"
+  method="GET"
+  title="Get Charging Reports from Device"
+  description="Get the history of all charging sessions from your station - both completed and ongoing. Includes information about energy consumed, charging duration, and costs."
+  requiresAuth={true}
+  defaultDeviceId={true}
+  parameters={[
+    {
+      name: "deviceId",
+      type: "path",
+      required: true,
+      description: "Your device ID (your device list will be automatically loaded)",
+      example: "abc1-def2-ghi3-jkl4"
+    },
+    {
+      name: "startDate",
+      type: "query",
+      required: false,
+      description: "Start date and time (ISO 8601 format)",
+      example: "2025-09-01T00:00:00Z"
+    },
+    {
+      name: "endDate",
+      type: "query",
+      required: false,
+      description: "End date and time (ISO 8601 format)",
+      example: "2025-09-30T23:59:59Z"
+    },
+    {
+      name: "order",
+      type: "query",
+      required: false,
+      description: "Sort order (ASC or DESC)",
+      example: "DESC"
+    },
+    {
+      name: "limit",
+      type: "query",
+      required: false,
+      description: "Number of records (default: 100)",
+      example: "100"
+    },
+    {
+      name: "offset",
+      type: "query",
+      required: false,
+      description: "Offset for pagination (default: 0)",
+      example: "0"
+    }
+  ]}
+  responseExample={{
+    "status": 1,
+    "data": [
+      {
+        "session_id": "077",
+        "device_id": "abc1-def2-ghi3-jkl4",
+        "device_title": "Charger 1",
+        "status": "Finished",
+        "energy_delivered": "67.59",
+        "duration": "12h 43m 8s",
+        "start_time": "2025-08-31T16:35:04.000Z",
+        "end_time": "2025-09-01T05:18:12.000Z",
+        "cost": "0.00",
+        "currency": "EUR",
+        "price": "0.00",
+        "user_id": "0A896C4E000000",
+        "owner": {
+          "email": "user@example.com"
+        },
+        "connector": 1,
+        "type": "personal"
+      }
+    ]
+  }}
+/>
+
+---
+
+**Parameters:**
+- `deviceId` - Your device ID (get it from `/external/device`)
+- `startDate` - Start date and time (format: ISO 8601, e.g., `2025-09-01T00:00:00Z`)
+  - Default: current time minus 1 week
+- `endDate` - End date and time (format: ISO 8601, e.g., `2025-09-30T23:59:59Z`)
+  - Default: current time
+- `order` - Sort order: `ASC` or `DESC` (default: `DESC`)
+- `limit` - Number of records (default: 100)
+- `offset` - Offset for pagination (default: 0)
+
+## <Package size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Data Structure
+
+Each charging report contains these key pieces of information:
+
+```json
+{
+  "session_id": "077",
+  "device_id": "abc1-def2-ghi3-jkl4",
+  "device_title": "Charger 1",
+  "status": "Finished",
+  "energy_delivered": "67.59",
+  "duration": "12h 43m 8s",
+  "start_time": "2025-08-31T16:35:04.000Z",
+  "end_time": "2025-09-01T05:18:12.000Z",
+  "cost": "0.00",
+  "currency": "EUR",
+  "price": "0.00",
+  "user_id": "0A896C4E000000",
+  "owner": {
+    "email": "user@example.com"
+  },
+  "connector": 1,
+  "type": "personal"
+}
+```
+
+---
+
+## <BarChart3 size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Field Descriptions
+
+### Basic Information
+
+| Field | Type | Description |
+|------|-----|-------|
+| `session_id` | string | Unique charging session ID |
+| `device_id` | string | Charging station ID |
+| `device_title` | string | Station name |
+| `status` | string | "Finished" or "In Progress" |
+
+### Time Data
+
+| Field | Type | Description |
+|------|-----|-------|
+| `start_time` | ISO 8601 | Charging start (UTC) |
+| `end_time` | ISO 8601 | Charging end (UTC, empty for "In Progress") |
+| `duration` | string | Charging duration (format: "12h 43m 8s") |
+
+### Energy Data
+
+| Field | Type | Description |
+|------|-----|-------|
+| `energy_delivered` | string | Delivered energy in kWh |
+
+### Financial Data
+
+| Field | Type | Description |
+|------|-----|-------|
+| `cost` | string | Total cost |
+| `currency` | string | Currency (EUR, CZK) |
+| `price` | string | Price per kWh |
+
+### User Data
+
+| Field | Type | Description |
+|------|-----|-------|
+| `user_id` | string | RFID card or user ID |
+| `owner.email` | string | Owner/user email |
+
+### Additional Information
+
+| Field | Type | Description |
+|------|-----|-------|
+| `connector` | number | Connector number (1 or 2) |
+| `type` | string | Charging type (e.g., "personal") |
+
+---
+
+## Practical Examples
+
+### 1. Get Reports for a Month (CURL)
+
+```bash
+# Get all charging sessions for September 2025
+curl -X GET "https://cloud.mybox.pro/admin-panel/v1/external/charging-reports/device/abc1-def2-ghi3-jkl4?startDate=2025-09-01T00:00:00Z&endDate=2025-09-30T23:59:59Z" \
+  -u "YOUR_API_KEY:YOUR_API_SECRET" \
+  -H "Accept: application/json"
+```
+
+### 2. Python - Monthly Consumption Overview
+
+```python
+import requests
+from datetime import datetime, timedelta, timezone
+
+# Your credentials
+API_KEY = "your_api_key"
+API_SECRET = "your_api_secret"
+DEVICE_ID = "your_device_id"
+BASE_URL = "https://cloud.mybox.pro/admin-panel/v1"
+
+# Get data for the last 30 days
+date_to = datetime.now(timezone.utc)
+date_from = date_to - timedelta(days=30)
+
+response = requests.get(
+    f"{BASE_URL}/external/charging-reports/device/{DEVICE_ID}",
+    auth=(API_KEY, API_SECRET),
+    params={
+        'startDate': date_from.isoformat(),  # ISO 8601 format
+        'endDate': date_to.isoformat()
+    }
+)
+
+if response.status_code == 200:
+    data = response.json()
+    reports = data['data']
+
+    # Calculate statistics
+    total_energy = sum(float(r['energy_delivered']) for r in reports)
+    total_sessions = len(reports)
+
+    print(f"Total charging sessions: {total_sessions}")
+    print(f"Total energy: {total_energy:.2f} kWh")
+    print(f"Average per session: {total_energy/total_sessions:.2f} kWh")
+```
+
+### 3. Export to CSV
+
+```python
+import csv
+import requests
+
+def export_charging_reports_to_csv(device_id, filename='charging.csv'):
+    """Exports charging reports to a CSV file"""
+
+    # Get data from API
+    response = requests.get(
+        f"https://cloud.mybox.pro/admin-panel/v1/external/charging-reports/device/{device_id}",
+        auth=(API_KEY, API_SECRET),
+        params={'limit': 500}
+    )
+
+    if response.status_code != 200:
+        print("Error fetching data")
+        return
+
+    reports = response.json()['data']
+
+    # Write to CSV
+    with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+        fieldnames = ['Date', 'Start Time', 'Duration', 'Energy (kWh)',
+                     'Cost', 'Currency', 'RFID/User']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+
+        for report in reports:
+            writer.writerow({
+                'Date': report['start_time'].split('T')[0],
+                'Start Time': report['start_time'].split('T')[1].replace('Z', ''),
+                'Duration': report['duration'],
+                'Energy (kWh)': report['energy_delivered'],
+                'Cost': report['cost'],
+                'Currency': report['currency'],
+                'RFID/User': report.get('user_id', '')
+            })
+
+    print(f"Export completed: {filename}")
+```
+
+## Pagination
+
+For large amounts of data (more than 100 records), use the `offset` parameter:
+
+```bash
+# First page (records 0-99)
+curl -X GET "...?limit=100&offset=0"
+
+# Second page (records 100-199)
+curl -X GET "...?limit=100&offset=100"
+```
+
+## Important Information
+
+- **Time Zones**: All times are in UTC (add +1 hour for winter time, +2 hours for summer time)
+- **Data Format**: Energy in kWh, costs in EUR or CZK
+- **Limits**: Maximum 1000 records per request
+- **Ongoing Charging**: Status = "In Progress", end_time is empty
+
+## Troubleshooting
+
+**Empty Response?**
+- Check device ID correctness
+- Verify that charging occurred during the specified period
+
+**Error 401 Unauthorized?**
+- Check API keys
+- Verify you're using the correct authentication format
+
+## Available Export Formats
+
+### For Customers with API Keys (External API)
+
+The External API returns data only in **JSON format**. To export to CSV or Excel, you must process the data locally (see examples above).
+
+### Note on Additional Formats
+
+Direct export to CSV/XLSX requires session authentication and is not available via Basic Auth. Endpoints like:
+- `/site/charging-session-reports/csv` - CSV export
+- `/site/charging-session-reports/xlsx` - Excel export
+- `/site/charging-session-reports/statistics/csv` - Statistics
+
+These features are only available through the MyBox Cloud web interface with login.
+
+## How to Get Started?
+
+1. **Get your device IDs:**
+   ```bash
+   curl -X GET "https://cloud.mybox.pro/admin-panel/v1/external/device" \
+     -u "YOUR_API_KEY:YOUR_API_SECRET"
+   ```
+
+2. **Download reports for your device:**
+   ```bash
+   curl -X GET "https://cloud.mybox.pro/admin-panel/v1/external/charging-reports/device/DEVICE_ID" \
+     -u "YOUR_API_KEY:YOUR_API_SECRET"
+   ```
+
+3. **Process JSON data** - use Python/JavaScript examples above for conversion to CSV/Excel

@@ -1,0 +1,90 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Základy": {
+    "message": "Základy",
+    "description": "The label for category Základy in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Real-time Data": {
+    "message": "Real-time Data",
+    "description": "The label for category Real-time Data in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Historická data": {
+    "message": "Historická data",
+    "description": "The label for category Historická data in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Konfigurace a události": {
+    "message": "Konfigurace a události",
+    "description": "The label for category Konfigurace a události in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Reporty a analýzy": {
+    "message": "Reporty a analýzy",
+    "description": "The label for category Reporty a analýzy in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Úvod": {
+    "message": "Úvod",
+    "description": "The label for the doc item Úvod in sidebar tutorialSidebar, linking to the doc intro"
+  },
+  "sidebar.tutorialSidebar.doc.API Reference": {
+    "message": "API Reference",
+    "description": "The label for the doc item API Reference in sidebar tutorialSidebar, linking to the doc api/api-overview"
+  },
+  "sidebar.tutorialSidebar.doc.Informace o zařízeních": {
+    "message": "Informace o zařízeních",
+    "description": "The label for the doc item Informace o zařízeních in sidebar tutorialSidebar, linking to the doc api/devices"
+  },
+  "sidebar.tutorialSidebar.doc.Správa uživatelů": {
+    "message": "Správa uživatelů",
+    "description": "The label for the doc item Správa uživatelů in sidebar tutorialSidebar, linking to the doc api/users-management"
+  },
+  "sidebar.tutorialSidebar.doc.Správa společností": {
+    "message": "Správa společností",
+    "description": "The label for the doc item Správa společností in sidebar tutorialSidebar, linking to the doc api/companies-management"
+  },
+  "sidebar.tutorialSidebar.doc.Správa účastníků": {
+    "message": "Správa účastníků",
+    "description": "The label for the doc item Správa účastníků in sidebar tutorialSidebar, linking to the doc api/participants"
+  },
+  "sidebar.tutorialSidebar.doc.Live Data": {
+    "message": "Live Data",
+    "description": "The label for the doc item Live Data in sidebar tutorialSidebar, linking to the doc api/live-data"
+  },
+  "sidebar.tutorialSidebar.doc.Telemetrie": {
+    "message": "Telemetrie",
+    "description": "The label for the doc item Telemetrie in sidebar tutorialSidebar, linking to the doc api/telemetry"
+  },
+  "sidebar.tutorialSidebar.doc.Snapshot": {
+    "message": "Snapshot",
+    "description": "The label for the doc item Snapshot in sidebar tutorialSidebar, linking to the doc api/snapshot"
+  },
+  "sidebar.tutorialSidebar.doc.Node-level Monitoring": {
+    "message": "Node-level Monitoring",
+    "description": "The label for the doc item Node-level Monitoring in sidebar tutorialSidebar, linking to the doc api/node-level-monitoring"
+  },
+  "sidebar.tutorialSidebar.doc.Základní historie": {
+    "message": "Základní historie",
+    "description": "The label for the doc item Základní historie in sidebar tutorialSidebar, linking to the doc api/historical-data"
+  },
+  "sidebar.tutorialSidebar.doc.Pokročilá historická data": {
+    "message": "Pokročilá historická data",
+    "description": "The label for the doc item Pokročilá historická data in sidebar tutorialSidebar, linking to the doc api/advanced-historical-data"
+  },
+  "sidebar.tutorialSidebar.doc.Historie konfigurací": {
+    "message": "Historie konfigurací",
+    "description": "The label for the doc item Historie konfigurací in sidebar tutorialSidebar, linking to the doc api/configuration-history"
+  },
+  "sidebar.tutorialSidebar.doc.Konfigurace zařízení": {
+    "message": "Konfigurace zařízení",
+    "description": "The label for the doc item Konfigurace zařízení in sidebar tutorialSidebar, linking to the doc api/device-configuration"
+  },
+  "sidebar.tutorialSidebar.doc.Události zařízení": {
+    "message": "Události zařízení",
+    "description": "The label for the doc item Události zařízení in sidebar tutorialSidebar, linking to the doc api/device-events"
+  },
+  "sidebar.tutorialSidebar.doc.Charging Reports": {
+    "message": "Charging Reports",
+    "description": "The label for the doc item Charging Reports in sidebar tutorialSidebar, linking to the doc api/charging-reports"
+  }
+}

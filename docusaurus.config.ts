@@ -74,36 +74,36 @@ const config: Config = {
     ],
     image: 'img/mybox-social-card.jpg',
     navbar: {
-      title: 'API',
+      title: '',
       logo: {
-        alt: 'MyBox',
-        src: 'img/logo-mybox.svg',
-        srcDark: 'img/logo-mybox--white.svg',
+        alt: 'MyBox API',
+        src: 'img/logo-mybox-api.svg',
+        srcDark: 'img/logo-mybox-api.svg',
       },
       items: [
         {
           to: '/docs/',
           position: 'left',
-          label: '🚀 Rychlý Start',
+          label: 'Rychlý Start',
         },
         {
-          to: '/docs/api/api-overview',
+          to: '/docs/api/overview',
           position: 'left',
-          label: '📚 API Reference',
+          label: 'API Reference',
         },
         {
           to: '/docs/guides/guides-overview',
           position: 'left',
-          label: '📖 Průvodci',
+          label: 'Průvodci',
         },
         {
           to: '/docs/examples/examples-overview',
           position: 'left',
-          label: '💻 Příklady',
+          label: 'Příklady',
         },
         {
           type: 'dropdown',
-          label: '🛠️ Nástroje',
+          label: 'Nástroje',
           position: 'left',
           items: [
             {
@@ -135,7 +135,7 @@ const config: Config = {
             },
             {
               label: 'API Reference',
-              to: '/docs/api/api-overview',
+              to: '/docs/api/overview',
             },
             {
               label: 'Průvodci',
@@ -178,7 +178,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} MyBox. Vytvořeno s ❤️ pomocí Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} MyBox.`,
     },
     prism: {
       theme: prismThemes.github,
@@ -256,12 +256,6 @@ const config: Config = {
     {
       src: 'https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js',
       async: true,
-    },
-  ],
-
-  stylesheets: [
-    {
-      href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
     },
   ],
 };

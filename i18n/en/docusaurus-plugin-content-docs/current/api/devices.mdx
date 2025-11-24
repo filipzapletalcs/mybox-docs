@@ -1,0 +1,328 @@
+---
+id: devices
+title: Device Information
+sidebar_position: 2
+---
+
+import { MapPin, Package, Search, BarChart3, Lightbulb, Link, HelpCircle, CheckCircle, XCircle } from 'lucide-react';
+
+# Device Information
+
+## Get basic information about your charging station
+
+---
+
+## <MapPin size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Endpoint
+
+```
+GET /admin-panel/v1/external/device/{deviceId}
+```
+
+### Parameters
+- **deviceId** (string, required) - Your device identifier
+
+import ApiExplorer from '@site/src/components/ApiExplorer';
+
+<ApiExplorer
+  endpoint="/external/device/{deviceId}"
+  method="GET"
+  description="Get detailed information about a specific device"
+  pathParams={[
+    {
+      name: "deviceId",
+      description: "Device ID (format: xxxx-xxxx-xxxx-xxxx)",
+      example: "abc1-def2-ghi3-jkl4"
+    }
+  ]}
+/>
+
+---
+
+## <Package size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Response Structure
+
+```json
+{
+  "status": 1,              // 1 = success, 0 = error
+  "data": {
+    // ... device data
+  }
+}
+```
+
+---
+
+## <Search size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Detailed Data Description
+
+### 1. Basic Identification
+
+```json
+{
+  "id": 1234567890123456,
+  "identifier": "abc1-def2-ghi3-jkl4",
+  "title": "Charger 1",
+  "machine_id": "MB2024001",
+  "serial_number": "MB-12345"
+}
+```
+
+| Field | Type | Description |
+|------|-----|-------|
+| `id` | number | Unique numeric ID in the system |
+| `identifier` | string | Text identifier (used in API) |
+| `title` | string | Your station name |
+| `machine_id` | string | Machine number |
+| `serial_number` | string | Serial number |
+
+---
+
+### 2. Device Status
+
+```json
+{
+  "status": "paired",
+  "state": "ready",
+  "firmware_status": "reflashed",
+  "pairing_mode": "wifi"
+}
+```
+
+#### What do individual states mean?
+
+**Status** - Pairing state:
+- `new` - New, unpaired device
+- `pairing` - Pairing in progress
+- `paired` - Successfully paired
+- `free` - Available for use
+
+**State** - Current state:
+- `not_connected` - Not connected to internet
+- `disconnected` - Disconnected (was previously online)
+- `ready` - Online and ready
+- `charging` - Currently charging a vehicle
+
+**Firmware Status**:
+- `new` - Default firmware
+- `flashed` - Firmware uploaded
+- `reflashed` - Firmware updated
+
+---
+
+### 3. Product Information
+
+```json
+{
+  "product": {
+    "id": 1682081987312165,
+    "title": "MyBox Home",
+    "version": "7.3",
+    "mcu": "ESP32",
+    "status": "production",
+    "abbreviation": "17",
+    "type": "R"
+  }
+}
+```
+
+| Field | Meaning |
+|------|---------|
+| `title` | Charger model (Home, Post, Profi...) |
+| `version` | Product version |
+| `mcu` | Processor type |
+| `status` | Production status |
+
+---
+
+### 4. Owner and Companies
+
+```json
+{
+  "owner": {
+    "id": 1234567890123,
+    "email": "john.doe@example.com",
+    "first_name": "John",
+    "last_name": "Doe"
+  },
+  "companies": [
+    {
+      "id": 1,
+      "title": "EnergyTech Ltd.",
+      "alias": "energytech",
+      "color": "#49CC56"
+    }
+  ]
+}
+```
+
+---
+
+### 5. Firmware and Versions
+
+```json
+{
+  "firmware_version": "7",
+  "firmware_name": "1.6.1-7"
+}
+```
+
+- **firmware_version** - Version number
+- **firmware_name** - Full firmware name
+
+---
+
+### 6. Location
+
+```json
+{
+  "location": "50.075538 14.437800"
+}
+```
+
+GPS coordinates in format: `"latitude longitude"`
+
+---
+
+### 7. Timestamps
+
+```json
+{
+  "created": "2023-05-18T07:29:10.000Z",
+  "updated": "2025-08-28T19:17:33.000Z"
+}
+```
+
+- **created** - When the device was added to the system
+- **updated** - Last update
+
+---
+
+## <BarChart3 size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Complete Response Example
+
+```json
+{
+  "data": {
+    "id": 1234567890123456,
+    "identifier": "abc1-def2-ghi3-jkl4",
+    "title": "Charger 1",
+    "system_title": "Charger 1",
+    "user_title": null,
+    "site": null,
+    "station_id": null,
+    "groups": [],
+    "companies": [
+      {
+        "id": 1,
+        "title": "EnergyTech Ltd.",
+        "alias": "energytech",
+        "color": "#49CC56"
+      },
+      {
+        "id": 1234567890,
+        "title": "SmartCharge Solutions",
+        "alias": "smartcharge",
+        "color": "#AF73FD"
+      }
+    ],
+    "owner": {
+      "id": 1234567890123,
+      "email": "john.doe@example.com",
+      "first_name": "John",
+      "last_name": "Doe",
+      "color": null
+    },
+    "product": {
+      "id": 1682081987312165,
+      "version": "7.3",
+      "title": "MyBox Home",
+      "mcu": "ESP32",
+      "status": "production",
+      "icon": "/object-storage/images/b2745661-bbab-403a-92c1-f4d5835130d3.svg",
+      "picture": "/object-storage/images/3bb64e41-e06a-4faa-8534-92f88fbe5c53.jpg",
+      "vendor_id": 1662021924396355,
+      "production_build": null,
+      "updated": "2025-06-18T07:05:08.000Z",
+      "created": "2025-06-18T07:05:08.000Z",
+      "is_approved": true,
+      "is_show_market": true,
+      "abbreviation": "17",
+      "type": "R"
+    },
+    "batch": {
+      "id": 1684394950737103,
+      "name": "Production_09",
+      "labels": [],
+      "created": "2023-05-18T07:29:10.000Z",
+      "updated": "2023-05-18T07:29:10.000Z",
+      "deleted": null
+    },
+    "connectors": null,
+    "tariffs": [],
+    "linked_devices": [],
+    "status": "paired",
+    "state": "ready",
+    "firmware_status": "reflashed",
+    "pairing_mode": "wifi",
+    "serial_number": "MB-12345",
+    "license": "0000000000",
+    "machine_id": "MB2024001",
+    "owner_id": 1234567890123,
+    "firmware_version": "7",
+    "firmware_name": "1.6.1-7",
+    "location": "50.075538 14.437800",
+    "color": "#989898",
+    "build_status": "ready",
+    "code_url": "https://cloud.mybox.pro/object-storage/qr-codes/abc1-def2-ghi3-jkl4.png",
+    "labels": [],
+    "additional": [],
+    "deleted": null,
+    "created": "2023-05-18T07:29:10.000Z",
+    "updated": "2025-08-28T19:17:33.000Z"
+  },
+  "status": 1
+}
+```
+
+---
+
+## <Lightbulb size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Practical Use of This Data
+
+### 1. Availability Check
+Check `state`:
+- `ready` = Device is online
+- `disconnected` = Device is offline
+
+### 2. Model Identification
+From `product.title` you can determine the charger type:
+- MyBox Home - home charger
+- MyBox Post - pedestal, 2 connectors
+- MyBox Profi - professional
+
+### 3. Firmware Currency
+Compare `firmware_name` with the latest version
+
+### 4. Localization
+GPS coordinates in `location` can be used for:
+- Display on map
+- Distance calculation
+- Navigation
+
+---
+
+## <Link size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Related Endpoints
+
+- [Live data](./live-data) - Current operational data
+- [Telemetry](./telemetry) - Detailed measurements
+- [Snapshot](./snapshot) - Complete state
+
+---
+
+## <HelpCircle size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Frequently Asked Questions
+
+**Q: Why is `user_title` null?**
+A: User hasn't set a custom name. The default `title` is used.
+
+**Q: What's the difference between `state: disconnected` vs `not_connected`?**
+A: `disconnected` = was online but lost connection
+`not_connected` = has never been online
+
+**Q: Can I change the device name?**
+A: Yes, but that requires a POST endpoint (not part of the basic API).

@@ -1,8 +1,10 @@
 ---
 id: live-data
-title: ⚡ Live Data
+title: Live Data
 sidebar_position: 3
 ---
+
+import { MapPin, Rocket, AlertTriangle, Package, Search, Thermometer, Monitor, Wifi, Zap, BarChart3, Battery, Lightbulb, RotateCw, Link } from 'lucide-react';
 
 # Live Data - Aktuální stav zařízení
 
@@ -10,7 +12,7 @@ sidebar_position: 3
 
 ---
 
-## 📍 Endpoint
+## <MapPin size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Endpoint
 
 ```
 GET /admin-panel/v1/external/live/device/{deviceId}
@@ -19,7 +21,7 @@ GET /admin-panel/v1/external/live/device/{deviceId}
 ### Parametry
 - **deviceId** (string, povinný) - Identifikátor vašeho zařízení
 
-## 🚀 Interaktivní API Explorer
+## <Rocket size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Interaktivní API Explorer
 
 import ApiExplorer from '@site/src/components/ApiExplorer/ApiExplorer';
 
@@ -97,14 +99,14 @@ import ApiExplorer from '@site/src/components/ApiExplorer/ApiExplorer';
 
 ---
 
-## ⚠️ Důležité upozornění
+## <AlertTriangle size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Důležité upozornění
 
 API vrací **pole objektů** - může obsahovat více záznamů pro různé vlastníky nebo stavy zařízení. 
 **Aktuální data jsou obvykle v posledním záznamu s nejkompletněji vyplněnými hodnotami.**
 
 ---
 
-## 📦 Struktura odpovědi
+## <Package size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Struktura odpovědi
 
 ```json
 {
@@ -126,9 +128,9 @@ API vrací **pole objektů** - může obsahovat více záznamů pro různé vlas
 
 ---
 
-## 🔍 Hlavní sekce dat
+## <Search size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Hlavní sekce dat
 
-### 1️⃣ **Základní informace o zařízení**
+### 1. Základní informace o zařízení
 
 ```json
 {
@@ -151,7 +153,7 @@ API vrací **pole objektů** - může obsahovat více záznamů pro různé vlas
 
 ---
 
-### 2️⃣ **Options - Možnosti ovládání**
+### 2. Options - Možnosti ovládání
 
 ```json
 "options": [
@@ -179,7 +181,7 @@ API vrací **pole objektů** - může obsahovat více záznamů pro různé vlas
 
 ---
 
-### 3️⃣ **Telemetry - Základní telemetrie**
+### 3. Telemetry - Základní telemetrie
 
 ```json
 "telemetry": [
@@ -213,11 +215,11 @@ API vrací **pole objektů** - může obsahovat více záznamů pro různé vlas
 
 ---
 
-### 4️⃣ **Nodes - Detailní data modulů**
+### 4. Nodes - Detailní data modulů
 
 Každé zařízení má několik modulů (nodes), které obsahují senzory:
 
-#### 🌡️ **Status-control node**
+#### <Thermometer size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Status-control node
 ```json
 {
   "id": "status-control",
@@ -248,7 +250,7 @@ Každé zařízení má několik modulů (nodes), které obsahují senzory:
 - `cloud-mqtt` - Připojení ke cloudu
 - `wifi-sta` - Stav WiFi připojení
 
-#### 💻 **System node**
+#### <Monitor size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> System node
 ```json
 {
   "id": "system",
@@ -265,7 +267,7 @@ Každé zařízení má několik modulů (nodes), které obsahují senzory:
 }
 ```
 
-#### 📶 **WiFi node**
+#### <Wifi size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> WiFi node
 ```json
 {
   "id": "wifi",
@@ -282,7 +284,7 @@ Každé zařízení má několik modulů (nodes), které obsahují senzory:
 }
 ```
 
-#### ⚡ **EVSE (nabíjecí modul)**
+#### <Zap size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> EVSE (nabíjecí modul)
 ```json
 {
   "id": "evse",
@@ -326,9 +328,9 @@ Každé zařízení má několik modulů (nodes), které obsahují senzory:
 
 ---
 
-## 📊 Klíčové hodnoty pro monitoring
+## <BarChart3 size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Klíčové hodnoty pro monitoring
 
-### 🔋 Stav nabíjení
+### <Battery size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Stav nabíjení
 
 | Senzor | Umístění | Hodnoty |
 |--------|----------|---------|
@@ -336,7 +338,7 @@ Každé zařízení má několik modulů (nodes), které obsahují senzory:
 | `pp-state` | evse node | Proximity pilot status |
 | `lock-state` | evse node | 0=odemčeno, 1=zamčeno |
 
-### ⚡ Elektrické hodnoty
+### <Zap size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Elektrické hodnoty
 
 | Telemetrie | Jednotka | Popis |
 |------------|----------|-------|
@@ -346,7 +348,7 @@ Každé zařízení má několik modulů (nodes), které obsahují senzory:
 | `session-time` | s | Čas nabíjecí relace |
 | `session-energy` | kWh | Nabito v aktuální relaci |
 
-### 🌡️ Teploty
+### <Thermometer size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Teploty
 
 | Senzor | Jednotka | Běžné hodnoty |
 |--------|----------|---------------|
@@ -356,7 +358,7 @@ Každé zařízení má několik modulů (nodes), které obsahují senzory:
 
 ---
 
-## 💡 Praktické využití
+## <Lightbulb size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Praktické využití
 
 ### Kontrola stavu nabíjení
 ```javascript
@@ -385,13 +387,13 @@ console.log(`Aktuální výkon: ${power.value} W`);
 const statusNode = data[0].device.nodes.find(n => n.id === 'status-control');
 const cloudMqtt = statusNode.sensors.find(s => s.id === 'cloud-mqtt');
 if (cloudMqtt.value === 'true') {
-  console.log('Připojeno ke cloudu ✅');
+  console.log('Připojeno ke cloudu');
 }
 ```
 
 ---
 
-## 🔄 Doporučené intervaly obnovování
+## <RotateCw size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Doporučené intervaly obnovování
 
 - **Při nabíjení:** každých 10-30 sekund
 - **V klidu:** každých 60-300 sekund
@@ -403,7 +405,7 @@ Pro snížení zátěže API používejte delší intervaly, když zařízení n
 
 ---
 
-## 🔗 Související endpointy
+## <Link size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Související endpointy
 
 - [Informace o zařízení](./devices) - Základní informace
 - [Telemetrie](./telemetry) - Historická telemetrická data

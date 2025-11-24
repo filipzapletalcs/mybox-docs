@@ -1,8 +1,10 @@
 ---
 id: devices
-title: 🔌 Informace o zařízení
+title: Informace o zařízení
 sidebar_position: 2
 ---
+
+import { MapPin, Package, Search, BarChart3, Lightbulb, Link, HelpCircle, CheckCircle, XCircle } from 'lucide-react';
 
 # Informace o zařízení
 
@@ -10,7 +12,7 @@ sidebar_position: 2
 
 ---
 
-## 📍 Endpoint
+## <MapPin size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Endpoint
 
 ```
 GET /admin-panel/v1/external/device/{deviceId}
@@ -36,7 +38,7 @@ import ApiExplorer from '@site/src/components/ApiExplorer';
 
 ---
 
-## 📦 Struktura odpovědi
+## <Package size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Struktura odpovědi
 
 ```json
 {
@@ -49,9 +51,9 @@ import ApiExplorer from '@site/src/components/ApiExplorer';
 
 ---
 
-## 🔍 Detailní popis dat
+## <Search size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Detailní popis dat
 
-### 1️⃣ **Základní identifikace**
+### 1. Základní identifikace
 
 ```json
 {
@@ -73,7 +75,7 @@ import ApiExplorer from '@site/src/components/ApiExplorer';
 
 ---
 
-### 2️⃣ **Stav zařízení**
+### 2. Stav zařízení
 
 ```json
 {
@@ -89,13 +91,13 @@ import ApiExplorer from '@site/src/components/ApiExplorer';
 **Status** - Stav párování:
 - `new` - Nové, nespárované zařízení
 - `pairing` - Probíhá párování
-- `paired` ✅ - Úspěšně spárováno
+- `paired` - Úspěšně spárováno
 - `free` - Volné k použití
 
 **State** - Aktuální stav:
 - `not_connected` - Nepřipojeno k internetu
 - `disconnected` - Odpojeno (bylo dříve online)
-- `ready` ✅ - Online a připraveno
+- `ready` - Online a připraveno
 - `charging` - Právě nabíjí vozidlo
 
 **Firmware Status**:
@@ -105,7 +107,7 @@ import ApiExplorer from '@site/src/components/ApiExplorer';
 
 ---
 
-### 3️⃣ **Informace o produktu**
+### 3. Informace o produktu
 
 ```json
 {
@@ -130,7 +132,7 @@ import ApiExplorer from '@site/src/components/ApiExplorer';
 
 ---
 
-### 4️⃣ **Vlastník a společnosti**
+### 4. Vlastník a společnosti
 
 ```json
 {
@@ -153,7 +155,7 @@ import ApiExplorer from '@site/src/components/ApiExplorer';
 
 ---
 
-### 5️⃣ **Firmware a verze**
+### 5. Firmware a verze
 
 ```json
 {
@@ -167,7 +169,7 @@ import ApiExplorer from '@site/src/components/ApiExplorer';
 
 ---
 
-### 6️⃣ **Umístění**
+### 6. Umístění
 
 ```json
 {
@@ -179,7 +181,7 @@ GPS souřadnice ve formátu: `"latitude longitude"`
 
 ---
 
-### 7️⃣ **Časová razítka**
+### 7. Časová razítka
 
 ```json
 {
@@ -193,7 +195,7 @@ GPS souřadnice ve formátu: `"latitude longitude"`
 
 ---
 
-## 📊 Kompletní příklad odpovědi
+## <BarChart3 size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Kompletní příklad odpovědi
 
 ```json
 {
@@ -281,23 +283,23 @@ GPS souřadnice ve formátu: `"latitude longitude"`
 
 ---
 
-## 💡 Praktické využití těchto dat
+## <Lightbulb size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Praktické využití těchto dat
 
-### 1. **Kontrola dostupnosti**
+### 1. Kontrola dostupnosti
 Zkontrolujte `state`:
-- `ready` = Zařízení je online ✅
-- `disconnected` = Zařízení je offline ❌
+- `ready` = Zařízení je online
+- `disconnected` = Zařízení je offline
 
-### 2. **Identifikace modelu**
+### 2. Identifikace modelu
 Z `product.title` zjistíte typ nabíječky:
 - MyBox Home - domácí nabíječka
 - MyBox Post - stojanová, 2 konektory
 - MyBox Profi - profesionální
 
-### 3. **Aktuálnost firmware**
+### 3. Aktuálnost firmware
 Porovnejte `firmware_name` s nejnovější verzí
 
-### 4. **Lokalizace**
+### 4. Lokalizace
 GPS souřadnice v `location` můžete použít pro:
 - Zobrazení na mapě
 - Výpočet vzdálenosti
@@ -305,7 +307,7 @@ GPS souřadnice v `location` můžete použít pro:
 
 ---
 
-## 🔗 Související endpointy
+## <Link size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Související endpointy
 
 - [Live data](./live-data) - Aktuální provozní data
 - [Telemetrie](./telemetry) - Detailní měření
@@ -313,7 +315,7 @@ GPS souřadnice v `location` můžete použít pro:
 
 ---
 
-## ❓ Časté dotazy
+## <HelpCircle size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Časté dotazy
 
 **Q: Proč je `user_title` null?**  
 A: Uživatel si nenastavil vlastní název. Používá se defaultní `title`.

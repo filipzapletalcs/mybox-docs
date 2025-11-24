@@ -1,0 +1,34 @@
+{
+  "logo.alt": {
+    "message": "MyBox API",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Rychlý Start": {
+    "message": "Rychlý Start",
+    "description": "Navbar item with label Rychlý Start"
+  },
+  "item.label.API Reference": {
+    "message": "API Reference",
+    "description": "Navbar item with label API Reference"
+  },
+  "item.label.Průvodci": {
+    "message": "Průvodci",
+    "description": "Navbar item with label Průvodci"
+  },
+  "item.label.Příklady": {
+    "message": "Příklady",
+    "description": "Navbar item with label Příklady"
+  },
+  "item.label.Nástroje": {
+    "message": "Nástroje",
+    "description": "Navbar item with label Nástroje"
+  },
+  "item.label.MyBox Cloud": {
+    "message": "MyBox Cloud",
+    "description": "Navbar item with label MyBox Cloud"
+  },
+  "item.label.Swagger UI": {
+    "message": "Swagger UI",
+    "description": "Navbar item with label Swagger UI"
+  }
+}

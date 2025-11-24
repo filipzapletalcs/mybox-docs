@@ -1,0 +1,223 @@
+---
+id: intro
+title: MyBox API Documentation
+sidebar_position: 1
+slug: /
+---
+
+import { Zap, Battery, BarChart3, Settings, Rocket, Activity, TrendingUp, BookOpen, Lightbulb } from 'lucide-react';
+
+# Welcome to MyBox API
+
+Modern RESTful API for managing and monitoring your MyBox charging stations. Simple, fast, and reliable.
+
+---
+
+## Get Started in 5 Minutes
+
+```bash
+# 1. Get your devices list
+curl -X GET "https://cloud.mybox.pro/admin-panel/v1/external/device" \
+  -u "YOUR_API_KEY:YOUR_API_SECRET"
+
+# 2. Fetch current device data
+curl -X GET "https://cloud.mybox.pro/admin-panel/v1/external/live/device/{deviceId}" \
+  -u "YOUR_API_KEY:YOUR_API_SECRET"
+```
+
+:::tip Need API Keys?
+Log in to [MyBox Cloud](https://cloud.mybox.pro) or contact filip@mybox.eco
+:::
+
+---
+
+## What You Can Do with the API
+
+<div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginTop: '2rem', marginBottom: '2rem'}}>
+
+<div style={{padding: '1.5rem', border: '1px solid var(--ifm-color-emphasis-300)', borderRadius: '8px'}}>
+
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <Zap size={24} color="var(--ifm-color-primary)" /> Real-time Monitoring
+</h3>
+
+Monitor current charging status, energy consumption, temperatures, and diagnostics in real-time.
+
+</div>
+
+<div style={{padding: '1.5rem', border: '1px solid var(--ifm-color-emphasis-300)', borderRadius: '8px'}}>
+
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <Battery size={24} color="var(--ifm-color-primary)" /> Charge Control
+</h3>
+
+Start, stop, and configure charging sessions. Set maximum current and implement load balancing.
+
+</div>
+
+<div style={{padding: '1.5rem', border: '1px solid var(--ifm-color-emphasis-300)', borderRadius: '8px'}}>
+
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <BarChart3 size={24} color="var(--ifm-color-primary)" /> Reports & Analytics
+</h3>
+
+Access charging session history, energy consumption, and export data for billing.
+
+</div>
+
+<div style={{padding: '1.5rem', border: '1px solid var(--ifm-color-emphasis-300)', borderRadius: '8px'}}>
+
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <Settings size={24} color="var(--ifm-color-primary)" /> Device Management
+</h3>
+
+Remote configuration, OTA firmware updates, and user access management.
+
+</div>
+
+</div>
+
+---
+
+## Main API Categories
+
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <Rocket size={22} color="var(--ifm-color-primary)" /> Basics
+</h3>
+
+Start here - learn the fundamental endpoints for working with devices and users.
+
+- [**Devices**](./api/devices) - List and information about your stations
+- [**Users**](./api/users-management) - User account management
+- [**Companies**](./api/companies-management) - Organization management
+
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <Activity size={22} color="var(--ifm-color-primary)" /> Live Data
+</h3>
+
+Real-time data from your charging stations.
+
+- [**Live Data**](./api/live-data) - Current status and telemetry
+- [**Snapshot**](./api/snapshot) - Complete instantaneous state
+- [**Telemetry**](./api/telemetry) - Telemetric values over time
+
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <TrendingUp size={22} color="var(--ifm-color-primary)" /> History & Reports
+</h3>
+
+Historical data and charging reports for analysis.
+
+- [**Charging Reports**](./api/charging-reports) - Charging session history
+- [**Historical Data**](./api/historical-data) - Time series data
+- [**Advanced History**](./api/advanced-historical-data) - Detailed historical analysis
+
+<h3 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+  <Settings size={22} color="var(--ifm-color-primary)" /> Configuration & Control
+</h3>
+
+Settings and operation of your stations.
+
+- [**Device Configuration**](./api/device-configuration) - Remote settings
+- [**Events**](./api/device-events) - Event and state logs
+- [**DLM**](./api/dlm-dynamic-load-management) - Dynamic Load Management
+
+---
+
+## Usage Examples
+
+### Python - Consumption Monitoring
+
+```python
+import requests
+from datetime import datetime, timedelta, timezone
+
+API_KEY = "your_api_key"
+API_SECRET = "your_api_secret"
+DEVICE_ID = "your_device_id"
+
+# Get data for last 30 days
+date_to = datetime.now(timezone.utc)
+date_from = date_to - timedelta(days=30)
+
+response = requests.get(
+    f"https://cloud.mybox.pro/admin-panel/v1/external/charging-reports/device/{DEVICE_ID}",
+    auth=(API_KEY, API_SECRET),
+    params={
+        'startDate': date_from.isoformat(),
+        'endDate': date_to.isoformat()
+    }
+)
+
+data = response.json()
+total_energy = sum(float(r['energy_delivered']) for r in data['data'])
+print(f"Total consumption: {total_energy:.2f} kWh")
+```
+
+### JavaScript - Real-time Status
+
+```javascript
+const getChargingStatus = async (deviceId) => {
+  const response = await fetch(
+    `https://cloud.mybox.pro/admin-panel/v1/external/live/device/${deviceId}`,
+    {
+      headers: {
+        'Authorization': 'Basic ' + btoa(`${API_KEY}:${API_SECRET}`)
+      }
+    }
+  );
+
+  const data = await response.json();
+  const device = data.data[0].device;
+
+  console.log(`Status: ${device.state}`);
+  console.log(`Power: ${device.nodes[0].telemetry.find(t => t.id === 'act-power').value} W`);
+};
+```
+
+---
+
+## Next Steps
+
+<div style={{display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '2rem'}}>
+
+<a href="./api/overview" style={{
+  padding: '1rem 2rem',
+  background: 'var(--ifm-color-primary)',
+  color: 'white',
+  borderRadius: '6px',
+  textDecoration: 'none',
+  fontWeight: 'bold',
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '0.5rem'
+}}>
+<BookOpen size={20} /> Explore API Reference
+</a>
+
+<a href="./examples/overview" style={{
+  padding: '1rem 2rem',
+  border: '2px solid var(--ifm-color-primary)',
+  color: 'var(--ifm-color-primary)',
+  borderRadius: '6px',
+  textDecoration: 'none',
+  fontWeight: 'bold',
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '0.5rem'
+}}>
+<Lightbulb size={20} /> Example Projects
+</a>
+
+</div>
+
+---
+
+## Need Help?
+
+- **Email**: filip@mybox.eco
+- **Website**: [www.mybox.eco](https://www.mybox.eco)
+- **Documentation**: You're viewing it right now
+
+:::info API Version
+This documentation covers MyBox API v1 with continuous updates.
+:::

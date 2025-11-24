@@ -1,0 +1,54 @@
+{
+  "link.title.Dokumentace": {
+    "message": "Documentation",
+    "description": "The title of the footer links column with title=Documentation in the footer"
+  },
+  "link.title.Nástroje": {
+    "message": "Tools",
+    "description": "The title of the footer links column with title=Tools in the footer"
+  },
+  "link.title.MyBox": {
+    "message": "MyBox",
+    "description": "The title of the footer links column with title=MyBox in the footer"
+  },
+  "link.item.label.Rychlý Start": {
+    "message": "Quick Start",
+    "description": "The label of footer link with label=Quick Start linking to /docs/"
+  },
+  "link.item.label.API Reference": {
+    "message": "API Reference",
+    "description": "The label of footer link with label=API Reference linking to /docs/api/api-overview"
+  },
+  "link.item.label.Průvodci": {
+    "message": "Guides",
+    "description": "The label of footer link with label=Guides linking to /docs/guides/guides-overview"
+  },
+  "link.item.label.FAQ": {
+    "message": "FAQ",
+    "description": "The label of footer link with label=FAQ linking to /docs/faq"
+  },
+  "link.item.label.Swagger UI": {
+    "message": "Swagger UI",
+    "description": "The label of footer link with label=Swagger UI linking to https://mybox.too-smart-tech.com/admin-panel/swagger/"
+  },
+  "link.item.label.Hlavní web": {
+    "message": "Main Website",
+    "description": "The label of footer link with label=Main Website linking to https://mybox.eco"
+  },
+  "link.item.label.MyBox Cloud": {
+    "message": "MyBox Cloud",
+    "description": "The label of footer link with label=MyBox Cloud linking to https://cloud.mybox.pro"
+  },
+  "link.item.label.Podpora": {
+    "message": "Support",
+    "description": "The label of footer link with label=Support linking to https://mybox.eco/kontakty/"
+  },
+  "link.item.label.Obchodní podmínky": {
+    "message": "Terms of Service",
+    "description": "The label of footer link with label=Terms of Service linking to https://mybox.eco/wp-content/uploads/filr/3145/MyBox_VOP_2024_CZ-2.pdf"
+  },
+  "copyright": {
+    "message": "Copyright © 2025 MyBox.",
+    "description": "The footer copyright"
+  }
+}

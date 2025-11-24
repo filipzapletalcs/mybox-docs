@@ -1,4 +1,6 @@
-# 👥 Správa uživatelů
+import { Users, ClipboardList, User, Key, AlertTriangle, Lightbulb, BookOpen, CheckCircle } from 'lucide-react';
+
+# Správa uživatelů
 
 ## Přehled
 
@@ -18,7 +20,7 @@ API pro správu uživatelů umožňuje získávat informace o uživatelích v sy
 
 ---
 
-## 📋 Seznam uživatelů
+## <ClipboardList size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Seznam uživatelů
 
 ### Endpoint
 ```
@@ -166,7 +168,7 @@ getUsers();
 
 ---
 
-## 👤 Detail uživatele
+## <User size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Detail uživatele
 
 ### Endpoint
 ```
@@ -178,7 +180,7 @@ GET /admin-panel/v1/external/user/{id}
 #### Path parametry
 | Parametr | Typ | Povinný | Popis |
 |----------|-----|---------|-------|
-| `id` | number | ✅ | ID uživatele |
+| `id` | number | <CheckCircle size={16} style={{display: 'inline', verticalAlign: 'middle'}} color="var(--ifm-color-success)" /> | ID uživatele |
 
 ### Response
 ```json
@@ -335,7 +337,7 @@ getUserDetail(1234567890123456);
 
 ---
 
-## 🔑 Oprávnění (Permissions)
+## <Key size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Oprávnění (Permissions)
 
 Systém MyBox používá následující oprávnění pro řízení přístupu:
 
@@ -356,7 +358,7 @@ Systém MyBox používá následující oprávnění pro řízení přístupu:
 
 ---
 
-## ⚠️ Chybové stavy
+## <AlertTriangle size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Chybové stavy
 
 ### Možné chybové odpovědi
 
@@ -402,7 +404,7 @@ Systém MyBox používá následující oprávnění pro řízení přístupu:
 
 ---
 
-## 💡 Best Practices
+## <Lightbulb size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Best Practices
 
 ### 1. Cachování dat
 ```python
@@ -511,7 +513,7 @@ def audit_user_access(user_id, action):
 
 ---
 
-## 📚 Další zdroje
+## <BookOpen size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Další zdroje
 
 - [Správa společností](/api/companies-management) - API pro práci se společnostmi
 - [Účastníci](/api/participants) - Detailní informace o účastnících

@@ -1,14 +1,16 @@
 ---
 id: overview
-title: 📚 API Reference
+title: API Reference
 sidebar_position: 1
 ---
+
+import { BookOpen, Globe, ClipboardList, Plug, Zap, BarChart3, Battery, Users, Lock, FileText, AlertTriangle, Rocket } from 'lucide-react';
 
 # API Reference
 
 Kompletní přehled všech dostupných endpointů MyBox API.
 
-## 🌐 Základní informace
+## <Globe size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Základní informace
 
 - **Base URL:** `https://cloud.mybox.pro/admin-panel/v1`
 - **Protokol:** HTTPS (povinné)
@@ -16,42 +18,42 @@ Kompletní přehled všech dostupných endpointů MyBox API.
 - **Formát:** JSON
 - **Rate Limit:** 100 požadavků/minuta
 
-## 📋 Kategorie endpointů
+## <ClipboardList size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Kategorie endpointů
 
-### 🔌 Zařízení (Devices)
+### <Plug size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Zařízení (Devices)
 Správa a monitoring nabíjecích stanic.
 
 - [GET /external/device](./devices/list) - Seznam všech zařízení
 - [GET /external/device/\{id\}](./devices/detail) - Detail zařízení
 - [GET /external/device/\{id\}/events](./devices/events) - Historie událostí
 
-### ⚡ Live Data
+### <Zap size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Live Data
 Aktuální data z nabíjecích stanic v reálném čase.
 
 - [GET /external/live/device/\{deviceId\}](./live/device) - Live data zařízení
 - [GET /external/live/device/\{deviceId\}/telemetry](./live/telemetry) - Telemetrická data
 - [GET /external/live/device/\{deviceId\}/option](./live/options) - Konfigurace zařízení
 
-### 📊 Historie
+### <BarChart3 size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Historie
 Historická data a statistiky.
 
 - [GET /external/history/snapshot/\{deviceId\}](./history/snapshot) - Snapshot stavu
 - [GET /external/history/telemetry/\{deviceId\}/\{telemetryId\}](./history/telemetry) - Historie telemetrie
 - [GET /external/history/sensor/\{deviceId\}/\{nodeId\}/\{sensorId\}](./history/sensor) - Historie senzorů
 
-### 🔋 Nabíjecí relace
+### <Battery size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Nabíjecí relace
 Správa a reporting nabíjecích relací.
 
 - [GET /external/charging-reports/device/\{id\}](./charging/reports) - Reporty nabíjení
 - [GET /external/charging-reports/owner/\{email\}](./charging/by-owner) - Relace dle vlastníka
 
-### 👥 Uživatelé a společnosti
+### <Users size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Uživatelé a společnosti
 Správa uživatelů a organizací.
 
 - [GET /external/user](./users/list) - Seznam uživatelů
 - [GET /external/company](./companies/list) - Seznam společností
 
-## 🔐 Autentizace
+## <Lock size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Autentizace
 
 Všechny požadavky vyžadují Basic Authentication:
 
@@ -61,7 +63,7 @@ curl -X GET "https://cloud.mybox.pro/admin-panel/v1/external/device" \
   -H "Accept: application/json"
 ```
 
-## 📝 Formát odpovědi
+## <FileText size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Formát odpovědi
 
 Všechny odpovědi mají jednotný formát:
 
@@ -75,7 +77,7 @@ Všechny odpovědi mají jednotný formát:
 }
 ```
 
-## ⚠️ Chybové kódy
+## <AlertTriangle size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Chybové kódy
 
 | Kód | Význam | Řešení |
 |-----|--------|--------|
@@ -86,7 +88,7 @@ Všechny odpovědi mají jednotný formát:
 | 429 | Too Many Requests | Překročen rate limit |
 | 500 | Internal Server Error | Chyba serveru, zkuste později |
 
-## 🚀 Rychlý start s API Explorerem
+## <Rocket size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Rychlý start s API Explorerem
 
 import ApiExplorer from '@site/src/components/ApiExplorer';
 

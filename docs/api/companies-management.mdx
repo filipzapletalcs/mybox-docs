@@ -1,4 +1,6 @@
-# 🏢 Správa společností
+import { Building2, ClipboardList, BarChart3, Lightbulb, ShieldCheck, BookOpen } from 'lucide-react';
+
+# Správa společností
 
 ## Přehled
 
@@ -20,7 +22,7 @@ API pro správu společností umožňuje získávat informace o společnostech r
 
 ---
 
-## 📋 Seznam společností
+## <ClipboardList size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Seznam společností
 
 ### Endpoint
 ```
@@ -175,7 +177,7 @@ getCompanies();
 
 ---
 
-## 🏢 Detail společnosti
+## <Building2 size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Detail společnosti
 
 ### Endpoint
 ```
@@ -393,7 +395,7 @@ getCompanyDetail(5555555555555555);
 
 ---
 
-## 📊 Pokročilé použití
+## <BarChart3 size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Pokročilé použití
 
 ### Filtrování společností podle statistik
 ```python
@@ -529,7 +531,7 @@ def generate_monthly_report(company_id):
 
 ---
 
-## 💡 Best Practices
+## <Lightbulb size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Best Practices
 
 ### 1. Cachování dat společností
 ```python
@@ -608,7 +610,7 @@ def detect_company_changes(company_id, interval=60):
 
 ---
 
-## 🔐 Bezpečnostní doporučení
+## <ShieldCheck size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Bezpečnostní doporučení
 
 1. **API Token Management**
    - Používejte samostatné tokeny pro různé aplikace
@@ -632,7 +634,7 @@ def detect_company_changes(company_id, interval=60):
 
 ---
 
-## 📚 Další zdroje
+## <BookOpen size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Další zdroje
 
 - [Správa uživatelů](/api/users-management) - API pro práci s uživateli
 - [Správa zařízení](/api/devices) - Detailní informace o zařízeních

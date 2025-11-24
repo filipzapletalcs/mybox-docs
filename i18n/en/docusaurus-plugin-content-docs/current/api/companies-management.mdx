@@ -1,0 +1,642 @@
+import { Building2, ClipboardList, BarChart3, Lightbulb, ShieldCheck, BookOpen } from 'lucide-react';
+
+# Company Management
+
+## Overview
+
+The Company Management API allows you to retrieve information about companies registered in the MyBox system. Each company can have assigned users, devices, and specific settings. This functionality is key for organizing and managing corporate customers.
+
+### Main Features
+- Get a list of all companies
+- View detailed information about a specific company
+- Overview of assigned users and their roles
+- List of devices belonging to the company
+- Information about billing details
+
+### Use Cases
+- **Customer Management** - organization of B2B customers and their devices
+- **Billing** - obtaining billing data for invoicing
+- **Asset Management** - device overview by companies
+- **Multi-tenant Solutions** - separation of data for different customers
+- **Reporting** - generating overviews by companies
+
+---
+
+## <ClipboardList size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Company List
+
+### Endpoint
+```
+GET /admin-panel/v1/external/company
+```
+
+### Parameters
+This endpoint accepts no parameters.
+
+### Response
+```json
+{
+  "status": 1,
+  "data": [
+    {
+      "id": 5555555555555555,
+      "name": "Example Company Ltd.",
+      "ico": "12345678",
+      "dic": "CZ12345678",
+      "address": {
+        "street": "Main Street 123",
+        "city": "Prague",
+        "postal_code": "11000",
+        "country": "CZ"
+      },
+      "contact": {
+        "email": "info@example.com",
+        "phone": "+420123456789",
+        "website": "https://example.com"
+      },
+      "billing": {
+        "invoice_email": "billing@example.com",
+        "payment_method": "bank_transfer",
+        "billing_period": "monthly"
+      },
+      "settings": {
+        "default_tariff": "STANDARD",
+        "auto_start_enabled": true,
+        "max_charging_power": 22000,
+        "notifications_enabled": true
+      },
+      "statistics": {
+        "total_devices": 5,
+        "active_devices": 4,
+        "total_users": 12,
+        "total_consumption_kwh": 15234.56
+      },
+      "created_at": "2023-06-15T10:30:00",
+      "updated_at": "2024-03-20T14:25:00",
+      "status": "active"
+    }
+  ]
+}
+```
+
+### Data Structure
+
+#### Company Object
+| Field | Type | Description |
+|------|-----|-------|
+| `id` | number | Unique company identifier |
+| `name` | string | Company name |
+| `ico` | string | Company registration number |
+| `dic` | string | VAT identification number |
+| `address` | object | Company headquarters address |
+| `contact` | object | Contact information |
+| `billing` | object | Billing settings |
+| `settings` | object | Company-specific settings |
+| `statistics` | object | Statistical data |
+| `created_at` | string | Creation date |
+| `updated_at` | string | Last update date |
+| `status` | string | Company status (`active`, `suspended`, `deleted`) |
+
+#### Address Object
+| Field | Type | Description |
+|------|-----|-------|
+| `street` | string | Street and building number |
+| `city` | string | City |
+| `postal_code` | string | Postal code |
+| `country` | string | Country code (ISO 3166-1 alpha-2) |
+
+#### Contact Object
+| Field | Type | Description |
+|------|-----|-------|
+| `email` | string | Contact email |
+| `phone` | string | Phone number |
+| `website` | string | Website |
+
+#### Billing Object
+| Field | Type | Description |
+|------|-----|-------|
+| `invoice_email` | string | Invoice email |
+| `payment_method` | string | Payment method |
+| `billing_period` | string | Billing period |
+
+### Example Calls
+
+#### cURL
+```bash
+curl -X GET https://api.mybox.eco/admin-panel/v1/external/company \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Accept: application/json"
+```
+
+#### Python
+```python
+import requests
+
+url = "https://api.mybox.eco/admin-panel/v1/external/company"
+headers = {
+    "Authorization": "Bearer YOUR_API_TOKEN",
+    "Accept": "application/json"
+}
+
+response = requests.get(url, headers=headers)
+companies = response.json()
+
+# Print all companies
+for company in companies['data']:
+    print(f"{company['name']} (Reg No: {company['ico']})")
+    print(f"  Devices: {company['statistics']['total_devices']}")
+    print(f"  Users: {company['statistics']['total_users']}")
+    print(f"  Consumption: {company['statistics']['total_consumption_kwh']} kWh")
+```
+
+#### JavaScript/Node.js
+```javascript
+const axios = require('axios');
+
+const getCompanies = async () => {
+  try {
+    const response = await axios.get('https://api.mybox.eco/admin-panel/v1/external/company', {
+      headers: {
+        'Authorization': 'Bearer YOUR_API_TOKEN',
+        'Accept': 'application/json'
+      }
+    });
+
+    const companies = response.data.data;
+    companies.forEach(company => {
+      console.log(`${company.name} (Reg No: ${company.ico})`);
+      console.log(`  Status: ${company.status}`);
+      console.log(`  Devices: ${company.statistics.total_devices}`);
+    });
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+};
+
+getCompanies();
+```
+
+---
+
+## <Building2 size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Company Detail
+
+### Endpoint
+```
+GET /admin-panel/v1/external/company/{id}
+```
+
+### Parameters
+
+#### Path Parameters
+| Parameter | Type | Required | Description |
+|----------|-----|---------|-------|
+| `id` | number | ✅ | Company ID |
+
+### Response
+```json
+{
+  "status": 1,
+  "data": {
+    "id": 5555555555555555,
+    "name": "Example Company Ltd.",
+    "ico": "12345678",
+    "dic": "CZ12345678",
+    "address": {
+      "street": "Main Street 123",
+      "city": "Prague",
+      "postal_code": "11000",
+      "country": "CZ",
+      "gps": {
+        "latitude": 50.0755381,
+        "longitude": 14.4378005
+      }
+    },
+    "contact": {
+      "email": "info@example.com",
+      "phone": "+420123456789",
+      "website": "https://example.com",
+      "support_email": "support@example.com",
+      "support_phone": "+420987654321"
+    },
+    "billing": {
+      "invoice_email": "billing@example.com",
+      "payment_method": "bank_transfer",
+      "billing_period": "monthly",
+      "bank_account": "123456789/0100",
+      "currency": "CZK",
+      "vat_rate": 21,
+      "credit_limit": 100000
+    },
+    "settings": {
+      "default_tariff": "STANDARD",
+      "auto_start_enabled": true,
+      "max_charging_power": 22000,
+      "notifications_enabled": true,
+      "language": "en",
+      "timezone": "Europe/Prague",
+      "api_access_enabled": true,
+      "custom_branding": {
+        "logo_url": "https://cdn.mybox.eco/logos/example-company.png",
+        "primary_color": "#1E40AF"
+      }
+    },
+    "users": [
+      {
+        "id": 1234567890123456,
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john.doe@example.com",
+        "role": "admin",
+        "permissions": ["manage_devices", "view_monitoring", "manage_users"]
+      },
+      {
+        "id": 9876543210987654,
+        "first_name": "Jane",
+        "last_name": "Smith",
+        "email": "jane.smith@example.com",
+        "role": "user",
+        "permissions": ["view_monitoring"]
+      }
+    ],
+    "devices": [
+      {
+        "id": "000C1234567890AB",
+        "name": "Charging Station - Main Building",
+        "product": "MyBox Blue",
+        "status": "online",
+        "location": "Prague - HQ",
+        "installation_date": "2023-08-15"
+      },
+      {
+        "id": "000C9876543210CD",
+        "name": "Charging Station - Parking",
+        "product": "MyBox Pro",
+        "status": "online",
+        "location": "Prague - Parking",
+        "installation_date": "2023-09-20"
+      }
+    ],
+    "contracts": [
+      {
+        "id": "CONTRACT-2023-001",
+        "type": "service",
+        "valid_from": "2023-06-15",
+        "valid_to": "2025-06-14",
+        "status": "active"
+      }
+    ],
+    "statistics": {
+      "total_devices": 5,
+      "active_devices": 4,
+      "offline_devices": 1,
+      "total_users": 12,
+      "active_users": 10,
+      "total_consumption_kwh": 15234.56,
+      "consumption_this_month_kwh": 1234.56,
+      "total_charging_sessions": 3456,
+      "sessions_this_month": 234,
+      "average_session_duration_min": 45,
+      "total_revenue_czk": 456789.50
+    },
+    "created_at": "2023-06-15T10:30:00",
+    "updated_at": "2024-03-20T14:25:00",
+    "created_by": {
+      "id": 1111111111111111,
+      "name": "System Admin"
+    },
+    "status": "active",
+    "notes": "VIP customer - priority support"
+  }
+}
+```
+
+### Example Calls
+
+#### cURL
+```bash
+curl -X GET https://api.mybox.eco/admin-panel/v1/external/company/5555555555555555 \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Accept: application/json"
+```
+
+#### Python
+```python
+import requests
+
+company_id = 5555555555555555
+url = f"https://api.mybox.eco/admin-panel/v1/external/company/{company_id}"
+headers = {
+    "Authorization": "Bearer YOUR_API_TOKEN",
+    "Accept": "application/json"
+}
+
+response = requests.get(url, headers=headers)
+company = response.json()['data']
+
+print(f"Company: {company['name']}")
+print(f"Reg No: {company['ico']}, VAT: {company['dic']}")
+print(f"Status: {company['status']}")
+print(f"\nAddress:")
+print(f"  {company['address']['street']}")
+print(f"  {company['address']['postal_code']} {company['address']['city']}")
+
+print(f"\nStatistics:")
+print(f"  Total consumption: {company['statistics']['total_consumption_kwh']} kWh")
+print(f"  This month consumption: {company['statistics']['consumption_this_month_kwh']} kWh")
+print(f"  Total charging sessions: {company['statistics']['total_charging_sessions']}")
+
+print(f"\nDevices ({len(company['devices'])}):")
+for device in company['devices']:
+    print(f"  - {device['name']} ({device['product']}) - {device['status']}")
+
+print(f"\nUsers ({len(company['users'])}):")
+for user in company['users']:
+    print(f"  - {user['first_name']} {user['last_name']} ({user['role']})")
+```
+
+#### JavaScript/Node.js
+```javascript
+const axios = require('axios');
+
+const getCompanyDetail = async (companyId) => {
+  try {
+    const response = await axios.get(
+      `https://api.mybox.eco/admin-panel/v1/external/company/${companyId}`,
+      {
+        headers: {
+          'Authorization': 'Bearer YOUR_API_TOKEN',
+          'Accept': 'application/json'
+        }
+      }
+    );
+
+    const company = response.data.data;
+    console.log(`Company: ${company.name}`);
+    console.log(`Reg No: ${company.ico}, VAT: ${company.dic}`);
+    console.log(`Status: ${company.status}`);
+
+    // Print devices
+    console.log('\nDevices:');
+    company.devices.forEach(device => {
+      console.log(`  - ${device.name} (${device.status})`);
+    });
+
+    // Print statistics
+    console.log('\nStatistics:');
+    console.log(`  Active devices: ${company.statistics.active_devices}/${company.statistics.total_devices}`);
+    console.log(`  Active users: ${company.statistics.active_users}/${company.statistics.total_users}`);
+    console.log(`  This month consumption: ${company.statistics.consumption_this_month_kwh} kWh`);
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+};
+
+getCompanyDetail(5555555555555555);
+```
+
+---
+
+## <BarChart3 size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Advanced Usage
+
+### Filter Companies by Statistics
+```python
+def find_large_companies(min_devices=10, min_consumption=10000):
+    """Find large companies by device count and consumption"""
+    response = requests.get(
+        "https://api.mybox.eco/admin-panel/v1/external/company",
+        headers={"Authorization": "Bearer YOUR_API_TOKEN"}
+    )
+    companies = response.json()['data']
+
+    large_companies = [
+        company for company in companies
+        if company['statistics']['total_devices'] >= min_devices
+        and company['statistics']['total_consumption_kwh'] >= min_consumption
+    ]
+
+    return sorted(
+        large_companies,
+        key=lambda x: x['statistics']['total_consumption_kwh'],
+        reverse=True
+    )
+```
+
+### Monitor Company Device Status
+```javascript
+async function monitorCompanyDevices(companyId) {
+  const response = await axios.get(
+    `https://api.mybox.eco/admin-panel/v1/external/company/${companyId}`,
+    {
+      headers: { 'Authorization': 'Bearer YOUR_API_TOKEN' }
+    }
+  );
+
+  const company = response.data.data;
+  const offlineDevices = company.devices.filter(d => d.status === 'offline');
+
+  if (offlineDevices.length > 0) {
+    console.log(`⚠️ ALERT: ${offlineDevices.length} devices offline!`);
+    offlineDevices.forEach(device => {
+      console.log(`  - ${device.name} (${device.location})`);
+    });
+
+    // Send notification
+    sendNotification({
+      company: company.name,
+      offlineDevices: offlineDevices
+    });
+  }
+}
+```
+
+### Generate Monthly Report
+```python
+from datetime import datetime
+import pandas as pd
+
+def generate_monthly_report(company_id):
+    """Generate monthly report for company"""
+    # Get company data
+    response = requests.get(
+        f"https://api.mybox.eco/admin-panel/v1/external/company/{company_id}",
+        headers={"Authorization": "Bearer YOUR_API_TOKEN"}
+    )
+    company = response.json()['data']
+
+    # Prepare report data
+    report_data = {
+        'Company': company['name'],
+        'Reg No': company['ico'],
+        'Month': datetime.now().strftime('%B %Y'),
+        'Total Devices': company['statistics']['total_devices'],
+        'Active Devices': company['statistics']['active_devices'],
+        'Total Users': company['statistics']['total_users'],
+        'Monthly Consumption (kWh)': company['statistics']['consumption_this_month_kwh'],
+        'Charging Sessions': company['statistics']['sessions_this_month'],
+        'Avg Session Duration (min)': company['statistics']['average_session_duration_min']
+    }
+
+    # Export to Excel
+    df = pd.DataFrame([report_data])
+    filename = f"report_{company['ico']}_{datetime.now().strftime('%Y%m')}.xlsx"
+    df.to_excel(filename, index=False)
+
+    return filename
+```
+
+---
+
+## ⚠️ Error States
+
+### Possible Error Responses
+
+#### 401 Unauthorized
+```json
+{
+  "status": 0,
+  "error": "Unauthorized",
+  "message": "Invalid or missing API token"
+}
+```
+**Solution:** Check API token correctness and validity.
+
+#### 403 Forbidden
+```json
+{
+  "status": 0,
+  "error": "Forbidden",
+  "message": "Insufficient permissions to access company data"
+}
+```
+**Solution:** User doesn't have `view_companies` permission. Contact admin.
+
+#### 404 Not Found
+```json
+{
+  "status": 0,
+  "error": "Not Found",
+  "message": "Company not found"
+}
+```
+**Solution:** Check company ID correctness.
+
+#### 429 Too Many Requests
+```json
+{
+  "status": 0,
+  "error": "Too Many Requests",
+  "message": "Rate limit exceeded. Please try again later."
+}
+```
+**Solution:** Implement rate limiting and exponential backoff.
+
+---
+
+## <Lightbulb size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Best Practices
+
+### 1. Caching Company Data
+```python
+from functools import lru_cache
+import hashlib
+import json
+
+class CompanyCache:
+    def __init__(self, ttl=300):  # 5 minutes
+        self.cache = {}
+        self.ttl = ttl
+
+    def get_company(self, company_id):
+        cache_key = f"company_{company_id}"
+
+        if cache_key in self.cache:
+            cached_data, timestamp = self.cache[cache_key]
+            if time.time() - timestamp < self.ttl:
+                return cached_data
+
+        # Fetch from API
+        data = self._fetch_from_api(company_id)
+        self.cache[cache_key] = (data, time.time())
+        return data
+```
+
+### 2. Batch Operations
+```javascript
+async function updateCompanySettings(companies, settings) {
+  const results = await Promise.allSettled(
+    companies.map(company =>
+      axios.patch(
+        `https://api.mybox.eco/admin-panel/v1/external/company/${company.id}`,
+        { settings },
+        { headers: { 'Authorization': 'Bearer YOUR_API_TOKEN' } }
+      )
+    )
+  );
+
+  const successful = results.filter(r => r.status === 'fulfilled').length;
+  const failed = results.filter(r => r.status === 'rejected').length;
+
+  console.log(`Updated: ${successful}, Failed: ${failed}`);
+  return results;
+}
+```
+
+### 3. Change Monitoring
+```python
+import hashlib
+import json
+
+def detect_company_changes(company_id, interval=60):
+    """Detect changes in company data"""
+    previous_hash = None
+
+    while True:
+        response = requests.get(
+            f"https://api.mybox.eco/admin-panel/v1/external/company/{company_id}",
+            headers={"Authorization": "Bearer YOUR_API_TOKEN"}
+        )
+
+        current_data = response.json()['data']
+        current_hash = hashlib.md5(
+            json.dumps(current_data, sort_keys=True).encode()
+        ).hexdigest()
+
+        if previous_hash and current_hash != previous_hash:
+            print(f"Change detected for company {company_id}")
+            analyze_changes(previous_data, current_data)
+
+        previous_hash = current_hash
+        previous_data = current_data
+        time.sleep(interval)
+```
+
+---
+
+## <ShieldCheck size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Security Recommendations
+
+1. **API Token Management**
+   - Use separate tokens for different applications
+   - Regularly rotate API tokens
+   - Never store tokens in code
+
+2. **Rate Limiting**
+   - Implement your own rate limiting
+   - Use exponential backoff on errors
+   - Cache data where possible
+
+3. **Data Privacy**
+   - Encrypt sensitive data when storing
+   - Log access to company data
+   - Implement audit trail
+
+4. **Error Handling**
+   - Never display detailed error messages to users
+   - Log all errors for debugging
+   - Implement fallback mechanisms
+
+---
+
+## <BookOpen size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Additional Resources
+
+- [User Management](/api/users-management) - API for working with users
+- [Device Management](/api/devices) - Detailed device information
+- [Charging Reports](/api/charging-reports) - Charging statistics
+- [FAQ - Frequently Asked Questions](/faq#companies) - Answers to common questions

@@ -1,8 +1,10 @@
 ---
-id: telemetry  
-title: 📈 Telemetrie
+id: telemetry
+title: Telemetrie
 sidebar_position: 4
 ---
+
+import { TrendingUp, MapPin, BarChart3, Zap, Battery, Wifi, Package, Lightbulb, RotateCw, Link, AlertTriangle } from 'lucide-react';
 
 # Telemetrie - Historická data
 
@@ -10,7 +12,7 @@ sidebar_position: 4
 
 ---
 
-## 📍 Endpointy
+## <MapPin size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Endpointy
 
 ### Telemetrie zařízení
 ```
@@ -93,9 +95,9 @@ import ApiExplorer from '@site/src/components/ApiExplorer/ApiExplorer';
 
 ---
 
-## 📊 Dostupné telemetrické hodnoty
+## <BarChart3 size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Dostupné telemetrické hodnoty
 
-### ⚡ Elektrické hodnoty
+### <Zap size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Elektrické hodnoty
 
 | ID telemetrie | Jednotka | Popis | Modul |
 |---------------|----------|-------|-------|
@@ -107,7 +109,7 @@ import ApiExplorer from '@site/src/components/ApiExplorer/ApiExplorer';
 | `current-l2` | A | Proud fáze L2 | evse |
 | `current-l3` | A | Proud fáze L3 | evse |
 
-### 🔋 Nabíjecí relace
+### <Battery size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Nabíjecí relace
 
 | ID telemetrie | Jednotka | Popis | Modul |
 |---------------|----------|-------|-------|
@@ -115,7 +117,7 @@ import ApiExplorer from '@site/src/components/ApiExplorer/ApiExplorer';
 | `session-energy` | kWh | Energie v aktuální relaci | evse |
 | `total-energy` | kWh | Celková dodaná energie | evse |
 
-### 📶 Síť a konektivita
+### <Wifi size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Síť a konektivita
 
 | ID telemetrie | Jednotka | Popis | Modul |
 |---------------|----------|-------|-------|
@@ -124,7 +126,7 @@ import ApiExplorer from '@site/src/components/ApiExplorer/ApiExplorer';
 
 ---
 
-## 📦 Struktura odpovědi
+## <Package size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Struktura odpovědi
 
 ```json
 {
@@ -146,7 +148,7 @@ import ApiExplorer from '@site/src/components/ApiExplorer/ApiExplorer';
 
 ---
 
-## 💡 Praktické použití
+## <Lightbulb size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Praktické použití
 
 ### Získání historie výkonu za posledních 24 hodin
 
@@ -199,7 +201,7 @@ new Chart(ctx, {
 
 ---
 
-## 🔄 Agregace dat
+## <RotateCw size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Agregace dat
 
 Pro dlouhé časové období API automaticky agreguje data:
 
@@ -212,7 +214,7 @@ Pro dlouhé časové období API automaticky agreguje data:
 
 ---
 
-## ⚠️ Limity a omezení
+## <AlertTriangle size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Limity a omezení
 
 - Maximálně **10 000 záznamů** na jeden požadavek
 - Data jsou uchovávána **90 dní**
@@ -220,7 +222,7 @@ Pro dlouhé časové období API automaticky agreguje data:
 
 ---
 
-## 📈 Doporučené use cases
+## <TrendingUp size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Doporučené use cases
 
 1. **Monitoring spotřeby** - Sledování denní/měsíční spotřeby
 2. **Detekce anomálií** - Identifikace neobvyklých hodnot
@@ -229,7 +231,7 @@ Pro dlouhé časové období API automaticky agreguje data:
 
 ---
 
-## 🔗 Související endpointy
+## <Link size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Související endpointy
 
 - [Live Data](./live-data) - Aktuální hodnoty
 - [Snapshot](./snapshot) - Kompletní stav

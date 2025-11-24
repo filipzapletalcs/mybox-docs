@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useColorMode } from '@docusaurus/theme-common';
 import CodeBlock from '@theme/CodeBlock';
+import { Key, MapPin, HelpCircle, FileText, Play, Loader2, Terminal, XCircle, Inbox } from 'lucide-react';
 
 interface ApiExplorerProps {
   endpoint: string;
@@ -167,7 +168,9 @@ export default function ApiExplorer({
       {/* Authentication */}
       {requiresAuth && (
         <div style={{ marginBottom: '1.5rem' }}>
-          <h4>🔑 Autentizace</h4>
+          <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Key size={20} color="var(--ifm-color-primary)" /> Autentizace
+          </h4>
           <div style={{ display: 'flex', gap: '1rem' }}>
             <input
               type="text"
@@ -202,7 +205,9 @@ export default function ApiExplorer({
       {/* Path Parameters */}
       {pathParams.length > 0 && (
         <div style={{ marginBottom: '1.5rem' }}>
-          <h4>📍 Path Parametry</h4>
+          <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <MapPin size={20} color="var(--ifm-color-primary)" /> Path Parametry
+          </h4>
           {pathParams.map(param => (
             <div key={param.name} style={{ marginBottom: '0.5rem' }}>
               <label style={{ display: 'block', marginBottom: '0.25rem', fontSize: '0.875rem' }}>
@@ -229,7 +234,9 @@ export default function ApiExplorer({
       {/* Query Parameters */}
       {queryParams.length > 0 && (
         <div style={{ marginBottom: '1.5rem' }}>
-          <h4>❓ Query Parametry</h4>
+          <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <HelpCircle size={20} color="var(--ifm-color-primary)" /> Query Parametry
+          </h4>
           {queryParams.map(param => (
             <div key={param.name} style={{ marginBottom: '0.5rem' }}>
               <label style={{ display: 'block', marginBottom: '0.25rem', fontSize: '0.875rem' }}>
@@ -256,7 +263,9 @@ export default function ApiExplorer({
       {/* Request Body */}
       {method !== 'GET' && (
         <div style={{ marginBottom: '1.5rem' }}>
-          <h4>📝 Request Body</h4>
+          <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FileText size={20} color="var(--ifm-color-primary)" /> Request Body
+          </h4>
           <textarea
             value={requestBody}
             onChange={(e) => setRequestBody(e.target.value)}
@@ -287,16 +296,29 @@ export default function ApiExplorer({
             border: 'none',
             fontWeight: 600,
             cursor: loading ? 'not-allowed' : 'pointer',
-            opacity: loading ? 0.6 : 1
+            opacity: loading ? 0.6 : 1,
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.5rem'
           }}
         >
-          {loading ? '⏳ Načítání...' : '▶️ Spustit Request'}
+          {loading ? (
+            <>
+              <Loader2 size={18} className="spin" /> Načítání...
+            </>
+          ) : (
+            <>
+              <Play size={18} /> Spustit Request
+            </>
+          )}
         </button>
       </div>
 
       {/* cURL Command */}
       <div style={{ marginBottom: '1.5rem' }}>
-        <h4>🔧 cURL příkaz</h4>
+        <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <Terminal size={20} color="var(--ifm-color-primary)" /> cURL příkaz
+        </h4>
         <CodeBlock language="bash">{generateCurl()}</CodeBlock>
       </div>
 
@@ -307,16 +329,22 @@ export default function ApiExplorer({
           border: '1px solid #EF4444',
           borderRadius: '4px',
           padding: '1rem',
-          marginBottom: '1.5rem'
+          marginBottom: '1.5rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem'
         }}>
-          <strong>❌ Chyba:</strong> {error}
+          <XCircle size={20} color="#EF4444" />
+          <strong>Chyba:</strong> {error}
         </div>
       )}
 
       {/* Response Display */}
       {response && (
         <div>
-          <h4>📨 Odpověď</h4>
+          <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Inbox size={20} color="var(--ifm-color-primary)" /> Odpověď
+          </h4>
           <div style={{
             backgroundColor: response.status >= 200 && response.status < 300 ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
             border: `1px solid ${response.status >= 200 && response.status < 300 ? '#10B981' : '#EF4444'}`,

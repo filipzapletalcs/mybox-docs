@@ -1,0 +1,66 @@
+{
+  "homepage.meta.description": {
+    "message": "Complete documentation for integration with MyBox Cloud API",
+    "description": "The meta description for the homepage"
+  },
+  "homepage.hero.button": {
+    "message": "Quick Start - 5min",
+    "description": "The main call-to-action button on the homepage"
+  },
+  "homepage.features.title": {
+    "message": "Why use MyBox API?",
+    "description": "The main features section heading"
+  },
+  "features.realtimeMonitoring.description": {
+    "message": "Monitor charging status, energy consumption, and all important parameters in real-time through a simple API.",
+    "description": "Description of the real-time monitoring feature"
+  },
+  "features.easyIntegration.description": {
+    "message": "REST API with Basic Auth, JSON format, clear documentation and code examples in various languages.",
+    "description": "Description of the easy integration feature"
+  },
+  "features.historicalData.description": {
+    "message": "Access to charging history, telemetry, and complete reports for analysis and billing.",
+    "description": "Description of the historical data feature"
+  },
+  "homepage.getStarted.title": {
+    "message": "Get Started Now",
+    "description": "Call to action heading to get started"
+  },
+  "homepage.getStarted.description": {
+    "message": "Everything you need to integrate MyBox into your applications",
+    "description": "Call to action description"
+  },
+  "homepage.steps.step1.title": {
+    "message": "1. Get Access",
+    "description": "First step title"
+  },
+  "homepage.steps.step1.description": {
+    "message": "Generate API keys in MyBox Cloud",
+    "description": "First step description"
+  },
+  "homepage.steps.step2.title": {
+    "message": "2. Test the API",
+    "description": "Second step title"
+  },
+  "homepage.steps.step2.description": {
+    "message": "Use our API Explorer or Swagger UI",
+    "description": "Second step description"
+  },
+  "homepage.steps.step3.title": {
+    "message": "3. Integrate",
+    "description": "Third step title"
+  },
+  "homepage.steps.step3.description": {
+    "message": "Use code examples in your language",
+    "description": "Third step description"
+  },
+  "homepage.steps.step4.title": {
+    "message": "4. Monitor",
+    "description": "Fourth step title"
+  },
+  "homepage.steps.step4.description": {
+    "message": "Track real-time data from your stations",
+    "description": "Fourth step description"
+  }
+}

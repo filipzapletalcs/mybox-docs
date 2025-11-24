@@ -5,21 +5,19 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
-import Translate, {translate} from '@docusaurus/Translate';
 import { Rocket, Clock } from 'lucide-react';
 
 import styles from './index.module.css';
 
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
         <Heading as="h1" className="hero__title" style={{color: 'white', textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'}}>
-          {siteConfig.title}
+          MyBox API Documentation
         </Heading>
         <p className="hero__subtitle" style={{color: 'white', textShadow: '0 1px 3px rgba(0, 0, 0, 0.2)'}}>
-          {siteConfig.tagline}
+          Complete documentation for integration with MyBox Cloud API
         </p>
         <div className={styles.buttons}>
           <Link
@@ -27,7 +25,7 @@ function HomepageHeader() {
             to="/docs/"
             style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
             <Rocket size={20} />
-            <Translate id="homepage.hero.button">Rychlý Start - 5min</Translate>
+            Quick Start - 5min
             <Clock size={18} />
           </Link>
         </div>
@@ -41,11 +39,7 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title={siteConfig.title}
-      description={translate({
-        id: 'homepage.meta.description',
-        message: 'Kompletní dokumentace pro integraci s MyBox Cloud API',
-        description: 'The meta description for the homepage'
-      })}>
+      description="Complete documentation for integration with MyBox Cloud API">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

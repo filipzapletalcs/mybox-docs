@@ -1,42 +1,44 @@
-# 👥 Správa účastníků (Participants)
+import { Users, ClipboardList, User, Key, BarChart3, AlertTriangle, Lightbulb, BookOpen, CheckCircle } from 'lucide-react';
 
-## Přehled
+# Participant Management (Participants)
 
-API pro správu účastníků umožňuje spravovat vztahy mezi uživateli a společnostmi včetně jejich rolí a oprávnění. Participant je záznam, který propojuje konkrétního uživatele se společností a definuje jeho oprávnění v rámci této společnosti.
+## Overview
 
-### Hlavní funkce
-- Získání seznamu účastníků pro uživatele
-- Zobrazení detailů konkrétního účastníka
-- Správa oprávnění a rolí
-- Přiřazení uživatelů ke společnostem
+The Participants API allows you to manage relationships between users and companies, including their roles and permissions. A participant is a record that connects a specific user to a company and defines their permissions within that company.
 
-### Koncept účastníka
-**Participant** = spojení mezi:
-- **User** (uživatel) - fyzická osoba s přihlašovacími údaji
-- **Company** (společnost) - organizace vlastnící zařízení
-- **Permissions** (oprávnění) - seznam práv v rámci společnosti
+### Main Features
+- Get list of participants for a user
+- View details of a specific participant
+- Manage permissions and roles
+- Assign users to companies
 
-### Use cases
-- **Multi-company přístup** - jeden uživatel může mít přístup k více společnostem
-- **Role-based access** - různé úrovně oprávnění pro různé uživatele
-- **Delegování správy** - vlastník může přidělit práva dalším uživatelům
-- **Audit přístupů** - sledování kdo má jaká oprávnění
+### Participant Concept
+**Participant** = connection between:
+- **User** - physical person with login credentials
+- **Company** - organization owning devices
+- **Permissions** - list of rights within the company
+
+### Use Cases
+- **Multi-company access** - one user can have access to multiple companies
+- **Role-based access** - different permission levels for different users
+- **Delegated management** - owner can assign rights to other users
+- **Access auditing** - tracking who has what permissions
 
 ---
 
-## 📋 Seznam účastníků uživatele
+## <ClipboardList size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> List of User Participants
 
 ### Endpoint
 ```
 GET /admin-panel/v1/external/user/{id}/participant
 ```
 
-### Parametry
+### Parameters
 
-#### Path parametry
-| Parametr | Typ | Povinný | Popis |
+#### Path Parameters
+| Parameter | Type | Required | Description |
 |----------|-----|---------|-------|
-| `id` | number | ✅ | ID uživatele |
+| `id` | number | <CheckCircle size={16} style={{display: 'inline', verticalAlign: 'middle'}} color="var(--ifm-color-success)" /> | User ID |
 
 ### Response
 ```json
@@ -114,23 +116,23 @@ GET /admin-panel/v1/external/user/{id}/participant
 }
 ```
 
-### Struktura dat
+### Data Structure
 
-#### Participant objekt
-| Pole | Typ | Popis |
+#### Participant Object
+| Field | Type | Description |
 |------|-----|-------|
-| `id` | number | Unikátní identifikátor účastníka |
-| `email` | string | E-mail účastníka (může se lišit od user.email) |
-| `phone_number` | string/null | Telefonní číslo |
-| `user` | object | Reference na uživatele |
-| `company` | object | Reference na společnost |
-| `permissions` | array | Seznam oprávnění |
-| `role` | object | Přiřazená role |
+| `id` | number | Unique participant identifier |
+| `email` | string | Participant email (may differ from user.email) |
+| `phone_number` | string/null | Phone number |
+| `user` | object | User reference |
+| `company` | object | Company reference |
+| `permissions` | array | List of permissions |
+| `role` | object | Assigned role |
 | `status` | string | Status (`active`, `suspended`, `pending`) |
-| `created_at` | string | Datum vytvoření |
-| `expires_at` | string/null | Datum expirace přístupu |
+| `created_at` | string | Creation date |
+| `expires_at` | string/null | Access expiration date |
 
-### Příklad volání
+### Example Call
 
 #### cURL
 ```bash
@@ -145,7 +147,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 def get_user_participants(user_id):
-    """Získá seznam účastníků pro uživatele"""
+    """Get list of participants for a user"""
 
     url = f"https://cloud.mybox.pro/admin-panel/v1/external/user/{user_id}/participant"
 
@@ -159,18 +161,18 @@ def get_user_participants(user_id):
         participants = response.json()['data']
 
         for participant in participants:
-            print(f"\nÚčastník: {participant['email']}")
-            print(f"Společnost: {participant['company']['name']}")
-            print(f"Role: {participant.get('role', {}).get('name', 'Bez role')}")
+            print(f"\nParticipant: {participant['email']}")
+            print(f"Company: {participant['company']['name']}")
+            print(f"Role: {participant.get('role', {}).get('name', 'No role')}")
             print(f"Status: {participant['status']}")
 
-            print("Oprávnění:")
+            print("Permissions:")
             for perm in participant['permissions']:
                 print(f"  - {perm['name']} ({perm['slug']})")
     else:
-        print(f"Chyba: {response.status_code}")
+        print(f"Error: {response.status_code}")
 
-# Použití
+# Usage
 get_user_participants(1234567890123456)
 ```
 
@@ -196,11 +198,11 @@ async function getUserParticipants(userId) {
     const participants = response.data.data;
 
     participants.forEach(participant => {
-      console.log(`\nÚčastník: ${participant.email}`);
-      console.log(`Společnost: ${participant.company.name}`);
+      console.log(`\nParticipant: ${participant.email}`);
+      console.log(`Company: ${participant.company.name}`);
       console.log(`Status: ${participant.status}`);
 
-      // Zobrazit oprávnění podle kategorie
+      // Display permissions by category
       const permsByCategory = {};
       participant.permissions.forEach(perm => {
         const category = perm.category || 'other';
@@ -210,7 +212,7 @@ async function getUserParticipants(userId) {
         permsByCategory[category].push(perm.name);
       });
 
-      console.log('Oprávnění po kategoriích:');
+      console.log('Permissions by category:');
       Object.entries(permsByCategory).forEach(([category, perms]) => {
         console.log(`  ${category}: ${perms.join(', ')}`);
       });
@@ -220,26 +222,26 @@ async function getUserParticipants(userId) {
   }
 }
 
-// Použití
+// Usage
 getUserParticipants(1234567890123456);
 ```
 
 ---
 
-## 👤 Detail účastníka
+## <User size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Participant Detail
 
 ### Endpoint
 ```
 GET /admin-panel/v1/external/user/{id}/participant/{participantId}
 ```
 
-### Parametry
+### Parameters
 
-#### Path parametry
-| Parametr | Typ | Povinný | Popis |
+#### Path Parameters
+| Parameter | Type | Required | Description |
 |----------|-----|---------|-------|
-| `id` | number | ✅ | ID uživatele |
-| `participantId` | number | ✅ | ID účastníka |
+| `id` | number | <CheckCircle size={16} style={{display: 'inline', verticalAlign: 'middle'}} color="var(--ifm-color-success)" /> | User ID |
+| `participantId` | number | <CheckCircle size={16} style={{display: 'inline', verticalAlign: 'middle'}} color="var(--ifm-color-success)" /> | Participant ID |
 
 ### Response
 ```json
@@ -301,14 +303,14 @@ GET /admin-panel/v1/external/user/{id}/participant/{participantId}
     "devices": [
       {
         "id": "000C1234567890AB",
-        "name": "Nabíjecí stanice - Hlavní budova",
+        "name": "Charging Station - Main Building",
         "product": "MyBox Blue",
         "status": "online",
         "access_level": "full"
       },
       {
         "id": "000C9876543210CD",
-        "name": "Nabíjecí stanice - Parking",
+        "name": "Charging Station - Parking",
         "product": "MyBox Pro",
         "status": "online",
         "access_level": "read"
@@ -336,12 +338,12 @@ GET /admin-panel/v1/external/user/{id}/participant/{participantId}
     },
     "updated_at": "2024-03-20T14:25:00Z",
     "expires_at": null,
-    "notes": "Hlavní technik pro správu nabíjecích stanic"
+    "notes": "Main technician for charging station management"
   }
 }
 ```
 
-### Příklad volání
+### Example Call
 
 #### cURL
 ```bash
@@ -352,56 +354,56 @@ curl -X GET "https://cloud.mybox.pro/admin-panel/v1/external/user/12345678901234
 
 ---
 
-## 🔑 Systém oprávnění
+## <Key size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Permission System
 
-### Kategorie oprávnění
+### Permission Categories
 
 #### Monitoring
-| Permission | Popis |
+| Permission | Description |
 |------------|-------|
-| `view_monitoring` | Zobrazení live dat a telemetrie |
-| `view_history` | Zobrazení historických dat |
-| `export_data` | Export dat do CSV/Excel |
+| `view_monitoring` | View live data and telemetry |
+| `view_history` | View historical data |
+| `export_data` | Export data to CSV/Excel |
 
 #### Devices
-| Permission | Popis |
+| Permission | Description |
 |------------|-------|
-| `view_devices` | Zobrazení seznamu zařízení |
-| `manage_devices` | Změna nastavení zařízení |
-| `control_charging` | Start/stop nabíjení |
-| `firmware_update` | Aktualizace firmware |
+| `view_devices` | View device list |
+| `manage_devices` | Change device settings |
+| `control_charging` | Start/stop charging |
+| `firmware_update` | Firmware updates |
 
 #### Reports
-| Permission | Popis |
+| Permission | Description |
 |------------|-------|
-| `view_reports` | Zobrazení reportů |
-| `create_reports` | Vytváření vlastních reportů |
-| `export_reports` | Export reportů |
+| `view_reports` | View reports |
+| `create_reports` | Create custom reports |
+| `export_reports` | Export reports |
 
 #### Users
-| Permission | Popis |
+| Permission | Description |
 |------------|-------|
-| `view_users` | Zobrazení uživatelů |
-| `manage_users` | Správa uživatelů |
-| `manage_participants` | Správa účastníků |
+| `view_users` | View users |
+| `manage_users` | Manage users |
+| `manage_participants` | Manage participants |
 
 #### Company
-| Permission | Popis |
+| Permission | Description |
 |------------|-------|
-| `view_company` | Zobrazení informací o společnosti |
-| `manage_company` | Editace údajů společnosti |
-| `billing_access` | Přístup k fakturaci |
+| `view_company` | View company information |
+| `manage_company` | Edit company data |
+| `billing_access` | Access to billing |
 
 ---
 
-## 📊 Pokročilé použití
+## <BarChart3 size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Advanced Usage
 
-### Správa oprávnění podle zařízení
+### Device Permission Management
 ```python
 def get_user_device_permissions(user_id):
-    """Získá přehled oprávnění uživatele podle zařízení"""
+    """Get overview of user permissions by device"""
 
-    # Získat účastníky
+    # Get participants
     participants = get_user_participants(user_id)
 
     device_permissions = {}
@@ -409,7 +411,7 @@ def get_user_device_permissions(user_id):
     for participant in participants:
         company = participant['company']['name']
 
-        # Pro každé zařízení v participant datech
+        # For each device in participant data
         for device in participant.get('devices', []):
             device_id = device['id']
 
@@ -424,14 +426,14 @@ def get_user_device_permissions(user_id):
             device_permissions[device_id]['companies'].append(company)
             device_permissions[device_id]['access_levels'].append(device['access_level'])
 
-            # Přidat oprávnění
+            # Add permissions
             for perm in participant['permissions']:
                 device_permissions[device_id]['permissions'].add(perm['slug'])
 
     return device_permissions
 ```
 
-### Validace přístupových práv
+### Access Rights Validation
 ```javascript
 class AccessValidator {
   constructor(apiKey, apiSecret) {
@@ -440,15 +442,15 @@ class AccessValidator {
   }
 
   async canUserAccessDevice(userId, deviceId, requiredPermission) {
-    // Získat účastníky uživatele
+    // Get user participants
     const participants = await this.getUserParticipants(userId);
 
     for (const participant of participants) {
-      // Zkontrolovat, zda má přístup k zařízení
+      // Check if has device access
       const hasDevice = participant.devices?.some(d => d.id === deviceId);
 
       if (hasDevice) {
-        // Zkontrolovat oprávnění
+        // Check permission
         const hasPermission = participant.permissions.some(
           p => p.slug === requiredPermission
         );
@@ -493,21 +495,21 @@ class AccessValidator {
 }
 ```
 
-### Audit přístupů
+### Access Auditing
 ```python
 from datetime import datetime, timedelta
 import pandas as pd
 
 def audit_participant_access(company_id, days_back=30):
-    """Vytvoří audit report přístupů za období"""
+    """Create access audit report for a period"""
 
-    # Získat všechny účastníky společnosti
+    # Get all company participants
     participants = get_company_participants(company_id)
 
     audit_data = []
 
     for participant in participants:
-        # Základní informace
+        # Basic information
         record = {
             'participant_id': participant['id'],
             'user_email': participant['user']['email'],
@@ -520,7 +522,7 @@ def audit_participant_access(company_id, days_back=30):
             'devices_access_count': len(participant.get('devices', []))
         }
 
-        # Kontrola expirace
+        # Check expiration
         if participant.get('expires_at'):
             expires = datetime.fromisoformat(participant['expires_at'].replace('Z', '+00:00'))
             record['expires_in_days'] = (expires - datetime.now()).days
@@ -529,7 +531,7 @@ def audit_participant_access(company_id, days_back=30):
             record['expires_in_days'] = None
             record['is_expiring_soon'] = False
 
-        # Aktivita
+        # Activity
         if participant.get('activity'):
             record['actions_last_30_days'] = participant['activity'].get('actions_last_30_days', 0)
             record['is_active'] = record['actions_last_30_days'] > 0
@@ -537,7 +539,7 @@ def audit_participant_access(company_id, days_back=30):
             record['actions_last_30_days'] = 0
             record['is_active'] = False
 
-        # Kritická oprávnění
+        # Critical permissions
         critical_permissions = ['manage_devices', 'firmware_update', 'manage_users', 'billing_access']
         user_critical_perms = [
             p['slug'] for p in participant['permissions']
@@ -548,47 +550,47 @@ def audit_participant_access(company_id, days_back=30):
 
         audit_data.append(record)
 
-    # Vytvořit DataFrame
+    # Create DataFrame
     df = pd.DataFrame(audit_data)
 
-    # Analýza
-    print("📊 AUDIT REPORT - Přístupy účastníků")
+    # Analysis
+    print("AUDIT REPORT - Participant Access")
     print("=" * 60)
-    print(f"Celkem účastníků: {len(df)}")
-    print(f"Aktivní: {df['status'].eq('active').sum()}")
-    print(f"Suspendovaní: {df['status'].eq('suspended').sum()}")
-    print(f"Čekající: {df['status'].eq('pending').sum()}")
+    print(f"Total participants: {len(df)}")
+    print(f"Active: {df['status'].eq('active').sum()}")
+    print(f"Suspended: {df['status'].eq('suspended').sum()}")
+    print(f"Pending: {df['status'].eq('pending').sum()}")
     print()
 
-    print("⚠️ Vyžadují pozornost:")
-    print(f"- Brzy expirující přístupy: {df['is_expiring_soon'].sum()}")
-    print(f"- Neaktivní účastníci (0 akcí za 30 dní): {(~df['is_active']).sum()}")
-    print(f"- Účastníci s kritickými oprávněními: {df['has_critical_permissions'].sum()}")
+    print("Requires attention:")
+    print(f"- Soon expiring access: {df['is_expiring_soon'].sum()}")
+    print(f"- Inactive participants (0 actions in 30 days): {(~df['is_active']).sum()}")
+    print(f"- Participants with critical permissions: {df['has_critical_permissions'].sum()}")
 
-    # Export do Excel
+    # Export to Excel
     filename = f"audit_participants_{company_id}_{datetime.now().strftime('%Y%m%d')}.xlsx"
     with pd.ExcelWriter(filename, engine='openpyxl') as writer:
         df.to_excel(writer, sheet_name='Participants', index=False)
 
-        # Přidat souhrn
+        # Add summary
         summary = pd.DataFrame([
-            {'Metrika': 'Celkem účastníků', 'Hodnota': len(df)},
-            {'Metrika': 'Aktivní účastníci', 'Hodnota': df['status'].eq('active').sum()},
-            {'Metrika': 'Průměrný počet oprávnění', 'Hodnota': df['permissions_count'].mean()},
-            {'Metrika': 'Účastníci s kritickými oprávněními', 'Hodnota': df['has_critical_permissions'].sum()}
+            {'Metric': 'Total participants', 'Value': len(df)},
+            {'Metric': 'Active participants', 'Value': df['status'].eq('active').sum()},
+            {'Metric': 'Average permissions count', 'Value': df['permissions_count'].mean()},
+            {'Metric': 'Participants with critical permissions', 'Value': df['has_critical_permissions'].sum()}
         ])
         summary.to_excel(writer, sheet_name='Summary', index=False)
 
-    print(f"\n✅ Report exportován: {filename}")
+    print(f"\nReport exported: {filename}")
 
     return df
 ```
 
 ---
 
-## ⚠️ Chybové stavy
+## <AlertTriangle size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Error States
 
-### Možné chybové odpovědi
+### Possible Error Responses
 
 #### 401 Unauthorized
 ```json
@@ -619,15 +621,15 @@ def audit_participant_access(company_id, days_back=30):
 
 ---
 
-## 💡 Best Practices
+## <Lightbulb size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Best Practices
 
-### 1. Cachování participant dat
+### 1. Caching Participant Data
 ```python
 from functools import lru_cache
 import time
 
 class ParticipantCache:
-    def __init__(self, ttl=300):  # 5 minut cache
+    def __init__(self, ttl=300):  # 5 minutes cache
         self.cache = {}
         self.ttl = ttl
 
@@ -645,7 +647,7 @@ class ParticipantCache:
         return data
 ```
 
-### 2. Permission checking helper
+### 2. Permission Checking Helper
 ```javascript
 class PermissionChecker {
   constructor(participants) {
@@ -687,22 +689,22 @@ class PermissionChecker {
 }
 ```
 
-### 3. Role management
+### 3. Role Management
 ```python
 def get_effective_permissions(participant):
-    """Získá efektivní oprávnění (role + custom permissions)"""
+    """Get effective permissions (role + custom permissions)"""
 
     permissions = set()
 
-    # Oprávnění z role
+    # Permissions from role
     if participant.get('role'):
         role_permissions = get_role_permissions(participant['role']['id'])
         permissions.update(p['slug'] for p in role_permissions)
 
-    # Explicitní oprávnění
+    # Explicit permissions
     permissions.update(p['slug'] for p in participant['permissions'])
 
-    # Odebrat revoked permissions
+    # Remove revoked permissions
     if participant.get('revoked_permissions'):
         for revoked in participant['revoked_permissions']:
             permissions.discard(revoked['slug'])
@@ -712,9 +714,9 @@ def get_effective_permissions(participant):
 
 ---
 
-## 📚 Další zdroje
+## <BookOpen size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Related Resources
 
-- [Správa uživatelů](/api/users-management) - API pro práci s uživateli
-- [Správa společností](/api/companies-management) - API pro práci se společnostmi
-- [Správa zařízení](/api/devices) - Informace o zařízeních
-- [FAQ - Časté dotazy](/faq#participants) - Odpovědi na časté dotazy o účastnících
+- [User Management](/api/users-management) - API for working with users
+- [Company Management](/api/companies-management) - API for working with companies
+- [Device Management](/api/devices) - Information about devices
+- [FAQ - Frequently Asked Questions](/faq#participants) - Answers to common questions about participants

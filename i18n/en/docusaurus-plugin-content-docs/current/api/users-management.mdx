@@ -1,0 +1,521 @@
+import { Users, ClipboardList, User, Key, AlertTriangle, Lightbulb, BookOpen, CheckCircle } from 'lucide-react';
+
+# User Management
+
+## Overview
+
+The User Management API allows you to retrieve information about users in the MyBox system, including their roles, permissions, and company assignments. This functionality is key for managing access and organizing users in your system.
+
+### Main Features
+- Get a list of all users
+- View detailed information about a specific user
+- Overview of participants and their roles
+- Information about permissions and access
+
+### Use Cases
+- **Access Audit** - check who has access to your devices
+- **Permission Management** - overview of roles and permissions
+- **HR Systems Integration** - synchronize user data
+- **Reporting** - generate user overviews
+
+---
+
+## <ClipboardList size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> User List
+
+### Endpoint
+```
+GET /admin-panel/v1/external/user
+```
+
+### Parameters
+This endpoint accepts no parameters.
+
+### Response
+```json
+{
+  "status": 1,
+  "data": [
+    {
+      "id": 1234567890123456,
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "john.doe@example.com",
+      "status": "self_registered",
+      "password": null,
+      "credentials": null,
+      "access": {
+        "id": 1234567890123457,
+        "email": "john.doe@example.com",
+        "phone_number": "+420123456789"
+      },
+      "participants": [
+        {
+          "id": 9876543210987654,
+          "email": "john.doe@example.com",
+          "phone_number": null,
+          "user": {
+            "id": 1234567890123456
+          },
+          "company": {
+            "id": 5555555555555555,
+            "name": "Example Company Ltd."
+          },
+          "permissions": [
+            {
+              "id": 1111111111111111,
+              "slug": "view_users"
+            },
+            {
+              "id": 2222222222222222,
+              "slug": "view_monitoring"
+            }
+          ],
+          "created_at": "2024-01-15T10:30:00",
+          "created_by": null
+        }
+      ],
+      "created_by": null,
+      "created_at": "2024-01-15T10:30:00",
+      "deleted_at": null
+    }
+  ]
+}
+```
+
+### Data Structure
+
+#### User Object
+| Field | Type | Description |
+|------|-----|-------|
+| `id` | number | Unique user identifier |
+| `first_name` | string | User's first name |
+| `last_name` | string | User's last name |
+| `email` | string | Email address |
+| `status` | string | Registration status (`self_registered`, `imported`, `invited`) |
+| `access` | object | Access credentials |
+| `participants` | array | List of participants and their roles |
+| `created_at` | string | Creation date |
+| `deleted_at` | string/null | Deletion date (null if active) |
+
+#### Access Object
+| Field | Type | Description |
+|------|-----|-------|
+| `id` | number | Access ID |
+| `email` | string | Login email |
+| `phone_number` | string/null | Phone number |
+
+#### Participant Object
+| Field | Type | Description |
+|------|-----|-------|
+| `id` | number | Participant ID |
+| `email` | string | Participant email |
+| `phone_number` | string/null | Participant phone |
+| `user` | object | User reference |
+| `company` | object | Assigned company |
+| `permissions` | array | List of permissions |
+
+### Example Calls
+
+#### cURL
+```bash
+curl -X GET https://api.mybox.eco/admin-panel/v1/external/user \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Accept: application/json"
+```
+
+#### Python
+```python
+import requests
+
+url = "https://api.mybox.eco/admin-panel/v1/external/user"
+headers = {
+    "Authorization": "Bearer YOUR_API_TOKEN",
+    "Accept": "application/json"
+}
+
+response = requests.get(url, headers=headers)
+users = response.json()
+
+# Print all users
+for user in users['data']:
+    print(f"{user['first_name']} {user['last_name']} ({user['email']})")
+```
+
+#### JavaScript/Node.js
+```javascript
+const axios = require('axios');
+
+const getUsers = async () => {
+  try {
+    const response = await axios.get('https://api.mybox.eco/admin-panel/v1/external/user', {
+      headers: {
+        'Authorization': 'Bearer YOUR_API_TOKEN',
+        'Accept': 'application/json'
+      }
+    });
+
+    const users = response.data.data;
+    users.forEach(user => {
+      console.log(`${user.first_name} ${user.last_name} (${user.email})`);
+    });
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+};
+
+getUsers();
+```
+
+---
+
+## <User size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> User Detail
+
+### Endpoint
+```
+GET /admin-panel/v1/external/user/{id}
+```
+
+### Parameters
+
+#### Path Parameters
+| Parameter | Type | Required | Description |
+|----------|-----|---------|-------|
+| `id` | number | <CheckCircle size={16} style={{display: 'inline', verticalAlign: 'middle'}} color="var(--ifm-color-success)" /> | User ID |
+
+### Response
+```json
+{
+  "status": 1,
+  "data": {
+    "id": 1234567890123456,
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com",
+    "status": "self_registered",
+    "password": null,
+    "credentials": null,
+    "access": {
+      "id": 1234567890123457,
+      "email": "john.doe@example.com",
+      "phone_number": "+420123456789",
+      "devices": [
+        {
+          "id": "000C1234567890AB",
+          "name": "Charging Station - Main Building",
+          "product": "MyBox Blue",
+          "company": {
+            "id": 5555555555555555,
+            "name": "Example Company Ltd."
+          }
+        }
+      ]
+    },
+    "participants": [
+      {
+        "id": 9876543210987654,
+        "email": "john.doe@example.com",
+        "phone_number": null,
+        "user": {
+          "id": 1234567890123456,
+          "first_name": "John",
+          "last_name": "Doe"
+        },
+        "company": {
+          "id": 5555555555555555,
+          "name": "Example Company Ltd.",
+          "ico": "12345678",
+          "dic": "CZ12345678"
+        },
+        "permissions": [
+          {
+            "id": 1111111111111111,
+            "slug": "view_users",
+            "name": "View Users",
+            "description": "Can view user information"
+          },
+          {
+            "id": 2222222222222222,
+            "slug": "view_monitoring",
+            "name": "View Monitoring",
+            "description": "Can view monitoring data"
+          },
+          {
+            "id": 3333333333333333,
+            "slug": "manage_devices",
+            "name": "Manage Devices",
+            "description": "Can manage device settings"
+          }
+        ],
+        "created_at": "2024-01-15T10:30:00",
+        "created_by": {
+          "id": 7777777777777777,
+          "name": "Admin User"
+        }
+      }
+    ],
+    "created_by": null,
+    "created_at": "2024-01-15T10:30:00",
+    "updated_at": "2024-03-20T14:25:00",
+    "deleted_at": null,
+    "last_login": "2024-03-25T09:15:00",
+    "login_count": 42
+  }
+}
+```
+
+### Example Calls
+
+#### cURL
+```bash
+curl -X GET https://api.mybox.eco/admin-panel/v1/external/user/1234567890123456 \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Accept: application/json"
+```
+
+#### Python
+```python
+import requests
+
+user_id = 1234567890123456
+url = f"https://api.mybox.eco/admin-panel/v1/external/user/{user_id}"
+headers = {
+    "Authorization": "Bearer YOUR_API_TOKEN",
+    "Accept": "application/json"
+}
+
+response = requests.get(url, headers=headers)
+user = response.json()['data']
+
+print(f"User: {user['first_name']} {user['last_name']}")
+print(f"Email: {user['email']}")
+print(f"Status: {user['status']}")
+print(f"Last login: {user['last_login']}")
+
+# Print permissions
+for participant in user['participants']:
+    print(f"\nCompany: {participant['company']['name']}")
+    print("Permissions:")
+    for perm in participant['permissions']:
+        print(f"  - {perm['name']}: {perm['description']}")
+```
+
+#### JavaScript/Node.js
+```javascript
+const axios = require('axios');
+
+const getUserDetail = async (userId) => {
+  try {
+    const response = await axios.get(
+      `https://api.mybox.eco/admin-panel/v1/external/user/${userId}`,
+      {
+        headers: {
+          'Authorization': 'Bearer YOUR_API_TOKEN',
+          'Accept': 'application/json'
+        }
+      }
+    );
+
+    const user = response.data.data;
+    console.log(`User: ${user.first_name} ${user.last_name}`);
+    console.log(`Email: ${user.email}`);
+    console.log(`Status: ${user.status}`);
+
+    // Print devices with access
+    if (user.access.devices) {
+      console.log('\nDevice Access:');
+      user.access.devices.forEach(device => {
+        console.log(`  - ${device.name} (${device.product})`);
+      });
+    }
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+};
+
+getUserDetail(1234567890123456);
+```
+
+---
+
+## <Key size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Permissions
+
+The MyBox system uses the following permissions for access control:
+
+| Permission Slug | Name | Description |
+|----------------|-------|-------|
+| `view_users` | View Users | View user information |
+| `manage_users` | Manage Users | Manage users (create, edit) |
+| `delete_users` | Delete Users | Delete users |
+| `view_roles` | View Roles | View roles and permissions |
+| `manage_roles` | Manage Roles | Manage roles |
+| `view_companies` | View Companies | View company information |
+| `manage_companies` | Manage Companies | Manage companies |
+| `view_participants` | View Participants | View participants |
+| `manage_participants` | Manage Participants | Manage participants |
+| `view_monitoring` | View Monitoring | View monitoring data |
+| `manage_devices` | Manage Devices | Manage devices |
+| `manage_requested_actions` | Manage Actions | Manage requested actions |
+
+---
+
+## <AlertTriangle size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Error States
+
+### Possible Error Responses
+
+#### 401 Unauthorized
+```json
+{
+  "status": 0,
+  "error": "Unauthorized",
+  "message": "Invalid or missing API token"
+}
+```
+**Solution:** Check API token correctness and validity.
+
+#### 403 Forbidden
+```json
+{
+  "status": 0,
+  "error": "Forbidden",
+  "message": "Insufficient permissions to access user data"
+}
+```
+**Solution:** User doesn't have `view_users` permission. Contact admin to assign permissions.
+
+#### 404 Not Found
+```json
+{
+  "status": 0,
+  "error": "Not Found",
+  "message": "User not found"
+}
+```
+**Solution:** Check user ID correctness.
+
+#### 500 Internal Server Error
+```json
+{
+  "status": 0,
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred"
+}
+```
+**Solution:** Contact MyBox technical support.
+
+---
+
+## <Lightbulb size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Best Practices
+
+### 1. Data Caching
+```python
+import time
+from functools import lru_cache
+
+@lru_cache(maxsize=100, typed=True)
+def get_user_cached(user_id):
+    """Cache user data for 5 minutes"""
+    return fetch_user_from_api(user_id)
+
+# Clear cache after 5 minutes
+def clear_cache_periodically():
+    while True:
+        time.sleep(300)  # 5 minutes
+        get_user_cached.cache_clear()
+```
+
+### 2. Batch Processing
+```javascript
+// Get multiple users at once
+async function getUsersBatch(userIds) {
+  const promises = userIds.map(id =>
+    axios.get(`https://api.mybox.eco/admin-panel/v1/external/user/${id}`, {
+      headers: { 'Authorization': 'Bearer YOUR_API_TOKEN' }
+    })
+  );
+
+  const responses = await Promise.allSettled(promises);
+  return responses
+    .filter(r => r.status === 'fulfilled')
+    .map(r => r.value.data.data);
+}
+```
+
+### 3. Error Handling
+```python
+def safe_get_user(user_id):
+    """Safely get user with retry logic"""
+    max_retries = 3
+    retry_delay = 1
+
+    for attempt in range(max_retries):
+        try:
+            response = requests.get(
+                f"https://api.mybox.eco/admin-panel/v1/external/user/{user_id}",
+                headers={"Authorization": "Bearer YOUR_API_TOKEN"},
+                timeout=10
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            if attempt < max_retries - 1:
+                time.sleep(retry_delay * (attempt + 1))
+                continue
+            else:
+                raise e
+```
+
+### 4. Filtering and Searching
+```javascript
+// Local user filtering
+function filterUsers(users, criteria) {
+  return users.filter(user => {
+    // Filter by company
+    if (criteria.companyId) {
+      const hasCompany = user.participants.some(
+        p => p.company.id === criteria.companyId
+      );
+      if (!hasCompany) return false;
+    }
+
+    // Filter by permission
+    if (criteria.permission) {
+      const hasPermission = user.participants.some(p =>
+        p.permissions.some(perm => perm.slug === criteria.permission)
+      );
+      if (!hasPermission) return false;
+    }
+
+    // Filter by status
+    if (criteria.status && user.status !== criteria.status) {
+      return false;
+    }
+
+    return true;
+  });
+}
+```
+
+### 5. Access Monitoring
+```python
+import logging
+from datetime import datetime
+
+def audit_user_access(user_id, action):
+    """Log access to user data"""
+    logging.info(f"""
+        User Access Audit:
+        Timestamp: {datetime.now().isoformat()}
+        User ID: {user_id}
+        Action: {action}
+        API User: {get_current_api_user()}
+    """)
+```
+
+---
+
+## <BookOpen size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Additional Resources
+
+- [Company Management](/api/companies-management) - API for working with companies
+- [Participants](/api/participants) - Detailed participant information
+- [FAQ - Frequently Asked Questions](/faq#users) - Answers to common questions
+- [API Security](/guides/security) - Best practices for security

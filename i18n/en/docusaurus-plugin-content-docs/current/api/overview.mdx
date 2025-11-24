@@ -1,0 +1,107 @@
+---
+id: overview
+title: API Reference
+sidebar_position: 1
+---
+
+import { BookOpen, Globe, ClipboardList, Plug, Zap, BarChart3, Battery, Users, Lock, FileText, AlertTriangle, Rocket } from 'lucide-react';
+
+# API Reference
+
+Complete overview of all available MyBox API endpoints.
+
+## <Globe size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Basic Information
+
+- **Base URL:** `https://cloud.mybox.pro/admin-panel/v1`
+- **Protocol:** HTTPS (required)
+- **Authentication:** Basic Auth
+- **Format:** JSON
+- **Rate Limit:** 100 requests/minute
+
+## <ClipboardList size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Endpoint Categories
+
+### <Plug size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Devices
+Charging station management and monitoring.
+
+- [GET /external/device](./devices/list) - List all devices
+- [GET /external/device/\{id\}](./devices/detail) - Device details
+- [GET /external/device/\{id\}/events](./devices/events) - Event history
+
+### <Zap size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Live Data
+Real-time data from charging stations.
+
+- [GET /external/live/device/\{deviceId\}](./live/device) - Device live data
+- [GET /external/live/device/\{deviceId\}/telemetry](./live/telemetry) - Telemetric data
+- [GET /external/live/device/\{deviceId\}/option](./live/options) - Device configuration
+
+### <BarChart3 size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> History
+Historical data and statistics.
+
+- [GET /external/history/snapshot/\{deviceId\}](./history/snapshot) - State snapshot
+- [GET /external/history/telemetry/\{deviceId\}/\{telemetryId\}](./history/telemetry) - Telemetry history
+- [GET /external/history/sensor/\{deviceId\}/\{nodeId\}/\{sensorId\}](./history/sensor) - Sensor history
+
+### <Battery size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Charging Sessions
+Charging session management and reporting.
+
+- [GET /external/charging-reports/device/\{id\}](./charging/reports) - Charging reports
+- [GET /external/charging-reports/owner/\{email\}](./charging/by-owner) - Sessions by owner
+
+### <Users size={18} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.4rem'}} color="var(--ifm-color-primary)" /> Users and Companies
+User and organization management.
+
+- [GET /external/user](./users/list) - List users
+- [GET /external/company](./companies/list) - List companies
+
+## <Lock size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Authentication
+
+All requests require Basic Authentication:
+
+```bash
+curl -X GET "https://cloud.mybox.pro/admin-panel/v1/external/device" \
+  -u "API_KEY:API_SECRET" \
+  -H "Accept: application/json"
+```
+
+## <FileText size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Response Format
+
+All responses have a unified format:
+
+```json
+{
+  "status": 1,  // 1 = success, 0 = error
+  "data": {     // Response data
+    // ...
+  },
+  "error": null // Error message (if status = 0)
+}
+```
+
+## <AlertTriangle size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Error Codes
+
+| Code | Meaning | Solution |
+|-----|--------|--------|
+| 400 | Bad Request | Check request format |
+| 401 | Unauthorized | Verify API credentials |
+| 403 | Forbidden | You don't have permission for this action |
+| 404 | Not Found | Device or endpoint doesn't exist |
+| 429 | Too Many Requests | Rate limit exceeded |
+| 500 | Internal Server Error | Server error, try again later |
+
+## <Rocket size={20} style={{display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem'}} color="var(--ifm-color-primary)" /> Quick Start with API Explorer
+
+import ApiExplorer from '@site/src/components/ApiExplorer';
+
+### Try listing your devices:
+
+<ApiExplorer
+  endpoint="/external/device"
+  method="GET"
+  description="Get a list of all your charging stations"
+/>
+
+## 📖 Additional Resources
+
+- [Swagger UI](https://mybox.too-smart-tech.com/admin-panel/swagger/) - Interactive documentation
+- [Postman Collection](/tools/postman) - Ready-made request collection
+- [OpenAPI Spec](/openapi) - Download OpenAPI definition
