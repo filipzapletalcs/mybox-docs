@@ -77,8 +77,8 @@ const config: Config = {
       title: '',
       logo: {
         alt: 'MyBox API',
-        src: 'img/logo-mybox-api.svg',
-        srcDark: 'img/logo-mybox-api.svg',
+        src: 'img/mybox_API_logo.svg',
+        srcDark: 'img/mybox_API_logo.svg',
       },
       items: [
         {
