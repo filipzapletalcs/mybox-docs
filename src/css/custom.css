@@ -138,6 +138,26 @@
   width: auto;
 }
 
+/* Logo color adjustments for dark mode */
+[data-theme='dark'] .navbar__logo img,
+[data-theme='dark'] .navbar__logo svg {
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+/* Logo hover effect - MyBox green #00A651 */
+.navbar__brand:hover .navbar__logo img,
+.navbar__brand:hover .navbar__logo svg {
+  filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(98%) contrast(119%);
+  transition: filter 0.3s ease;
+}
+
+[data-theme='dark'] .navbar__brand:hover .navbar__logo img,
+[data-theme='dark'] .navbar__brand:hover .navbar__logo svg {
+  filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(98%) contrast(119%);
+  transition: filter 0.3s ease;
+}
+
 /* Header GitHub link styles removed (icon no longer used) */
 
 /* Hero Section */
